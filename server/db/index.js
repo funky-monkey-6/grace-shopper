@@ -56,14 +56,14 @@ const Product = conn.define('product', {
 
 const Category = conn.define('category', {
 	name: {
-		type: Sequelize.STRING,
-		allowNull: false,
-		validate: {
-			notEmpty: {
-				args: true,
-				msg: 'Category needs a name'
-			}
-		}
+		type: Sequelize.STRING
+		// allowNull: false,
+		// validate: {
+		// 	notEmpty: {
+		// 		args: true,
+		// 		msg: 'Category needs a name'
+		// 	}
+		// }
 	}
 });
 
@@ -89,9 +89,15 @@ const User = conn.define('user', {
 			}
 		}
 	},
-	isAdmin: {
-		type: Sequelize.BOOLEAN,
-		defaultValue: false
+	userType: {
+		type: Sequelize.ENUM('customer', 'admin'),
+		allowNull: false,
+		validate: {
+			notEmpty: {
+				args: true,
+				msg: 'User type must be selected'
+			}
+		}
 	}
 });
 
@@ -160,7 +166,6 @@ const Review = conn.define('review', {
 				msg: 'Your review must be at least 20 characters long.'
 			}
 		}
-		// validate: min x chars
 	}
 });
 
@@ -174,7 +179,7 @@ User.hasMany(Order);
 
 Order.hasMany(OrderItem);
 OrderItem.belongsTo(Order);
-OrderItem.hasOne(Product);
+Product.hasOne(OrderItem); // ? OrderItem.belongsTo(Product)
 
 Review.belongsTo(Product);
 Review.belongsTo(User);
@@ -182,13 +187,29 @@ Review.belongsTo(User);
 // seed data
 
 const syncAndSeed = () => {
-	return conn.sync({ force: true }).then(() => {
-		return Promise.all(seedProducts.map(prod => Product.create(prod))).then(
-			products => {
-				console.log(products);
-			}
-		);
-	});
+	return (
+		conn
+			.sync({ force: true })
+			.then(() => {
+				return Promise.all([
+					Promise.all(seedProducts.map(prod => Product.create(prod))),
+					Promise.all(seedCategories.map(cat => Category.create(cat))),
+					Promise.all(seedUsers.map(user => User.create(user)))
+				]);
+			})
+			.then(([products, categories, users]) => {
+				console.log('categories: ', categories.map(cat => cat.get()));
+				// console.log(products[0].get());
+				return Promise.all([
+					products[0].update({ categoryId: categories[1].id }),
+					products[1].update({ categoryId: categories[1].id }),
+					products[2].update({ categoryId: categories[0].id }),
+					products[3].update({ categoryId: categories[0].id })
+				]);
+			})
+			// })
+			.catch(err => console.log(err))
+	);
 };
 
 module.exports = {

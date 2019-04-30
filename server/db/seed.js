@@ -23,44 +23,47 @@ const seedProducts = [
 	{
 		title: 'Jaguar',
 		description: 'Car description goes here',
-		inventory: 20,
+		inventory: 15,
 		price: 100000,
 		images: []
 	}
 ];
 
-const seedCategories = ['German sports car', 'Italian sports car'];
+const seedCategories = [
+	{ name: 'German sports car' },
+	{ name: 'Italian sports car' }
+];
 
 const seedUsers = [
 	{
 		firstName: 'Doug',
 		lastName: 'Funny',
 		email: 'dougf@gmail.com',
-		isAdmin: false
+		userType: 'customer'
 	},
 	{
 		firstName: 'Moe',
 		lastName: 'Howard',
 		email: 'moe@stooges.com',
-		isAdmin: true
+		userType: 'customer'
 	},
 	{
 		firstName: 'Curly',
 		lastName: 'Howard',
 		email: 'curly@stooges.com',
-		isAdmin: false
+		userType: 'customer'
 	},
 	{
 		firstName: 'Larry',
 		lastName: 'Fine',
 		email: 'larry@stooges.com',
-		isAdmin: false
+		userType: 'customer'
 	},
 	{
 		firstName: 'Buster',
 		lastName: 'Keaton',
 		email: 'buster@silentfilms.com',
-		isAdmin: false
+		userType: 'admin'
 	}
 ];
 
