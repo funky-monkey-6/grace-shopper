@@ -4,17 +4,47 @@ const conn = new Sequelize(process.env.DATABASE_URL, { logging: true });
 // Models:
 
 const Product = conn.define('product', {
+	// from associations: categoryId
 	title: {
-		type: Sequelize.STRING
+		type: Sequelize.STRING,
+		allowNull: false,
+		validate: {
+			notEmpty: {
+				args: true,
+				msg: 'Title must be provided'
+			}
+		}
 	},
 	description: {
-		type: Sequelize.TEXT
+		type: Sequelize.TEXT,
+		allowNull: false,
+		validate: {
+			notEmpty: {
+				args: true,
+				msg: 'Description must be provided'
+			}
+		}
 	},
 	inventory: {
-		type: Sequelize.INTEGER
+		type: Sequelize.INTEGER,
+		allowNull: false,
+		defaultValue: 0,
+		validate: {
+			notEmpty: {
+				args: true,
+				msg: 'Quantity must be provided'
+			}
+		}
 	},
 	price: {
-		type: Sequelize.FLOAT
+		type: Sequelize.FLOAT,
+		allowNull: false,
+		validate: {
+			notEmpty: {
+				args: true,
+				msg: 'Price must be provided'
+			}
+		}
 	},
 	images: {
 		type: Sequelize.ARRAY(Sequelize.STRING),
@@ -24,7 +54,14 @@ const Product = conn.define('product', {
 
 const Category = conn.define('category', {
 	name: {
-		type: Sequelize.STRING
+		type: Sequelize.STRING,
+		allowNull: false,
+		validate: {
+			notEmpty: {
+				args: true,
+				msg: 'Category needs a name'
+			}
+		}
 	}
 });
 
@@ -37,18 +74,27 @@ const User = conn.define('user', {
 	},
 	email: {
 		type: Sequelize.STRING,
-		unique: true
-		// validate: {
-		//   isEmail: true,
-		// },
+		unique: true,
+		allowNull: false,
+		validate: {
+			isEmail: {
+				args: true,
+				msg: 'Valid email must be provided'
+			},
+			notEmpty: {
+				args: true,
+				msg: 'Email must be provided'
+			}
+		}
 	}
 	// include address?
 });
 
 // TODO - plan how to configure Order model to handle guest session (authenticated vs non-authenticated)
 
-// order and cart are same
+// order and cart use same model
 const Order = conn.define('order', {
+	// from associations: userId
 	subtotal: {
 		type: Sequelize.FLOAT
 	},
@@ -83,18 +129,32 @@ const OrderItem = conn.define('orderitem', {
 	price: {
 		type: Sequelize.FLOAT
 	}
+	// discount ?
 });
 
 const Review = conn.define('review', {
+	// from associations: productId, userId
 	rating: {
-		type: Sequelize.INTEGER
-		// validate: {
-		//   max: 5,
-		//   min: 1
-		// }
+		type: Sequelize.INTEGER,
+		validate: {
+			min: {
+				args: 1,
+				msg: 'Rating must be between 1 and 5'
+			},
+			max: {
+				args: 5,
+				msg: 'Rating must be between 1 and 5'
+			}
+		}
 	},
 	comment: {
-		type: Sequelize.TEXT
+		type: Sequelize.TEXT,
+		validate: {
+			len: {
+				args: 20,
+				msg: 'Your review must be at least 20 characters long.'
+			}
+		}
 		// validate: min x chars
 	}
 });
@@ -113,3 +173,47 @@ OrderItem.hasOne(Product);
 
 Review.belongsTo(Product);
 Review.belongsTo(User);
+
+const seedProducts = [
+	{
+		title: 'Ferrari',
+		description: 'Car description goes here',
+		inventory: 5,
+		price: 200000,
+		images: []
+	},
+	{
+		title: 'Lambourghini',
+		description: 'Car description goes here',
+		inventory: 2,
+		price: 250000,
+		images: []
+	},
+	{
+		title: 'BMW',
+		description: 'Car description goes here',
+		inventory: 20,
+		price: 100000,
+		images: []
+	}
+];
+
+const syncAndSeed = () => {
+	return conn.sync({ force: true }).then(() => {
+		return Promise.all(seedProducts.map(prod => Product.create(prod))).then(
+			products => {
+				console.log(products);
+			}
+		);
+	});
+};
+
+module.exports = {
+	syncAndSeed,
+	Product,
+	Category,
+	User,
+	Order,
+	OrderItem,
+	Review
+};
