@@ -86,8 +86,11 @@ const User = conn.define('user', {
 				msg: 'Email must be provided'
 			}
 		}
+	},
+	isAdmin: {
+		type: Sequelize.BOOLEAN,
+		defaultValue: false
 	}
-	// include address?
 });
 
 // TODO - plan how to configure Order model to handle guest session (authenticated vs non-authenticated)
