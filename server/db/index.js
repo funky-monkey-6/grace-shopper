@@ -1,6 +1,8 @@
 const Sequelize = require('sequelize');
 const conn = new Sequelize(process.env.DATABASE_URL, { logging: true });
 
+const { seedProducts, seedCategories, seedUsers } = require('./seed');
+
 // Models:
 
 const Product = conn.define('product', {
@@ -177,29 +179,7 @@ OrderItem.hasOne(Product);
 Review.belongsTo(Product);
 Review.belongsTo(User);
 
-const seedProducts = [
-	{
-		title: 'Ferrari',
-		description: 'Car description goes here',
-		inventory: 5,
-		price: 200000,
-		images: []
-	},
-	{
-		title: 'Lambourghini',
-		description: 'Car description goes here',
-		inventory: 2,
-		price: 250000,
-		images: []
-	},
-	{
-		title: 'BMW',
-		description: 'Car description goes here',
-		inventory: 20,
-		price: 100000,
-		images: []
-	}
-];
+// seed data
 
 const syncAndSeed = () => {
 	return conn.sync({ force: true }).then(() => {
