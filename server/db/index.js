@@ -49,8 +49,8 @@ const Product = conn.define('product', {
 		}
 	},
 	images: {
-		type: Sequelize.ARRAY(Sequelize.STRING),
-		defaultValue: ['image.png']
+		type: Sequelize.STRING,
+		defaultValue: 'image.png'
 	}
 });
 
@@ -89,6 +89,9 @@ const User = conn.define('user', {
 			}
 		}
 	},
+	password: {
+		type: Sequelize.STRING
+	},
 	userType: {
 		type: Sequelize.ENUM('customer', 'admin'),
 		allowNull: false,
@@ -99,6 +102,7 @@ const User = conn.define('user', {
 			}
 		}
 	}
+	// address ?
 });
 
 // TODO - plan how to configure Order model to handle guest session (authenticated vs non-authenticated)
@@ -130,6 +134,7 @@ const Order = conn.define('order', {
 		type: Sequelize.DATE
 	}
 	// will probably want to include shipping address
+	// payment info
 });
 
 const OrderItem = conn.define('orderitem', {
