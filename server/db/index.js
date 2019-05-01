@@ -189,8 +189,7 @@ Product.hasOne(OrderItem); // ? OrderItem.belongsTo(Product)
 Review.belongsTo(Product);
 Review.belongsTo(User);
 
-// seed data
-
+// sync models and seed data
 const syncAndSeed = () => {
 	return (
 		conn
@@ -203,7 +202,7 @@ const syncAndSeed = () => {
 				]);
 			})
 			.then(([products, categories, users]) => {
-				console.log('categories: ', categories.map(cat => cat.get()));
+				// console.log('categories: ', categories.map(cat => cat.get()));
 				// console.log(products[0].get());
 				return Promise.all([
 					products[0].update({ categoryId: categories[1].id }),
