@@ -1,0 +1,23 @@
+
+/* Menu styling */
+.menu-page {
+    display: flex;
+    height: 100%;
+    flex-wrap: wrap;
+}
+
+.menu-filter {
+    background-color: green;
+    width: 25%;
+}
+
+.menu-list {
+    display: flex;
+    width: 75%;
+    background-color: purple;
+}
+
+.menu-item {
+    background-color: aqua;
+    height: 50%;
+}
