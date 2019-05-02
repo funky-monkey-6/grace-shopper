@@ -5,9 +5,8 @@ import { checkUser } from '../store'
 const Login = (props) => {
 
     const enteredUser = {
-        firstName: '',
-        lastName: '',
-        email: ''
+        email: '',
+        password: ''
     }
 
     const handleChange = (ev) => {
@@ -24,24 +23,18 @@ const Login = (props) => {
         <div>
             <h4>Enter login information below:</h4>
             <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label>
-                        First Name:
-                    <input type="text" name="firstName" onChange={handleChange} />
-                    </label>
-                </div>
-
-                <div className="form-group">
-                    <label>
-                        Last Name:
-                <input type="text" name="lastName" onChange={handleChange} />
-                    </label>
-                </div>
 
                 <div className="form-group">
                     <label>
                         Email:
-                 <input type="text" name="email" onChange={handleChange} />
+                <input type="text" name="email" onChange={handleChange} />
+                    </label>
+                </div>
+
+                <div className="form-group">
+                    <label>
+                        Password:
+                 <input type="text" name="password" onChange={handleChange} />
                     </label>
                 </div>
 
