@@ -37,7 +37,7 @@ export const checkUser = (enteredUser) => async dispatch => {
         } else {
             throw new Error('The email or password you entered is incorrect')
         }
-    } catch (error) { console.log(error) }
+    } catch (error) { throw new Error(error) } 
 }
 
 //REDUCER
