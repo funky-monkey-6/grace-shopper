@@ -38,9 +38,13 @@ class Menu extends React.Component {
     }
 
     filterProducts = (evt) => {
+
         evt.preventDefault();
-        axios.get(`/api/categories/${this.state.filterCategories}`)
+        this.setState({ products: [] })
+
+        axios.get('/api/products')
             .then(res => res.data)
+            .then(allProducts => allProducts.filter(prod => this.state.filterCategories.includes(`${prod.categoryId}`)))
             .then(products => this.setState({ products }))
     }
 
@@ -66,7 +70,6 @@ class Menu extends React.Component {
     }
 
     clearSearch = () => {
-
         axios.get('/api/products')
             .then(res => res.data)
             .then(products => this.setState({ products }));
@@ -75,16 +78,16 @@ class Menu extends React.Component {
     }
 
     render() {
-        console.log(this.state)
         return (
             <div className="menu-page">
                 <div className="menu-filter">
                     <form onSubmit={this.searchProducts}>
-                        <label htmlFor="searchItems">Search:</label>
+                        <label htmlFor="searchItems"><h4>Search Products:</h4></label>
                         <input type="search" name="searchItems" value={this.state.searchTerm} onChange={this.enterSearch} />
                         <button type="submit">Search</button>
                         <button type="reset" onClick={this.clearSearch}>Clear Search</button>
                     </form>
+                    <h4>Filter by Category:</h4>
                     <form onSubmit={this.filterProducts}>
                         {this.state.categories.map(cat => {
                             return (

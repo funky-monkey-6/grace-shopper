@@ -1,6 +1,6 @@
-
 import React from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 class ProductSingle extends React.Component {
 
@@ -18,7 +18,6 @@ class ProductSingle extends React.Component {
     }
 
     render() {
-        console.log(this.props)
         return (
             <div>
                 <h1><i>Placeholder for image</i></h1>
@@ -27,7 +26,9 @@ class ProductSingle extends React.Component {
                     <li>{this.state.product.description}</li>
                     <li>{this.state.product.price}</li>
                 </ul>
-                <button>Add to Cart</button>
+                <button type="submit">Add to Cart</button>
+                <Link to="/menu"><button type="submit">Return to Main Menu</button></Link>
+                <div><h1><i>Placeholder for reviews</i></h1></div>
             </div>
         )
     }

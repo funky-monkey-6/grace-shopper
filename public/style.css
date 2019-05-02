@@ -7,17 +7,21 @@
 }
 
 .menu-filter {
-    background-color: green;
+    border: 1px solid grey;
     width: 25%;
+    padding: 3%;
 }
 
 .menu-list {
     display: flex;
+    flex-wrap: wrap;
     width: 75%;
-    background-color: purple;
+    border: 1px solid grey;
 }
 
 .menu-item {
-    background-color: aqua;
+    border: 1px solid grey;
     height: 50%;
+    width: 30%;
+    margin: 3%;
 }
