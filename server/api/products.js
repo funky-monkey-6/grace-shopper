@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { Product } = require('../db');
-const Op = require('sequelize').Op;
+const { Op } = require('sequelize');
 
 router.use('/categories', require('./categories'));
 
@@ -18,7 +18,7 @@ router.get('/:id', (req, res, next) => {
 
 router.get('/search/:term', (req, res, next) => {
   Product.findAll({
-    where: { title: { [Op.like]: '%' + req.params.term + '%' } },
+    where: { title: { [Op.like]: `%${req.params.term}%` } },
   })
     .then(products => res.send(products))
     .catch(next);

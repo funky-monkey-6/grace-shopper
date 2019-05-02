@@ -29,10 +29,7 @@ const seedProducts = [
   },
 ];
 
-const seedCategories = [
-  { name: 'German sports car' },
-  { name: 'Italian sports car' },
-];
+const seedCategories = [{ name: 'German sports car' }, { name: 'Italian sports car' }];
 
 const seedUsers = [
   {
