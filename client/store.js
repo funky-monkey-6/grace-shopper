@@ -24,7 +24,7 @@ export const fetchProducts = () => async dispatch => {
         const response = await axios.get('api/products')
         const products = response.data
         return dispatch(setProducts(products))
-    } catch (error) { console.log(error) } //or do whatever else we want with the error
+    } catch (error) { throw new Error(error) } 
 }
 
 export const checkUser = (enteredUser) => async dispatch => {
