@@ -35,7 +35,7 @@ export const checkUser = (enteredUser) => async dispatch => {
         if (user) {
             return dispatch(setUser(user))
         } else {
-            return new Error('The email or password you entered is incorrect')
+            throw new Error('The email or password you entered is incorrect')
         }
     } catch (error) { console.log(error) }
 }
