@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const Sequelize = require('sequelize');
 const conn = new Sequelize(process.env.DATABASE_URL, { logging: true });
 
@@ -59,10 +60,10 @@ const Category = conn.define('category', {
     type: Sequelize.STRING,
     // allowNull: false,
     // validate: {
-    // 	notEmpty: {
-    // 		args: true,
-    // 		msg: 'Category needs a name'
-    // 	}
+    // notEmpty: {
+    // args: true,
+    // msg: 'Category needs a name'
+    // }
     // }
   },
 });
