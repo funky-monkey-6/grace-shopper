@@ -127,7 +127,7 @@ const Order = conn.define('order', {
       'completed',
       'cancelled',
       'refunded',
-      'failed'
+      'failed',
     ),
   },
   date: {
