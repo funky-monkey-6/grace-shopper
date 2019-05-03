@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const { Product } = require('../db');
 const { Op } = require('sequelize');
+const { Product } = require('../db');
 
 router.use('/categories', require('./categories'));
 

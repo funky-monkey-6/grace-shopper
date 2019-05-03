@@ -1,56 +1,63 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { checkUser } from '../store'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { checkUser as checkUserActionCreator } from '../store';
 
 class Login extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            email: '',
-            password: ''
-        }
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+    };
+  }
 
-    handleChange = (ev) => {
-        ev.preventDefault()
-        this.setState({ [`${ev.target.name}`]: ev.target.value })
+  handleChange = ev => {
+    ev.preventDefault();
+    this.setState({ [`${ev.target.name}`]: ev.target.value });
+  };
 
-    }
+  handleSubmit = () => {
+    const { checkUser } = this.props;
 
-    handleSubmit = () => {
-        props.checkUser(this.state)
-    }
+    checkUser(this.state);
+  };
 
-    render() {
-        return (
-            <div>
-                <h4>Enter login information below:</h4>
-                <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label>
-                            Email:
-                <input type="text" name="email" value={this.state.email} onChange={handleChange} />
-                        </label>
-                    </div>
+  render() {
+    const { handleChange, handleSubmit } = this;
+    const { email, password } = this.state;
 
-                    <div className="form-group">
-                        <label>
-                            Password:
-                 <input type="text" name="password" value={this.state.password} onChange={handleChange} />
-                        </label>
-                    </div>
+    return (
+      <div>
+        <h4>Enter login information below:</h4>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>
+              Email:
+              <input type="text" name="email" value={email} onChange={handleChange} />
+            </label>
+          </div>
 
-                    <input type="submit" value="Submit" />
-                </form>
-            </div>
-        )
-    }
+          <div className="form-group">
+            <label>
+              Password:
+              <input type="text" name="password" value={password} onChange={handleChange} />
+            </label>
+          </div>
+
+          <input type="submit" value="Submit" />
+        </form>
+      </div>
+    );
+  }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        checkUser: (user) => dispatch(checkUser(user))
-    }
-}
+const mapDispatchToProps = dispatch => {
+  return {
+    checkUser: user => dispatch(checkUserActionCreator(user)),
+  };
+};
 
-export default connect(null, mapDispatchToProps)(Login)
+export default connect(
+  null,
+  mapDispatchToProps,
+)(Login);
