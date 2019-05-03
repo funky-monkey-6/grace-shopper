@@ -1,101 +1,31 @@
-<<<<<<< HEAD
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { checkUser as checkUserActionCreator } from '../store';
 
 class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      password: '',
-    };
-  }
-
-  handleChange = ev => {
-    ev.preventDefault();
-    this.setState({ [`${ev.target.name}`]: ev.target.value });
-  };
-
-  handleSubmit = () => {
-    const { checkUser } = this.props;
-
-    checkUser(this.state);
-  };
-
-  render() {
-    const { handleChange, handleSubmit } = this;
-    const { email, password } = this.state;
-
-    return (
-      <div>
-        <h4>Enter login information below:</h4>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>
-              Email:
-              <input type="text" name="email" value={email} onChange={handleChange} />
-            </label>
-          </div>
-
-          <div className="form-group">
-            <label>
-              Password:
-              <input type="text" name="password" value={password} onChange={handleChange} />
-            </label>
-          </div>
-
-          <input type="submit" value="Submit" />
-        </form>
-      </div>
-    );
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    checkUser: user => dispatch(checkUserActionCreator(user)),
-  };
-};
-
-export default connect(
-  null,
-  mapDispatchToProps,
-)(Login);
-=======
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { checkUser } from '../store'
-
-<<<<<<< HEAD
-class Login extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             email: '',
-            password: ''
-        }
-=======
-const Login = (props) => {
-
-    const enteredUser = {
-        email: '',
-        password: ''
->>>>>>> 612ea752749d56a633fdae5f9b9ea5f0b9849038
+            password: '',
+        };
     }
 
-    handleChange = (ev) => {
-        ev.preventDefault()
-        this.setState({ [`${ev.target.name}`]: ev.target.value })
-
-    }
+    handleChange = ev => {
+        ev.preventDefault();
+        this.setState({ [`${ev.target.name}`]: ev.target.value });
+    };
 
     handleSubmit = () => {
-        props.checkUser(this.state)
-    }
+        const { checkUser } = this.props;
 
-<<<<<<< HEAD
+        checkUser(this.state);
+    };
+
     render() {
+        const { handleChange, handleSubmit } = this;
+        const { email, password } = this.state;
+
         return (
             <div>
                 <h4>Enter login information below:</h4>
@@ -103,54 +33,31 @@ const Login = (props) => {
                     <div className="form-group">
                         <label>
                             Email:
-                <input type="text" name="email" value={this.state.email} onChange={handleChange} />
+              <input type="text" name="email" value={email} onChange={handleChange} />
                         </label>
                     </div>
 
                     <div className="form-group">
                         <label>
                             Password:
-                 <input type="text" name="password" value={this.state.password} onChange={handleChange} />
+              <input type="text" name="password" value={password} onChange={handleChange} />
                         </label>
                     </div>
 
                     <input type="submit" value="Submit" />
                 </form>
             </div>
-        )
+        );
     }
-=======
-    return (
-        <div>
-            <h4>Enter login information below:</h4>
-            <form onSubmit={handleSubmit}>
-
-                <div className="form-group">
-                    <label>
-                        Email:
-                <input type="text" name="email" onChange={handleChange} />
-                    </label>
-                </div>
-
-                <div className="form-group">
-                    <label>
-                        Password:
-                 <input type="text" name="password" onChange={handleChange} />
-                    </label>
-                </div>
-
-                <input type="submit" value="Submit" />
-            </form>
-        </div>
-    )
->>>>>>> 612ea752749d56a633fdae5f9b9ea5f0b9849038
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
     return {
-        checkUser: (user) => dispatch(checkUser(user))
-    }
-}
+        checkUser: user => dispatch(checkUserActionCreator(user)),
+    };
+};
 
-export default connect(null, mapDispatchToProps)(Login)
->>>>>>> 26aae8974568fbdd9f70ef38ade8def97a3ca82c
+export default connect(
+    null,
+    mapDispatchToProps,
+)(Login);
