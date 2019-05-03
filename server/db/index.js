@@ -72,20 +72,20 @@ const Category = conn.define('category', {
 		type: Sequelize.STRING,
 		// allowNull: false,
 		// validate: {
-		// notEmpty: {
-		// args: true,
-		// msg: 'Category needs a name'
-		// }
+		// 	notEmpty: {
+		// 		args: true,
+		// 		msg: 'Category needs a name'
+		// 	}
 		// }
 	},
 });
 
 const User = conn.define('user', {
 	firstName: {
-		type: Sequelize.STRING
+		type: Sequelize.STRING,
 	},
 	lastName: {
-		type: Sequelize.STRING
+		type: Sequelize.STRING,
 	},
 	email: {
 		type: Sequelize.STRING,
@@ -94,16 +94,16 @@ const User = conn.define('user', {
 		validate: {
 			isEmail: {
 				args: true,
-				msg: 'Valid email must be provided'
+				msg: 'Valid email must be provided',
 			},
 			notEmpty: {
 				args: true,
-				msg: 'Email must be provided'
-			}
-		}
+				msg: 'Email must be provided',
+			},
+		},
 	},
 	password: {
-		type: Sequelize.STRING
+		type: Sequelize.STRING,
 	},
 	userType: {
 		type: Sequelize.ENUM('customer', 'admin'),
@@ -111,10 +111,10 @@ const User = conn.define('user', {
 		validate: {
 			notEmpty: {
 				args: true,
-				msg: 'User type must be selected'
-			}
-		}
-	}
+				msg: 'User type must be selected',
+			},
+		},
+	},
 	// address ?
 });
 
@@ -153,11 +153,11 @@ const Order = conn.define('order', {
 const OrderItem = conn.define('orderitem', {
 	// from associations: orderId, productId
 	quantity: {
-		type: Sequelize.INTEGER
+		type: Sequelize.INTEGER,
 	},
 	price: {
-		type: Sequelize.FLOAT
-	}
+		type: Sequelize.FLOAT,
+	},
 	// discount ?
 });
 
@@ -168,23 +168,23 @@ const Review = conn.define('review', {
 		validate: {
 			min: {
 				args: 1,
-				msg: 'Rating must be between 1 and 5'
+				msg: 'Rating must be between 1 and 5',
 			},
 			max: {
 				args: 5,
-				msg: 'Rating must be between 1 and 5'
-			}
-		}
+				msg: 'Rating must be between 1 and 5',
+			},
+		},
 	},
 	comment: {
 		type: Sequelize.TEXT,
 		validate: {
 			len: {
 				args: 20,
-				msg: 'Your review must be at least 20 characters long.'
-			}
-		}
-	}
+				msg: 'Your review must be at least 20 characters long.',
+			},
+		},
+	},
 });
 
 // Associations:
@@ -197,10 +197,24 @@ User.hasMany(Order);
 
 Order.hasMany(OrderItem);
 OrderItem.belongsTo(Order);
-Product.hasOne(OrderItem); // ? OrderItem.belongsTo(Product)
+Product.hasOne(OrderItem);
 
 Review.belongsTo(Product);
 Review.belongsTo(User);
+
+
+
+const updateProdCatId = (prods, seedProds, cats) => {
+	return prods.map(prod => {
+		const seedProdCat = seedProds.find(seedProd => seedProd.title === prod.title).category;
+
+		const catId = cats.find(cat => {
+			return cat.name === seedProdCat
+		}).id;
+
+		return prod.update({ categoryId: catId })
+	})
+};
 
 // sync models and seed data
 const syncAndSeed = () => {
@@ -212,19 +226,11 @@ const syncAndSeed = () => {
 					Promise.all(seedProducts.map(prod => Product.create(prod))),
 					Promise.all(seedCategories.map(cat => Category.create(cat))),
 					Promise.all(seedUsers.map(user => User.create(user))),
-					Promise.all(seedOrders.map(order => Order.create(order))),
-					Promise.all(seedOrderItems.map(orderItem => OrderItem.create(orderItem))),
 				]);
 			})
 			.then(([products, categories]) => {
-				return Promise.all([
-					products[0].update({ categoryId: categories[1].id }),
-					products[1].update({ categoryId: categories[1].id }),
-					products[2].update({ categoryId: categories[0].id }),
-					products[3].update({ categoryId: categories[0].id }),
-				]);
+				return Promise.all(updateProdCatId(products, seedProducts, categories));
 			})
-			// })
 			.catch(err => console.log(err))
 	);
 };
@@ -236,5 +242,5 @@ module.exports = {
 	User,
 	Order,
 	OrderItem,
-	Review
+	Review,
 };
