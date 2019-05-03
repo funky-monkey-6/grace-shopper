@@ -9,7 +9,6 @@ const seedUsers = require('./seed/seedUsers');
 // Models:
 
 const Product = conn.define('product', {
-<<<<<<< HEAD
 	// from associations: categoryId
 	title: {
 		type: Sequelize.STRING,
@@ -17,9 +16,9 @@ const Product = conn.define('product', {
 		validate: {
 			notEmpty: {
 				args: true,
-				msg: 'Title must be provided'
-			}
-		}
+				msg: 'Title must be provided',
+			},
+		},
 	},
 	variationName: {
 		type: Sequelize.STRING,
@@ -27,12 +26,12 @@ const Product = conn.define('product', {
 		validate: {
 			notEmpty: {
 				args: true,
-				msg: 'Variation Name must be provided'
-			}
-		}
+				msg: 'Variation Name must be provided',
+			},
+		},
 	},
 	description: {
-		type: Sequelize.TEXT
+		type: Sequelize.TEXT,
 		// allowNull: false,
 		// validate: {
 		// 	notEmpty: {
@@ -48,9 +47,9 @@ const Product = conn.define('product', {
 		validate: {
 			notEmpty: {
 				args: true,
-				msg: 'Quantity must be provided'
-			}
-		}
+				msg: 'Quantity must be provided',
+			},
+		},
 	},
 	price: {
 		type: Sequelize.FLOAT,
@@ -58,72 +57,14 @@ const Product = conn.define('product', {
 		validate: {
 			notEmpty: {
 				args: true,
-				msg: 'Price must be provided'
-			}
-		}
+				msg: 'Price must be provided',
+			},
+		},
 	},
 	images: {
 		type: Sequelize.STRING,
-		defaultValue: 'image.png'
-	}
-=======
-  // from associations: categoryId
-  title: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: {
-        args: true,
-        msg: 'Title must be provided',
-      },
-    },
-  },
-  variationName: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: {
-        args: true,
-        msg: 'Variation Name must be provided',
-      },
-    },
-  },
-  description: {
-    type: Sequelize.TEXT,
-    // allowNull: false,
-    // validate: {
-    // 	notEmpty: {
-    // 		args: true,
-    // 		msg: 'Description must be provided'
-    // 	}
-    // }
-  },
-  inventory: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    defaultValue: 0,
-    validate: {
-      notEmpty: {
-        args: true,
-        msg: 'Quantity must be provided',
-      },
-    },
-  },
-  price: {
-    type: Sequelize.FLOAT,
-    allowNull: false,
-    validate: {
-      notEmpty: {
-        args: true,
-        msg: 'Price must be provided',
-      },
-    },
-  },
-  images: {
-    type: Sequelize.STRING,
-    defaultValue: 'image.png',
-  },
->>>>>>> resolving merge conflicts
+		defaultValue: 'image.png',
+	},
 });
 
 const Category = conn.define('category', {
