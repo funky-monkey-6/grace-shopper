@@ -1,54 +1,50 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { checkUser } from '../store'
 
-const Login = (props) => {
-
-    const enteredUser = {
-        firstName: '',
-        lastName: '',
-        email: ''
+class Login extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            email: '',
+            password: ''
+        }
     }
 
-    const handleChange = (ev) => {
+    handleChange = (ev) => {
         ev.preventDefault()
-        enteredUser[ev.target.name] = ev.target.value
+        this.setState({ [`${ev.target.name}`]: ev.target.value })
 
     }
 
-    const handleSubmit = (ev) => {
-        props.checkUser(enteredUser)
+    handleSubmit = () => {
+        props.checkUser(this.state)
     }
 
-    return (
-        <div>
-            <h4>Enter login information below:</h4>
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label>
-                        First Name:
-                    <input type="text" name="firstName" onChange={handleChange} />
-                    </label>
-                </div>
+    render() {
+        return (
+            <div>
+                <h4>Enter login information below:</h4>
+                <form onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <label>
+                            Email:
+                <input type="text" name="email" value={this.state.email} onChange={handleChange} />
+                        </label>
+                    </div>
 
-                <div className="form-group">
-                    <label>
-                        Last Name:
-                <input type="text" name="lastName" onChange={handleChange} />
-                    </label>
-                </div>
+                    <div className="form-group">
+                        <label>
+                            Password:
+                 <input type="text" name="password" value={this.state.password} onChange={handleChange} />
+                        </label>
+                    </div>
 
-                <div className="form-group">
-                    <label>
-                        Email:
-                 <input type="text" name="email" onChange={handleChange} />
-                    </label>
-                </div>
-
-                <input type="submit" value="Submit" />
-            </form>
-        </div>
-    )
+                    <input type="submit" value="Submit" />
+                </form>
+            </div>
+        )
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {
