@@ -13,7 +13,7 @@ const App = () => {
         <Route path="/menu/:productId" component={ProductSingle} />
       </div>
     </Router>
-  )
+  );
 };
 
 export default App;
