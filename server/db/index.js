@@ -1,9 +1,9 @@
 const Sequelize = require('sequelize');
 const conn = new Sequelize(process.env.DATABASE_URL, { logging: true });
 
-const seedProducts = require('../seed/seedProducts');
-const seedCategories = require('../seed/seedCategories');
-const seedUsers = require('../seed/seedUsers');
+const seedProducts = require('./seed/seedProducts');
+const seedCategories = require('./seed/seedCategories');
+const seedUsers = require('./seed/seedUsers');
 
 // Models:
 
