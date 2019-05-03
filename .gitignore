@@ -2,9 +2,13 @@
 .vscode
 node_modules
 <<<<<<< HEAD
+<<<<<<< HEAD
 /public/main.js
 .vscode
 .idea
 =======
 /public/main.js
 >>>>>>> added seed json files, working on seeding db
+=======
+/public/main.js
+>>>>>>> 18896b3d9a620c63496df4a0679489c7cd0bfc85
