@@ -1,5 +1,6 @@
 module.exports = [
 <<<<<<< HEAD
+<<<<<<< HEAD
 	{
 		firstName: 'Doug',
 		lastName: 'Funny',
@@ -56,6 +57,8 @@ module.exports = [
 >>>>>>> resolving merge conflicts
 	}
 =======
+=======
+>>>>>>> fix merge conflicts due to linting
   {
     firstName: 'Doug',
     lastName: 'Funny',
@@ -86,5 +89,8 @@ module.exports = [
     email: 'buster@silentfilms.com',
     userType: 'admin',
   },
+<<<<<<< HEAD
 >>>>>>> seed files
+=======
+>>>>>>> fix merge conflicts due to linting
 ];
