@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import axios from 'axios'
@@ -40,22 +40,30 @@ export const checkUser = (enteredUser) => async dispatch => {
     } catch (error) { throw new Error(error) } 
 }
 
-//REDUCER
-const initialState = {
-    products: {},
-    user: {}
-}
+//REDUCERS
 
-const reducer = (state = initialState, action) => {
+const product = (state = {}, action) => {
     switch (action.type) {
         case SET_PRODUCTS:
-            return { ...state, products: action.products }
+            return { state: action.products }
+        default:
+            return state
+    }
+}
+
+const user = (state = {}, action) => {
+    switch (action.type) {
         case SET_USER:
             return { ...state, user: action.user }
         default:
             return state
     }
 }
+
+const reducer = combineReducers({
+    product,
+    user
+})
 
 export const store = createStore(
     reducer,
