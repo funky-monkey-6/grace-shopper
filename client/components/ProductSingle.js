@@ -7,7 +7,8 @@ class ProductSingle extends React.Component {
     constructor() {
         super();
         this.state = {
-            product: {}
+            product: {},
+            reviews: [],
         }
     }
 
@@ -15,9 +16,14 @@ class ProductSingle extends React.Component {
         axios.get(`api/products/${this.props.match.params.productId}`)
             .then(res => res.data)
             .then(product => this.setState({ product }))
+
+        axios.get(`api/reviews/${this.props.match.params.productId}`)
+            .then(res => res.data)
+            .then(reviews => this.setState({ reviews }))
     }
 
     render() {
+        console.log(this.state);
         return (
             <div>
                 <h1><i>Placeholder for image</i></h1>
@@ -28,7 +34,9 @@ class ProductSingle extends React.Component {
                 </ul>
                 <button type="submit">Add to Cart</button>
                 <Link to="/menu"><button type="submit">Return to Main Menu</button></Link>
-                <div><h1><i>Placeholder for reviews</i></h1></div>
+                {this.state.reviews.map(review => {
+                    return <div key={review.id}>{review.comments}</div>
+                })}
             </div>
         )
     }
