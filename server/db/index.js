@@ -77,10 +77,10 @@ const Category = conn.define('category', {
     type: Sequelize.STRING,
     // allowNull: false,
     // validate: {
-    // 	notEmpty: {
-    // 		args: true,
-    // 		msg: 'Category needs a name'
-    // 	}
+    // notEmpty: {
+    // args: true,
+    // msg: 'Category needs a name'
+    // }
     // }
   },
 });
