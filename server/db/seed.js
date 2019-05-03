@@ -67,8 +67,24 @@ const seedUsers = [
   },
 ];
 
+const seedReviews = [
+  {
+    rating: 4,
+    comment: 'I like this car',
+  },
+  {
+    rating: 3,
+    comment: 'Too fast!',
+  },
+  {
+    rating: 1,
+    comment: 'I dont like the color',
+  }
+];
+
 module.exports = {
   seedProducts,
   seedCategories,
   seedUsers,
+  seedReviews,
 };
