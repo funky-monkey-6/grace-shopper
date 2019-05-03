@@ -13,7 +13,10 @@ class ProductSingle extends React.Component {
   }
 
   componentDidMount() {
-    const { productId } = this.props.match.params;
+    // TODO: what's a more efficient way of doing this (that linter likes)?
+    const { match } = this.props;
+    const { params } = match;
+    const { productId } = params;
 
     axios
       .get(`api/products/${productId}`)
@@ -27,21 +30,23 @@ class ProductSingle extends React.Component {
   }
 
   render() {
+    const { product, reviews } = this.state;
+
     return (
       <div>
         <h1>
           <i>Placeholder for image</i>
         </h1>
         <ul>
-          <li>{this.state.product.title}</li>
-          <li>{this.state.product.description}</li>
-          <li>{this.state.product.price}</li>
+          <li>{product.title}</li>
+          <li>{product.description}</li>
+          <li>{product.price}</li>
         </ul>
         <button type="submit">Add to Cart</button>
         <Link to="/menu">
           <button type="submit">Return to Main Menu</button>
         </Link>
-        {this.state.reviews.map(review => {
+        {reviews.map(review => {
           return <div key={review.id}>{review.comments}</div>;
         })}
       </div>
