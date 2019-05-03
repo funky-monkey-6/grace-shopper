@@ -1,7 +1,9 @@
 const Sequelize = require('sequelize');
 const conn = new Sequelize(process.env.DATABASE_URL, { logging: true });
 
-const { seedProducts, seedCategories, seedUsers } = require('./seed');
+const seedProducts = require('../seed/seedProducts');
+const seedCategories = require('../seed/seedCategories');
+const seedUsers = require('../seed/seedUsers');
 
 // Models:
 
@@ -17,15 +19,25 @@ const Product = conn.define('product', {
       },
     },
   },
-  description: {
-    type: Sequelize.TEXT,
+  variationName: {
+    type: Sequelize.STRING,
     allowNull: false,
     validate: {
       notEmpty: {
         args: true,
-        msg: 'Description must be provided',
+        msg: 'Variation Name must be provided',
       },
     },
+  },
+  description: {
+    type: Sequelize.TEXT,
+    // allowNull: false,
+    // validate: {
+    // 	notEmpty: {
+    // 		args: true,
+    // 		msg: 'Description must be provided'
+    // 	}
+    // }
   },
   inventory: {
     type: Sequelize.INTEGER,
