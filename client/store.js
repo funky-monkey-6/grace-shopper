@@ -24,7 +24,7 @@ export const fetchProducts = () => async dispatch => {
         const response = await axios.get('api/products')
         const products = response.data
         return dispatch(setProducts(products))
-    } catch (error) { console.log(error) } //or do whatever else we want with the error
+    } catch (error) { throw new Error(error) } 
 }
 
 export const checkUser = (enteredUser) => async dispatch => {
@@ -35,9 +35,9 @@ export const checkUser = (enteredUser) => async dispatch => {
         if (user) {
             return dispatch(setUser(user))
         } else {
-            return new Error('The email or password you entered is incorrect')
+            throw new Error('The email or password you entered is incorrect')
         }
-    } catch (error) { console.log(error) }
+    } catch (error) { throw new Error(error) } 
 }
 
 //REDUCERS
