@@ -201,7 +201,7 @@ const syncAndSeed = () => {
           Promise.all(seedUsers.map(user => User.create(user))),
         ]);
       })
-      .then(([products, categories, users]) => {
+      .then(([products, categories]) => {
         return Promise.all([
           products[0].update({ categoryId: categories[1].id }),
           products[1].update({ categoryId: categories[1].id }),
