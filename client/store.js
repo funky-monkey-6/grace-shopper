@@ -6,6 +6,7 @@ import axios from 'axios';
 //ACTION TYPES
 const SET_USER = 'SET_USER';
 const SET_PRODUCTS = 'SET_PRODUCTS';
+const SET_CATEGORIES = 'SET_CATEGORIES';
 
 //ACTION CREATORS
 const setUser = user => ({
@@ -18,12 +19,27 @@ const setProducts = products => ({
   products,
 });
 
+const setCategories = categories => ({
+  type: SET_CATEGORIES,
+  categories,
+});
+
 //THUNK CREATORS
 export const fetchProducts = () => async dispatch => {
   try {
     const response = await axios.get('api/products');
     const products = response.data;
     return dispatch(setProducts(products));
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const fetchCategories = () => async dispatch => {
+  try {
+    const response = await axios.get('api/categories');
+    const categories = response.data;
+    return dispatch(setCategories(categories));
   } catch (error) {
     throw new Error(error);
   }
@@ -51,7 +67,7 @@ export const checkUser = enteredUser => async dispatch => {
 const product = (state = {}, action) => {
   switch (action.type) {
     case SET_PRODUCTS:
-      return { state: action.products };
+      return { ...state, products: action.products };
     default:
       return state;
   }
@@ -66,9 +82,19 @@ const user = (state = {}, action) => {
   }
 };
 
+const category = (state = {}, action) => {
+  switch (action.type) {
+    case SET_CATEGORIES:
+      return { ...state, categories: action.categories };
+    default:
+      return state;
+  }
+};
+
 const reducer = combineReducers({
   product,
   user,
+  category,
 });
 
 export const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunkMiddleware)));

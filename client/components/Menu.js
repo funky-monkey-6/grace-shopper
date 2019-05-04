@@ -1,6 +1,22 @@
 import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+// import { connect } from 'react-redux';
+// import { fetchProducts, fetchCategories } from '../store';
+
+// const mapStateToProps = ({ products, categories }) => {
+//   return {
+//     products,
+//     categories,
+//   };
+// };
+
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     fetchProducts: () => dispatch(fetchProducts),
+//     fetchCategories: () => dispatch(fetchCategories),
+//   };
+// };
 
 class Menu extends React.Component {
   constructor() {
