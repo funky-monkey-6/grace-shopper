@@ -2,7 +2,10 @@
 const Sequelize = require('sequelize');
 const conn = new Sequelize(process.env.DATABASE_URL, { logging: true });
 
-const { seedProducts, seedCategories, seedUsers, seedOrders, seedOrderItems } = require('./seed');
+const seedProducts = require('./seed/seedProducts');
+const seedCategories = require('./seed/seedCategories');
+const seedUsers = require('./seed/seedUsers');
+const { seedOrders, seedOrderItems } = require('./seed/seedOrders');
 
 // Models:
 
@@ -18,15 +21,25 @@ const Product = conn.define('product', {
       },
     },
   },
-  description: {
-    type: Sequelize.TEXT,
+  variationName: {
+    type: Sequelize.STRING,
     allowNull: false,
     validate: {
       notEmpty: {
         args: true,
-        msg: 'Description must be provided',
+        msg: 'Variation Name must be provided',
       },
     },
+  },
+  description: {
+    type: Sequelize.TEXT,
+    // allowNull: false,
+    // validate: {
+    // 	notEmpty: {
+    // 		args: true,
+    // 		msg: 'Description must be provided'
+    // 	}
+    // }
   },
   inventory: {
     type: Sequelize.INTEGER,
@@ -60,10 +73,10 @@ const Category = conn.define('category', {
     type: Sequelize.STRING,
     // allowNull: false,
     // validate: {
-    // notEmpty: {
-    // args: true,
-    // msg: 'Category needs a name'
-    // }
+    // 	notEmpty: {
+    // 		args: true,
+    // 		msg: 'Category needs a name'
+    // 	}
     // }
   },
 });
@@ -111,6 +124,9 @@ const User = conn.define('user', {
 // order and cart use same model
 const Order = conn.define('order', {
   // from associations: userId
+  type: {
+    type: Sequelize.ENUM('pickup', 'delivery'),
+  },
   subtotal: {
     type: Sequelize.FLOAT,
   },
@@ -185,36 +201,47 @@ User.hasMany(Order);
 
 Order.hasMany(OrderItem);
 OrderItem.belongsTo(Order);
-Product.hasOne(OrderItem); // ? OrderItem.belongsTo(Product)
+Product.hasOne(OrderItem);
 
 Review.belongsTo(Product);
 Review.belongsTo(User);
 
+const updateProdCatId = (prods, seedProds, cats) => {
+  return prods.map(prod => {
+    const seedProdCat = seedProds.find(seedProd => seedProd.title === prod.title).category;
+
+    const catId = cats.find(cat => {
+      return cat.name === seedProdCat;
+    }).id;
+
+    return prod.update({ categoryId: catId });
+  });
+};
+
 // sync models and seed data
 const syncAndSeed = () => {
-  return (
-    conn
-      .sync({ force: true })
-      .then(() => {
-        return Promise.all([
-          Promise.all(seedProducts.map(prod => Product.create(prod))),
-          Promise.all(seedCategories.map(cat => Category.create(cat))),
-          Promise.all(seedUsers.map(user => User.create(user))),
-          Promise.all(seedOrders.map(order => Order.create(order))),
-          Promise.all(seedOrderItems.map(orderItem => OrderItem.create(orderItem))),
-        ]);
-      })
-      .then(([products, categories]) => {
-        return Promise.all([
-          products[0].update({ categoryId: categories[1].id }),
-          products[1].update({ categoryId: categories[1].id }),
-          products[2].update({ categoryId: categories[0].id }),
-          products[3].update({ categoryId: categories[0].id }),
-        ]);
-      })
-      // })
-      .catch(err => console.log(err))
-  );
+  return conn
+    .sync({ force: true })
+    .then(() => {
+      return Promise.all([
+        Promise.all(seedProducts.map(prod => Product.create(prod))),
+        Promise.all(seedCategories.map(cat => Category.create(cat))),
+        Promise.all(seedUsers.map(user => User.create(user))),
+        Promise.all(seedOrders.map(order => Order.create(order))),
+      ]);
+    })
+    .then(([products, categories, users, orders]) => {
+      return Promise.all([
+        Promise.all(
+          seedOrderItems.map(item => {
+            item.price = products.find(prod => prod.id === item.productId).price;
+            return OrderItem.create(item);
+          }),
+        ),
+        Promise.all(updateProdCatId(products, seedProducts, categories)),
+      ]);
+    })
+    .catch(err => console.log(err));
 };
 
 module.exports = {
