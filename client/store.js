@@ -35,14 +35,26 @@ export const fetchProducts = () => async dispatch => {
   }
 };
 
-export const fetchCategories = () => async dispatch => {
-  try {
-    const response = await axios.get('api/categories');
-    const categories = response.data;
-    return dispatch(setCategories(categories));
-  } catch (error) {
-    throw new Error(error);
-  }
+// export const fetchCategories = () => async dispatch => {
+//   try {
+//     const response = await axios.get('api/categories');
+//     const categories = response.data;
+//     return dispatch(setCategories(categories));
+//   } catch (error) {
+//     throw new Error(error);
+//   }
+// };
+
+// fetch all schools
+export const fetchCategories = () => {
+  return dispatch => {
+    console.log('hey there')
+    return axios
+      .get('api/categories')
+      .then(res => res.data)
+      .then(categories => dispatch(setCategories(categories)))
+      .catch(err => console.log(err));
+  };
 };
 
 export const checkUser = enteredUser => async dispatch => {
@@ -64,7 +76,7 @@ export const checkUser = enteredUser => async dispatch => {
 
 //REDUCERS
 
-const product = (state = {}, action) => {
+const product = (state = { products: [] }, action) => {
   switch (action.type) {
     case SET_PRODUCTS:
       return { ...state, products: action.products };
@@ -82,7 +94,7 @@ const user = (state = {}, action) => {
   }
 };
 
-const category = (state = {}, action) => {
+const category = (state = { categories: [] }, action) => {
   switch (action.type) {
     case SET_CATEGORIES:
       return { ...state, categories: action.categories };
