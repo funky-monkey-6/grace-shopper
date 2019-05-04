@@ -69,6 +69,15 @@ export const filterProducts = categoryIds => {
   };
 };
 
+export const getProduct = id => {
+  return dispatch => {
+    return axios
+      .get(`api/products/${id}`)
+      .then(res => res.data)
+      .then(product => dispatch(setProducts(product)))
+  };
+};
+
 export const checkUser = enteredUser => async dispatch => {
   try {
     const response = await axios.get('api/account');
