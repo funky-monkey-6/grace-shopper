@@ -54,7 +54,7 @@ router.delete('/:userId/orders/:orderId', (req, res, next) => {
 
 // get all the order items from within an order
 router.get('/:userId/orders/:orderId/orderItems', (req, res, next) => {
-  OrderItem.get({
+  OrderItem.findAll({
     where: {
       orderId: req.params.orderId,
     },
