@@ -35,7 +35,7 @@ router.put('/:userId/orders/:orderId', (req, res, next) => {
       id: req.params.orderId,
     },
   })
-    .then(order => res.status(201).send(order))
+    .then(order => res.send(order))
     .catch(next);
 });
 
@@ -66,7 +66,7 @@ router.get('/:userId/orders/:orderId/orderItems', (req, res, next) => {
 router.post('/:userId/orders/:orderId/orderItem', (req, res, next) => {
   OrderItem.create(req.body)
     .then(orderItem => orderItem.update({ orderId: req.params.orderId }))
-    .then(orderItem => res.status(201).send(orderItem))
+    .then(orderItem => res.send(orderItem))
     .catch(next);
 });
 
