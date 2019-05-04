@@ -109,10 +109,7 @@ const User = conn.define('user', {
   userType: {
     type: Sequelize.ENUM('customer', 'admin'),
     allowNull: false,
-<<<<<<< HEAD
     defaultValue: 'customer',
-=======
->>>>>>> fix: linting issues
     validate: {
       notEmpty: {
         args: true,
