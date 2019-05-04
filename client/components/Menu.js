@@ -1,6 +1,6 @@
 import React from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+// import axios from 'axios';
+// import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchProducts, fetchCategories } from '../store';
 
@@ -29,7 +29,7 @@ class Menu extends React.Component {
   }
 
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     return <div>Hey</div>;
   }
 }
