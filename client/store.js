@@ -132,10 +132,10 @@ export const fetchOrder = userId => {
     return axios
       .get(`/api/users/${userId}/cart`)
       .then(response => {
-        // if (response.data) {
-        return dispatch(setOrder(response.data));
-        // }
-        // return {};
+        if (response.data) {
+          return dispatch(setOrder(response.data));
+        }
+        return {};
       })
       .catch(err => {
         throw new Error(err);
