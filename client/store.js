@@ -74,7 +74,7 @@ export const getProduct = id => {
     return axios
       .get(`api/products/${id}`)
       .then(res => res.data)
-      .then(product => dispatch(setProducts(product)))
+      .then(product => dispatch(setProducts(product)));
   };
 };
 
