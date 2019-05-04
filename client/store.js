@@ -36,24 +36,36 @@ export const fetchProducts = () => async dispatch => {
   }
 };
 
-// export const fetchCategories = () => async dispatch => {
-//   try {
-//     const response = await axios.get('api/categories');
-//     const categories = response.data;
-//     return dispatch(setCategories(categories));
-//   } catch (error) {
-//     throw new Error(error);
-//   }
-// };
-
-// fetch all schools
 export const fetchCategories = () => {
   return dispatch => {
     return axios
       .get('api/categories')
       .then(res => res.data)
-      .then(categories => dispatch(setCategories(categories)))
-      .catch(err => console.log(err));
+      .then(categories => dispatch(setCategories(categories)));
+  };
+};
+
+export const searchProducts = searchTerm => {
+  return dispatch => {
+    return axios
+      .get('api/products')
+      .then(res => res.data)
+      .then(allProducts =>
+        allProducts.filter(product =>
+          product.title.toLowerCase().includes(searchTerm.toLowerCase()),
+        ),
+      )
+      .then(products => dispatch(setProducts(products)));
+  };
+};
+
+export const filterProducts = categoryIds => {
+  return dispatch => {
+    return axios
+      .get('api/products')
+      .then(res => res.data)
+      .then(allProducts => allProducts.filter(product => categoryIds.includes(product.categoryId)))
+      .then(products => dispatch(setProducts(products)));
   };
 };
 

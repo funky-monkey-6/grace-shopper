@@ -26,6 +26,7 @@ const seedProducts = [
     inventory: 15,
     price: 100000,
     images: '',
+    categoryId: 1,
   },
 ];
 
