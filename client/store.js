@@ -21,7 +21,7 @@ const setProducts = products => ({
 
 const setOrder = order => ({
   type: SET_ORDER,
-  order
+  order,
 });
 
 //THUNK CREATORS
@@ -52,16 +52,20 @@ export const checkUser = enteredUser => async dispatch => {
   }
 };
 
-export const fetchOrder = (userId) => {
+export const fetchOrder = userId => {
   return dispatch => {
-    return axios.get(`/api/users/${userId}/cart`)
+    return axios
+      .get(`/api/users/${userId}/cart`)
       .then(response => {
         if (response.data) {
           return dispatch(setOrder(response.data));
         }
+        return {};
       })
-      .catch(err => { throw new Error(err) });
-  }
+      .catch(err => {
+        throw new Error(err);
+      });
+  };
 };
 
 //REDUCERS
