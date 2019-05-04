@@ -30,12 +30,13 @@ router.post('/:userId/orders', (req, res, next) => {
 // updating an order itself (not order items) (e.g updating order status)
 router.put('/:userId/orders/:orderId', (req, res, next) => {
   Order.update(req.body, {
+    returning: true,
     where: {
       userId: req.params.userId,
       id: req.params.orderId,
     },
   })
-    .then(order => res.send(order))
+    .then(([rowsUpdated, [updatedOrder]]) => res.send(updatedOrder))
     .catch(next);
 });
 
@@ -73,11 +74,12 @@ router.post('/:userId/orders/:orderId/orderItem', (req, res, next) => {
 // updating an order item within an order (e.g. updating quantity in cart)
 router.put('/:userId/orders/:orderId/orderItem/:orderItemId', (req, res, next) => {
   OrderItem.update(req.body, {
+    returning: true,
     where: {
       id: req.params.orderItemId,
     },
   })
-    .then(orderItem => res.send(orderItem))
+    .then(([rowsUpdated, [updatedOrderItem]]) => res.send(updatedOrderItem))
     .catch(next);
 });
 
