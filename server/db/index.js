@@ -227,10 +227,17 @@ const syncAndSeed = () => {
 				Promise.all(seedProducts.map(prod => Product.create(prod))),
 				Promise.all(seedCategories.map(cat => Category.create(cat))),
 				Promise.all(seedUsers.map(user => User.create(user))),
+				Promise.all(seedOrders.map(order => Order.create(order))),
 			]);
 		})
-		.then(([products, categories]) => {
-			return Promise.all(updateProdCatId(products, seedProducts, categories));
+		.then(([products, categories, users, orders]) => {
+			return Promise.all([
+				Promise.all(seedOrderItems.map(item => {
+					item.price = products.find(prod => prod.id === item.productId).price;
+					return OrderItem.create(item)
+				})),
+				Promise.all(updateProdCatId(products, seedProducts, categories)),
+			]);
 		})
 		.catch(err => console.log(err));
 };
