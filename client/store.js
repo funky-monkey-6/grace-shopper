@@ -6,6 +6,7 @@ import axios from 'axios';
 //ACTION TYPES
 const SET_USER = 'SET_USER';
 const SET_PRODUCTS = 'SET_PRODUCTS';
+const SET_ORDER = 'SET_ORDER';
 
 //ACTION CREATORS
 const setUser = user => ({
@@ -16,6 +17,11 @@ const setUser = user => ({
 const setProducts = products => ({
   type: SET_PRODUCTS,
   products,
+});
+
+const setOrder = order => ({
+  type: SET_ORDER,
+  order
 });
 
 //THUNK CREATORS
@@ -46,6 +52,18 @@ export const checkUser = enteredUser => async dispatch => {
   }
 };
 
+export const fetchOrder = (userId) => {
+  return dispatch => {
+    return axios.get(`/api/users/${userId}/cart`)
+      .then(response => {
+        if (response.data) {
+          return dispatch(setOrder(response.data));
+        }
+      })
+      .catch(err => { throw new Error(err) });
+  }
+};
+
 //REDUCERS
 
 const product = (state = {}, action) => {
@@ -66,9 +84,19 @@ const user = (state = {}, action) => {
   }
 };
 
+const order = (state = {}, action) => {
+  switch (action.type) {
+    case SET_ORDER:
+      return { ...state, order: action.order };
+    default:
+      return state;
+  }
+};
+
 const reducer = combineReducers({
   product,
   user,
+  order,
 });
 
 export const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunkMiddleware)));
