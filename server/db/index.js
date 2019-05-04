@@ -2,14 +2,10 @@
 const Sequelize = require('sequelize');
 const conn = new Sequelize(process.env.DATABASE_URL, { logging: true });
 
-<<<<<<< HEAD
 const seedProducts = require('./seed/seedProducts');
 const seedCategories = require('./seed/seedCategories');
 const seedUsers = require('./seed/seedUsers');
 const { seedOrders, seedOrderItems } = require('./seed/seedOrders');
-=======
-const { seedProducts, seedCategories, seedUsers, seedReviews } = require('./seed');
->>>>>>> menu done
 
 // Models:
 
