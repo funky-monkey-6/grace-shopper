@@ -35,10 +35,10 @@ const Product = conn.define('product', {
     type: Sequelize.TEXT,
     // allowNull: false,
     // validate: {
-    // 	notEmpty: {
-    // 		args: true,
-    // 		msg: 'Description must be provided'
-    // 	}
+    // notEmpty: {
+    // args: true,
+    // msg: 'Description must be provided'
+    // }
     // }
   },
   inventory: {
@@ -234,6 +234,7 @@ const syncAndSeed = () => {
       return Promise.all([
         Promise.all(
           seedOrderItems.map(item => {
+            // eslint-disable-next-line no-param-reassign
             item.price = products.find(prod => prod.id === item.productId).price;
             return OrderItem.create(item);
           }),
