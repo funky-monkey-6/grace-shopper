@@ -163,6 +163,15 @@ const order = (state = {}, action) => {
   }
 };
 
+const order = (state = {}, action) => {
+  switch (action.type) {
+    case SET_ORDER:
+      return { ...state, order: action.order };
+    default:
+      return state;
+  }
+};
+
 const reducer = combineReducers({
   product,
   user,
