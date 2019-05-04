@@ -80,7 +80,6 @@ class Menu extends React.Component {
   };
 
   render() {
-    console.log(this.state);
     const { searchTerm } = this.state;
     const { categories, products } = this.props;
 
