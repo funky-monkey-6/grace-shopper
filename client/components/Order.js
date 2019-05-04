@@ -4,34 +4,34 @@ import { connect } from 'react-redux';
 import { fetchOrder } from '../store';
 
 class Order extends Component {
-	constructor() {
-		super();
-		this.state = {
-			order: {}
-		}
-	}
+  constructor() {
+    super();
+    this.state = {};
+  }
 
-	componentDidMount() {
-		this.props.fetchOrder(req.session.userId);
-	};
+  componentDidMount() {
+    // const { fetchOrder } = this.props;
+    // fetchOrder(req.session.userId);
+  }
 
-	render() {
-		return (
-			<div>order</div>
-		)
-	}
+  render() {
+    return <div>order</div>;
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    order: state.order,
+  };
 };
 
-const mapStateToProps = (state) => {
-	return {
-		order: state.order,
-	}
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchOrder: userId => dispatch(fetchOrder(userId)),
+  };
 };
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		fetchOrder: (userId) => dispatch(fetchOrder(userId)),
-	}
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Order);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Order);
