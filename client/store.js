@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -48,7 +49,6 @@ export const fetchProducts = () => async dispatch => {
 // fetch all schools
 export const fetchCategories = () => {
   return dispatch => {
-    console.log('hey there')
     return axios
       .get('api/categories')
       .then(res => res.data)
