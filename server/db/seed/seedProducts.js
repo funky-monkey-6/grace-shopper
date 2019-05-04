@@ -11,7 +11,7 @@ module.exports = [
     title: 'Bi Bim Bap',
     variationName: 'Regular',
     description:
-      'Gluten Free  Brown Rice, carrot, Boston Lettuce, Soybean paste, sesame oil, coconut oil fried egg.',
+      'Gluten Free  Brown Rice, carrot, Boston Lettuce, Soybean paste, sesame oil, coconut oil fried egg',
     inventory: 10,
     price: 8.5,
     category: 'Bibimbap',
