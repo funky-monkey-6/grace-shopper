@@ -184,6 +184,13 @@ const category = (state = { categories: [] }, action) => {
   switch (action.type) {
     case SET_CATEGORIES:
       return { ...state, categories: action.categories };
+  }
+};
+
+const order = (state = {}, action) => {
+  switch (action.type) {
+    case SET_ORDER:
+      return { ...state, order: action.order };
     default:
       return state;
   }
