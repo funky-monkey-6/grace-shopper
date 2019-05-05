@@ -12,7 +12,7 @@ const App = () => {
         <Nav />
         <Route exact path="/menu" component={Menu} />
         <Route path="/menu/:productId" component={ProductSingle} />
-        <Route path='/cart' component={Order} />
+        <Route path="/cart" component={Order} />
       </div>
     </Router>
   );
