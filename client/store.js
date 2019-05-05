@@ -132,10 +132,10 @@ export const fetchOrder = userId => {
     return axios
       .get(`/api/users/${userId}/cart`)
       .then(response => {
-        if (response.data) {
-          return dispatch(setOrder(response.data));
-        }
-        return {};
+        // if (response.data) {
+        return dispatch(setOrder(response.data));
+        // }
+        // return {};
       })
       .catch(err => {
         throw new Error(err);
@@ -217,7 +217,16 @@ const orderItems = (state = { orderItems: [] }, action) => {
 const order = (state = {}, action) => {
   switch (action.type) {
     case SET_ORDER:
-      return { ...state, order: action.order };
+      return { order: action.order };
+    default:
+      return state;
+  }
+};
+
+const orderItems = (state = { orderItems: [] }, action) => {
+  switch (action.type) {
+    case SET_ORDERITEMS:
+      return { orderItems: action.orderItems };
     default:
       return state;
   }
