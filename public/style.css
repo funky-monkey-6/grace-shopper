@@ -1,0 +1,41 @@
+
+/* Menu styling */
+.menu-page {
+    display: flex;
+    height: 100%;
+    flex-wrap: wrap;
+}
+
+.menu-filter {
+    border: 1px solid grey;
+    width: 25%;
+    padding: 3%;
+}
+
+.menu-list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 75%;
+    border: 1px solid grey;
+}
+
+.menu-item {
+    border: 1px solid grey;
+    width: 30%;
+    margin: 3%;
+}
+
+.nav-item {
+    padding: 10px;
+}
+
+.nav-menu {
+    margin-left: 10px;
+    width: 50%;
+}
+
+.nav-login {
+    margin-right: 10px;
+    width: 50%;
+    text-align: right;
+}

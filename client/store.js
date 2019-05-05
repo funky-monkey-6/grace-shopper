@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -6,6 +7,7 @@ import axios from 'axios';
 //ACTION TYPES
 const SET_USER = 'SET_USER';
 const SET_PRODUCTS = 'SET_PRODUCTS';
+const SET_CATEGORIES = 'SET_CATEGORIES';
 
 //ACTION CREATORS
 const setUser = user => ({
@@ -18,6 +20,11 @@ const setProducts = products => ({
   products,
 });
 
+const setCategories = categories => ({
+  type: SET_CATEGORIES,
+  categories,
+});
+
 //THUNK CREATORS
 export const fetchProducts = () => async dispatch => {
   try {
@@ -27,6 +34,48 @@ export const fetchProducts = () => async dispatch => {
   } catch (error) {
     throw new Error(error);
   }
+};
+
+export const fetchCategories = () => {
+  return dispatch => {
+    return axios
+      .get('api/categories')
+      .then(res => res.data)
+      .then(categories => dispatch(setCategories(categories)));
+  };
+};
+
+export const searchProducts = searchTerm => {
+  return dispatch => {
+    return axios
+      .get('api/products')
+      .then(res => res.data)
+      .then(allProducts =>
+        allProducts.filter(product =>
+          product.title.toLowerCase().includes(searchTerm.toLowerCase()),
+        ),
+      )
+      .then(products => dispatch(setProducts(products)));
+  };
+};
+
+export const filterProducts = categoryIds => {
+  return dispatch => {
+    return axios
+      .get('api/products')
+      .then(res => res.data)
+      .then(allProducts => allProducts.filter(product => categoryIds.includes(product.categoryId)))
+      .then(products => dispatch(setProducts(products)));
+  };
+};
+
+export const getProduct = id => {
+  return dispatch => {
+    return axios
+      .get(`api/products/${id}`)
+      .then(res => res.data)
+      .then(product => dispatch(setProducts(product)));
+  };
 };
 
 export const checkUser = enteredUser => async dispatch => {
@@ -48,10 +97,10 @@ export const checkUser = enteredUser => async dispatch => {
 
 //REDUCERS
 
-const product = (state = {}, action) => {
+const product = (state = { products: [] }, action) => {
   switch (action.type) {
     case SET_PRODUCTS:
-      return { state: action.products };
+      return { ...state, products: action.products };
     default:
       return state;
   }
@@ -66,9 +115,19 @@ const user = (state = {}, action) => {
   }
 };
 
+const category = (state = { categories: [] }, action) => {
+  switch (action.type) {
+    case SET_CATEGORIES:
+      return { ...state, categories: action.categories };
+    default:
+      return state;
+  }
+};
+
 const reducer = combineReducers({
   product,
   user,
+  category,
 });
 
 export const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunkMiddleware)));

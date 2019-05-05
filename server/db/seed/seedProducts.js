@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+/* eslint-disable quotes */
 module.exports = [
   {
     title: 'Arugula Bi Bim Bap',
