@@ -4,18 +4,15 @@ import { connect } from 'react-redux';
 import { fetchOrder, fetchOrderItems } from '../store';
 
 class Order extends Component {
-	constructor(props) {
-		super(props);
-	}
 
 	componentDidMount() {
 		const { fetchOrder, fetchOrderItems } = this.props;
 		fetchOrder(1)
 			// .then(resp => console.log('order: ', resp));
 			.then(() => {
-				console.log('cart: ', this.props.order.order[0].id)
+				console.log('cart: ', this.props.order.order[0].id);
 				if (this.props.order.order[0]) {
-					fetchOrderItems(this.props.order.order[0].id)
+					fetchOrderItems(this.props.order.order[0].id);
 				}
 			})
 			.catch(err => console.log(err));
@@ -36,13 +33,9 @@ class Order extends Component {
 				</thead>
 				<tbody>
 					<tr>
-						{
-							orderItems.orderItems.map(item => {
-								return (
-									<td key={item.id}>{item.productId}</td>
-								)
-							})
-						}
+						{orderItems.orderItems.map(item => {
+							return <td key={item.id}>{item.productId}</td>;
+						})}
 					</tr>
 				</tbody>
 			</table>
