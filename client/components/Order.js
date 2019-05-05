@@ -5,8 +5,9 @@ import { fetchOrder, fetchOrderItems } from '../store';
 
 class Order extends Component {
 	componentDidMount() {
-		const { fetchOrder, fetchOrderItems } = this.props;
-		this.props.fetchOrder(1)
+		// const { fetchOrder, fetchOrderItems } = this.props;
+		this.props
+			.fetchOrder(1)
 			// .then(resp => console.log('order: ', resp));
 			.then(() => {
 				console.log('cart: ', this.props.order.order[0].id);
