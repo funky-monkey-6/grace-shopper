@@ -37,6 +37,7 @@ const seedUsers = [
     lastName: 'Funny',
     email: 'dougf@gmail.com',
     userType: 'customer',
+    password: '1234',
   },
   {
     firstName: 'Moe',
