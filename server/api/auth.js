@@ -6,14 +6,14 @@ router.delete('/', (req, res) => {
   req.session.destroy(() => res.sendStatus(204));
 });
 
-router.get('/', (req, res, next) => {
-  if (!req.session.user) {
-    const error = new Error('not logged in');
-    error.status = 401;
-    return next(error);
-  }
-  res.send(req.session.user);
-});
+// router.get('/', (req, res, next) => {
+//   if (!req.session.userId) {
+//     const error = new Error('not logged in');
+//     error.status = 401;
+//     return next(error);
+//   }
+//   res.send(req.session.userId);
+// });
 
 // const userNotFound = next => {
 //     const err = new Error('User not found')
