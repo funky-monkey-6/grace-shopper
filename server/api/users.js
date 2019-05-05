@@ -10,6 +10,7 @@ router.get('/', (req, res, next) => {
 
 // get cart for specific user (if exists)
 router.get('/:userId/cart', (req, res, next) => {
+  console.log('in route cart')
   Order.findAll({
     where: {
       userId: req.params.userId,
@@ -77,7 +78,7 @@ router.delete('/:userId/orders/:orderId', (req, res, next) => {
 });
 
 // get all the order items from within an order
-router.get('/:userId/orders/:orderId/orderItems', (req, res, next) => {
+router.get('/orders/:orderId/orderItems', (req, res, next) => {
   OrderItem.findAll({
     where: {
       orderId: req.params.orderId,
