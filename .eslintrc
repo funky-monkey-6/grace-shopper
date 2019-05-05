@@ -50,7 +50,7 @@
         "ignoreComments": true
       }
     ],
-    "no-unused-vars": 0,
+    "no-unused-vars": 1,
     "no-unneeded-ternary": 0,
     "no-restricted-syntax": 1,
     "radix": 0,

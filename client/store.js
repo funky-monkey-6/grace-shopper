@@ -9,6 +9,7 @@ const SET_USER = 'SET_USER';
 const SET_PRODUCTS = 'SET_PRODUCTS';
 const SET_CATEGORIES = 'SET_CATEGORIES';
 const SET_ORDER = 'SET_ORDER';
+const SET_ORDERITEMS = 'SET_ORDERITEMS';
 
 //ACTION CREATORS
 const setUser = user => ({
@@ -29,6 +30,11 @@ const setCategories = categories => ({
 const setOrder = order => ({
   type: SET_ORDER,
   order,
+});
+
+const setOrderItems = orderItems => ({
+  type: SET_ORDERITEMS,
+  orderItems,
 });
 
 //THUNK CREATORS
@@ -106,15 +112,27 @@ export const fetchOrder = userId => {
     return axios
       .get(`/api/users/${userId}/cart`)
       .then(response => {
-        if (response.data) {
-          return dispatch(setOrder(response.data));
-        }
-        return {};
+        // if (response.data) {
+        return dispatch(setOrder(response.data));
+        // }
+        // return {};
       })
       .catch(err => {
         throw new Error(err);
       });
   };
+};
+
+export const fetchOrderItems = orderId => {
+  return dispatch => {
+    return axios.get(`/api/users/orders/${orderId}/orderItems`)
+      // .then(resp => resp)
+      .then((resp) => {
+        console.log('resp: ', resp.data);
+        dispatch(setOrderItems(resp.data))
+      })
+      .catch(err => { throw new Error(err) });
+  }
 };
 
 //REDUCERS
@@ -146,10 +164,19 @@ const category = (state = { categories: [] }, action) => {
   }
 };
 
-const order = (state = {}, action) => {
+const order = (state = { order: {} }, action) => {
   switch (action.type) {
     case SET_ORDER:
-      return { ...state, order: action.order };
+      return { order: action.order };
+    default:
+      return state;
+  }
+};
+
+const orderItems = (state = { orderItems: [] }, action) => {
+  switch (action.type) {
+    case SET_ORDERITEMS:
+      return { orderItems: action.orderItems };
     default:
       return state;
   }
@@ -160,6 +187,7 @@ const reducer = combineReducers({
   user,
   category,
   order,
+  orderItems,
 });
 
 export const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunkMiddleware)));
