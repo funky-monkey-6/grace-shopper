@@ -135,14 +135,19 @@ export const fetchOrder = userId => {
 
 export const fetchOrderItems = orderId => {
   return dispatch => {
-    return axios.get(`/api/users/orders/${orderId}/orderItems`)
-      // .then(resp => resp)
-      .then((resp) => {
-        console.log('resp: ', resp.data);
-        dispatch(setOrderItems(resp.data))
-      })
-      .catch(err => { throw new Error(err) });
-  }
+    return (
+      axios
+        .get(`/api/users/orders/${orderId}/orderItems`)
+        // .then(resp => resp)
+        .then(resp => {
+          console.log('resp: ', resp.data);
+          dispatch(setOrderItems(resp.data));
+        })
+        .catch(err => {
+          throw new Error(err);
+        })
+    );
+  };
 };
 
 //REDUCERS
