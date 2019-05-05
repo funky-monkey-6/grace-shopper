@@ -1,12 +1,10 @@
 import React from 'react';
-import { gotMe } from '../store'
-
+//import { gotMe } from '../store';
 
 const App = () => {
+  // componentDidMount(){
 
-  componentDidMount(){
-
-  }
+  // }
   return <div>App</div>;
 };
 
