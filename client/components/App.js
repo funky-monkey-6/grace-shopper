@@ -1,7 +1,4 @@
 import React from 'react';
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 import { HashRouter as Router, Route } from 'react-router-dom';
 import Menu from './Menu';
 import ProductSingle from './ProductSingle';
@@ -17,24 +14,6 @@ const App = () => {
       </div>
     </Router>
   );
-=======
-import { gotMe } from '../store'
-
-=======
-//import { gotMe } from '../store';
->>>>>>> fix: linting issues
-
-const App = () => {
-=======
-//import { gotMe } from '../store';
-
-const App = () => {
->>>>>>> ee587033d55d06221bfcf4441abfea73caa00a72
-  // componentDidMount(){
-
-  // }
-  return <div>App</div>;
->>>>>>> Sessions set up
 };
 
 export default App;
