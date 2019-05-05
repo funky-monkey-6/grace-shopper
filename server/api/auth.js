@@ -3,16 +3,16 @@ const { User } = require('../db/index');
 module.exports = router;
 
 router.delete('/', (req, res) => {
-    req.session.destroy(() => res.sendStatus(204));
+  req.session.destroy(() => res.sendStatus(204));
 });
 
 router.get('/', (req, res, next) => {
-    if (!req.session.user) {
-        const error = new Error('not logged in');
-        error.status = 401;
-        return next(error);
-    }
-    res.send(req.session.user);
+  if (!req.session.user) {
+    const error = new Error('not logged in');
+    error.status = 401;
+    return next(error);
+  }
+  res.send(req.session.user);
 });
 
 // const userNotFound = next => {
@@ -31,20 +31,20 @@ router.get('/', (req, res, next) => {
 // })
 
 router.put('/login', (req, res, next) => {
-    User.findOne({
-        where: {
-            email: req.body.email,
-            password: req.body.password,
-        }
+  User.findOne({
+    where: {
+      email: req.body.email,
+      password: req.body.password,
+    },
+  })
+    .then(user => {
+      if (!user) {
+        const error = new Error('Incorrect email or password');
+        error.status = 401;
+        throw error;
+      }
+      res.send(user);
+      req.session.userId = user.id;
     })
-        .then(user => {
-            if (!user) {
-                const error = new Error('Incorrect email or password');
-                error.status = 401;
-                throw error;
-            }
-            res.send(user);
-            req.session.userId = user.id
-        })
-        .catch(next);
+    .catch(next);
 });

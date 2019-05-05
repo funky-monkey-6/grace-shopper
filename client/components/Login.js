@@ -16,10 +16,12 @@ class Login extends Component {
 		this.setState({ [`${ev.target.name}`]: ev.target.value });
 	};
 
-	handleSubmit = () => {
-		const { checkUser } = this.props;
-
-		checkUser(this.state);
+	handleSubmit = (ev) => {
+		ev.preventDefault();
+		const { history, checkUser } = this.props;
+		checkUser(this.state).then(() => {
+			history.push('/home');
+		});
 	};
 
 	render() {
