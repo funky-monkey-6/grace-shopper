@@ -4,15 +4,14 @@ import { connect } from 'react-redux';
 import { fetchOrder, fetchOrderItems } from '../store';
 
 class Order extends Component {
-
 	componentDidMount() {
 		const { fetchOrder, fetchOrderItems } = this.props;
-		fetchOrder(1)
+		this.props.fetchOrder(1)
 			// .then(resp => console.log('order: ', resp));
 			.then(() => {
 				console.log('cart: ', this.props.order.order[0].id);
 				if (this.props.order.order[0]) {
-					fetchOrderItems(this.props.order.order[0].id);
+					this.props.fetchOrderItems(this.props.order.order[0].id);
 				}
 			})
 			.catch(err => console.log(err));
