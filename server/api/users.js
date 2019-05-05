@@ -29,7 +29,7 @@ router.get('/:userId/cart', (req, res, next) => {
 
 // get cart for specific user (if exists)
 router.get('/:userId/cart', (req, res, next) => {
-  console.log('in route cart')
+  console.log('in route cart');
   Order.findAll({
     where: {
       userId: req.params.userId,
