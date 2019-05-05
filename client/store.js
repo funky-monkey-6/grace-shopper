@@ -79,6 +79,7 @@ export const getProduct = id => {
 };
 
 export const checkUser = enteredUser => async dispatch => {
+<<<<<<< HEAD
   try {
     const response = await axios.get('api/account');
     const users = response.data;
@@ -94,6 +95,24 @@ export const checkUser = enteredUser => async dispatch => {
     throw new Error(error);
   }
 };
+=======
+    try {
+        const response = await axios.put('/api/auth/login', enteredUser);
+        const user = response.data;
+        return dispatch(setUser(user));
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
+// export const getMe = () => async dispatch => {
+//     try {
+//         const response = await axios.get('/api/auth/me')
+//         user = response.data
+//         return dispatch(setUser(user))
+//     } catch (error) { throw new Error(error) }
+// };
+>>>>>>> Sessions set up
 
 //REDUCERS
 
@@ -107,6 +126,7 @@ const product = (state = { products: [] }, action) => {
 };
 
 const user = (state = {}, action) => {
+<<<<<<< HEAD
   switch (action.type) {
     case SET_USER:
       return { ...state, user: action.user };
@@ -122,6 +142,14 @@ const category = (state = { categories: [] }, action) => {
     default:
       return state;
   }
+=======
+    switch (action.type) {
+        case SET_USER:
+            return { state: action.user };
+        default:
+            return state;
+    }
+>>>>>>> Sessions set up
 };
 
 const reducer = combineReducers({

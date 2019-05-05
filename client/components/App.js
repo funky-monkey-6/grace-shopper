@@ -1,4 +1,5 @@
 import React from 'react';
+<<<<<<< HEAD
 import { HashRouter as Router, Route } from 'react-router-dom';
 import Menu from './Menu';
 import ProductSingle from './ProductSingle';
@@ -14,6 +15,17 @@ const App = () => {
       </div>
     </Router>
   );
+=======
+import { gotMe } from '../store'
+
+
+const App = () => {
+
+  componentDidMount(){
+
+  }
+  return <div>App</div>;
+>>>>>>> Sessions set up
 };
 
 export default App;
