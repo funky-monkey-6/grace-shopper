@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable react/button-has-type */
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -15,10 +16,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getProducts: () => dispatch(fetchProducts()),
-    getCategories: () => dispatch(fetchCategories()),
-    search: searchTerm => dispatch(searchProducts(searchTerm)),
-    filterByCategory: categoryIds => dispatch(filterProducts(categoryIds)),
+    fetchProducts: () => dispatch(fetchProducts()),
+    fetchCategories: () => dispatch(fetchCategories()),
+    searchProducts: searchTerm => dispatch(searchProducts(searchTerm)),
+    filterProducts: categoryIds => dispatch(filterProducts(categoryIds)),
   };
 };
 
@@ -32,29 +33,33 @@ class Menu extends React.Component {
   }
 
   componentDidMount() {
-    const { getCategories, getProducts } = this.props;
-    getCategories();
-    getProducts();
+    const { fetchCategories, fetchProducts } = this.props;
+    fetchCategories();
+    fetchProducts();
   }
 
+  // update search term on state
   enterSearch = ({ target }) => {
     this.setState({ searchTerm: target.value });
   };
 
+  // clear user search
   clearSearch = evt => {
     evt.preventDefault();
-    const { getProducts } = this.props;
+    const { fetchProducts } = this.props;
     this.setState({ searchTerm: '' });
-    getProducts();
+    fetchProducts();
   };
 
-  searchProducts = evt => {
+  // filter products by search term
+  applySearch = evt => {
     evt.preventDefault();
     const { searchTerm } = this.state;
-    const { search } = this.props;
-    search(searchTerm);
+    const { searchProducts } = this.props;
+    searchProducts(searchTerm);
   };
 
+  // update filterCategories - array containing select categoryIds
   selectFilter = ({ target }) => {
     let { filterCategories } = this.state;
     if (filterCategories.includes(Number(target.value))) {
@@ -65,18 +70,20 @@ class Menu extends React.Component {
     this.setState({ filterCategories });
   };
 
-  filterProducts = evt => {
+  // filter products by selected category
+  applyFilter = evt => {
     evt.preventDefault();
     const { filterCategories } = this.state;
-    const { filterByCategory } = this.props;
-    filterByCategory(filterCategories);
+    const { filterProducts } = this.props;
+    filterProducts(filterCategories);
   };
 
+  // TODO: fix the filter logic to undo filtering correctly
   clearFilter = evt => {
     evt.preventDefault();
-    const { getProducts } = this.props;
+    const { fetchProducts } = this.props;
     this.setState({ filterCategories: [] });
-    getProducts();
+    fetchProducts();
   };
 
   render() {
@@ -86,7 +93,7 @@ class Menu extends React.Component {
     return (
       <div className="menu-page">
         <div className="menu-filter">
-          <form onSubmit={this.searchProducts}>
+          <form onSubmit={this.applySearch}>
             <label htmlFor="searchItems">
               <h4>Search Products:</h4>
             </label>
@@ -102,7 +109,7 @@ class Menu extends React.Component {
             </button>
           </form>
           <h4>Filter by Category:</h4>
-          <form onSubmit={this.filterProducts}>
+          <form onSubmit={this.applyFilter}>
             {categories.map(cat => {
               return (
                 <div key={cat.id}>
