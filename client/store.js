@@ -162,15 +162,6 @@ export const fetchOrderItems = orderId => {
 
 //REDUCERS
 
-const product = (state = { products: [] }, action) => {
-  switch (action.type) {
-    case SET_PRODUCTS:
-      return { ...state, products: action.products };
-    default:
-      return state;
-  }
-};
-
 const user = (state = {}, action) => {
   switch (action.type) {
     case SET_USER:
@@ -180,10 +171,19 @@ const user = (state = {}, action) => {
   }
 };
 
-const category = (state = { categories: [] }, action) => {
+const products = (state = [], action) => {
+  switch (action.type) {
+    case SET_PRODUCTS:
+      return action.products;
+    default:
+      return state;
+  };
+};
+
+const categories = (state = [], action) => {
   switch (action.type) {
     case SET_CATEGORIES:
-      return { ...state, categories: action.categories };
+      return action.categories;
     default:
       return state;
   }
@@ -201,16 +201,16 @@ const order = (state = {}, action) => {
 const order = (state = { order: {} }, action) => {
   switch (action.type) {
     case SET_ORDER:
-      return { order: action.order };
+      return action.order[0];
     default:
       return state;
   }
 };
 
-const orderItems = (state = { orderItems: [] }, action) => {
+const orderItems = (state = [], action) => {
   switch (action.type) {
     case SET_ORDERITEMS:
-      return { orderItems: action.orderItems };
+      return action.orderItems;
     default:
       return state;
   }
@@ -235,11 +235,56 @@ const orderItems = (state = { orderItems: [] }, action) => {
 };
 
 const reducer = combineReducers({
-  product,
   user,
-  category,
+  products,
+  categories,
   order,
   orderItems,
 });
 
 export const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunkMiddleware)));
+
+// const product = (state = { products: [] }, action) => {
+//   switch (action.type) {
+//     case SET_PRODUCTS:
+//       return { ...state, products: action.products };
+//     default:
+//       return state;
+//   }
+// };
+
+// const user = (state = {}, action) => {
+//   switch (action.type) {
+//     case SET_USER:
+//       return { ...state, user: action.user };
+//     default:
+//       return state;
+//   }
+// };
+
+// const category = (state = { categories: [] }, action) => {
+//   switch (action.type) {
+//     case SET_CATEGORIES:
+//       return { ...state, categories: action.categories };
+//     default:
+//       return state;
+//   }
+// };
+
+// const order = (state = { order: {} }, action) => {
+//   switch (action.type) {
+//     case SET_ORDER:
+//       return { order: action.order };
+//     default:
+//       return state;
+//   }
+// };
+
+// const orderItems = (state = { orderItems: [] }, action) => {
+//   switch (action.type) {
+//     case SET_ORDERITEMS:
+//       return { orderItems: action.orderItems };
+//     default:
+//       return state;
+//   }
+// };
