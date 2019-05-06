@@ -8,6 +8,8 @@ import axios from 'axios';
 const SET_USER = 'SET_USER';
 const SET_PRODUCTS = 'SET_PRODUCTS';
 const SET_CATEGORIES = 'SET_CATEGORIES';
+const SET_REVIEWS = 'SET_REVIEWS';
+const FIND_PRODUCT = 'FIND_PRODUCT';
 
 //ACTION CREATORS
 const setUser = user => ({
@@ -25,15 +27,33 @@ const setCategories = categories => ({
   categories,
 });
 
+const setReviews = reviews => ({
+  type: SET_REVIEWS,
+  reviews,
+});
+
+const findProduct = product => ({
+  type: FIND_PRODUCT,
+  product,
+});
+
 //THUNK CREATORS
-export const fetchProducts = () => async dispatch => {
-  try {
-    const response = await axios.get('api/products');
-    const products = response.data;
-    return dispatch(setProducts(products));
-  } catch (error) {
-    throw new Error(error);
-  }
+export const fetchProducts = () => {
+  return dispatch => {
+    return axios
+      .get('api/products')
+      .then(res => res.data)
+      .then(products => dispatch(setProducts(products)));
+  };
+};
+
+export const fetchProduct = id => {
+  return dispatch => {
+    return axios
+      .get(`api/products/${id}`)
+      .then(res => res.data)
+      .then(product => dispatch(setProducts([product])));
+  };
 };
 
 export const fetchCategories = () => {
@@ -42,6 +62,15 @@ export const fetchCategories = () => {
       .get('api/categories')
       .then(res => res.data)
       .then(categories => dispatch(setCategories(categories)));
+  };
+};
+
+export const fetchProductReviews = id => {
+  return dispatch => {
+    return axios
+      .get(`api/reviews/${id}`)
+      .then(res => res.data)
+      .then(reviews => dispatch(setReviews(reviews)));
   };
 };
 
@@ -66,15 +95,6 @@ export const filterProducts = categoryIds => {
       .then(res => res.data)
       .then(allProducts => allProducts.filter(product => categoryIds.includes(product.categoryId)))
       .then(products => dispatch(setProducts(products)));
-  };
-};
-
-export const getProduct = id => {
-  return dispatch => {
-    return axios
-      .get(`api/products/${id}`)
-      .then(res => res.data)
-      .then(product => dispatch(setProducts(product)));
   };
 };
 
@@ -144,10 +164,20 @@ const category = (state = { categories: [] }, action) => {
   }
 };
 
+const review = (state = { reviews: [] }, action) => {
+  switch (action.type) {
+    case SET_REVIEWS:
+      return { ...state, reviews: action.reviews };
+    default:
+      return state;
+  }
+};
+
 const reducer = combineReducers({
   product,
   user,
   category,
+  review,
 });
 
 export const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunkMiddleware)));
