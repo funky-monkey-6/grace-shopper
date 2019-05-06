@@ -15,6 +15,7 @@ class Nav extends Component {
     // eslint-disable-next-line react/destructuring-assignment
     logOut()
       .then(() => <Redirect to="/" />)
+      // eslint-disable-next-line react/destructuring-assignment
       .then(() => console.log(this.state.isLoggedIn));
   };
 
@@ -53,7 +54,7 @@ class Nav extends Component {
       </nav>
     );
   }
-};
+}
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -66,7 +67,7 @@ const mapStateToProps = state => {
   return {
     user,
   };
-}
+};
 
 export default connect(
   mapStateToProps,
