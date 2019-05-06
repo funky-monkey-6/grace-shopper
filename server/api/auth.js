@@ -2,8 +2,8 @@ const router = require('express').Router();
 const { User } = require('../db/index');
 module.exports = router;
 
-router.delete('/', (req, res) => {
-  req.session.destroy(() => res.sendStatus(204));
+router.delete('/logout', (req, res) => {
+  req.session.destroy(() => res.sendStatus(204).end());
 });
 
 // router.get('/', (req, res, next) => {
@@ -43,8 +43,8 @@ router.put('/login', (req, res, next) => {
         error.status = 401;
         throw error;
       }
-      res.send(user);
       req.session.userId = user.id;
+      res.json(user);
     })
     .catch(next);
 });

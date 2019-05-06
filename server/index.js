@@ -10,14 +10,8 @@ const PORT = process.env.PORT || 3000;
 
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, '../public')));
-// Body parsing middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-app.use(express.json());
-
-app.use('/api', require('./api'));
-
+//session needs to stay above mounted router
 app.use(
   session({
     secret: 'SecretSessionName',
@@ -30,9 +24,15 @@ app.use(
 app.use((req, res, next) => {
   if (!req.session.counter) req.session.counter = 0;
   console.log('counter', ++req.session.counter);
-  console.log('SESSION: ', req.session);
+  console.log('SESSIONID: ', req.session.userId);
   next();
 });
+
+// Body parsing middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use('/api', require('./api'));
 
 app.listen(PORT, () => {
   console.log(`app listening on port ${PORT}`);
