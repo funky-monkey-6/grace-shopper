@@ -26,7 +26,7 @@ router.get('/:userId/cart', (req, res, next) => {
   Order.findAll({
     where: {
       userId: req.params.userId,
-      status: 'cart'
+      status: 'cart',
     },
   })
     .then(cart => res.send(cart))

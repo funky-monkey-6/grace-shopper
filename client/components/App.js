@@ -11,11 +11,11 @@ const App = () => {
     <Router>
       <div>
         <Nav />
-        <Route exact path='/menu' component={Menu} />
-        <Route path='/menu/:productId' component={ProductSingle} />
-        <Route path='/login' component={Login} />
-        <Route path='/signup' render={() => <div>Sign Up Here</div>} />
-        <Route path='/cart' component={Order} />
+        <Route exact path="/menu" component={Menu} />
+        <Route path="/menu/:productId" component={ProductSingle} />
+        <Route path="/login" component={Login} />
+        <Route path="/signup" render={() => <div>Sign Up Here</div>} />
+        <Route path="/cart" component={Order} />
       </div>
     </Router>
   );
