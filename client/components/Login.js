@@ -16,10 +16,17 @@ class Login extends Component {
     this.setState({ [`${ev.target.name}`]: ev.target.value });
   };
 
-  handleSubmit = () => {
-    const { checkUser } = this.props;
+  handleSubmit = ev => {
+    ev.preventDefault();
+    const { history, checkUser } = this.props;
+    checkUser(this.state).then(() => {
+      history.push('/');
+    });
+  };
 
-    checkUser(this.state);
+  routeChange = () => {
+    const { history } = this.props;
+    history.push('/signup');
   };
 
   render() {
@@ -28,24 +35,32 @@ class Login extends Component {
 
     return (
       <div>
-        <h4>Enter login information below:</h4>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>
-              Email:
-              <input type="text" name="email" value={email} onChange={handleChange} />
-            </label>
-          </div>
+        <div>
+          <h4>Enter login information below:</h4>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label>
+                Email:
+                <input type="text" name="email" value={email} onChange={handleChange} />
+              </label>
+            </div>
 
-          <div className="form-group">
-            <label>
-              Password:
-              <input type="text" name="password" value={password} onChange={handleChange} />
-            </label>
-          </div>
+            <div className="form-group">
+              <label>
+                Password:
+                <input type="text" name="password" value={password} onChange={handleChange} />
+              </label>
+            </div>
 
-          <input type="submit" value="Submit" />
-        </form>
+            <input type="submit" value="Login" />
+          </form>
+        </div>
+        <div>
+          Or create a new account: <br />
+          <button type="submit" onClick={this.routeChange}>
+            Create New Account
+          </button>
+        </div>
       </div>
     );
   }
