@@ -132,10 +132,10 @@ export const fetchOrder = userId => {
     return axios
       .get(`/api/users/${userId}/cart`)
       .then(response => {
-        // if (response.data) {
-        return dispatch(setOrder(response.data));
-        // }
-        // return {};
+        if (response.data) {
+          return dispatch(setOrder(response.data));
+        }
+        return {};
       })
       .catch(err => {
         throw new Error(err);
@@ -243,48 +243,3 @@ const reducer = combineReducers({
 });
 
 export const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunkMiddleware)));
-
-// const product = (state = { products: [] }, action) => {
-//   switch (action.type) {
-//     case SET_PRODUCTS:
-//       return { ...state, products: action.products };
-//     default:
-//       return state;
-//   }
-// };
-
-// const user = (state = {}, action) => {
-//   switch (action.type) {
-//     case SET_USER:
-//       return { ...state, user: action.user };
-//     default:
-//       return state;
-//   }
-// };
-
-// const category = (state = { categories: [] }, action) => {
-//   switch (action.type) {
-//     case SET_CATEGORIES:
-//       return { ...state, categories: action.categories };
-//     default:
-//       return state;
-//   }
-// };
-
-// const order = (state = { order: {} }, action) => {
-//   switch (action.type) {
-//     case SET_ORDER:
-//       return { order: action.order };
-//     default:
-//       return state;
-//   }
-// };
-
-// const orderItems = (state = { orderItems: [] }, action) => {
-//   switch (action.type) {
-//     case SET_ORDERITEMS:
-//       return { orderItems: action.orderItems };
-//     default:
-//       return state;
-//   }
-// };
