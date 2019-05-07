@@ -283,15 +283,6 @@ const categories = (state = [], action) => {
 const order = (state = {}, action) => {
   switch (action.type) {
     case SET_ORDER:
-      return action.order;
-    default:
-      return state;
-  }
-};
-
-const order = (state = {}, action) => {
-  switch (action.type) {
-    case SET_ORDER:
       return action.order[0];
     default:
       return state;
@@ -299,24 +290,6 @@ const order = (state = {}, action) => {
 };
 
 const orderItems = (state = [], action) => {
-  switch (action.type) {
-    case SET_ORDERITEMS:
-      return action.orderItems;
-    default:
-      return state;
-  }
-};
-
-const order = (state = {}, action) => {
-  switch (action.type) {
-    case SET_ORDER:
-      return action.order;
-    default:
-      return state;
-  }
-};
-
-const orderItems = (state = {}, action) => {
   switch (action.type) {
     case SET_ORDERITEMS:
       return action.orderItems;
