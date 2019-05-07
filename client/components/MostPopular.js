@@ -27,12 +27,13 @@ class MostPopular extends React.Component {
   }
 
   componentDidMount() {
+    const { orderItems } = this.state;
     fetchProducts();
     axios
       .get('api/orderItems')
       .then(res => res.data)
-      .then(orderItems => this.setState({ orderItems }))
-      .then(() => this.setState({ mostPopular: this.filterPopular(this.state.orderItems) }));
+      .then(_orderItems => this.setState({ orderItems: _orderItems }))
+      .then(() => this.setState({ mostPopular: this.filterPopular(orderItems) }));
   }
 
   filterPopular = orderItems => {
@@ -42,9 +43,11 @@ class MostPopular extends React.Component {
     // logic to get productIds with highest quantity ordered, from all orderItems:
     orderItems.reduce((sumsByItem, orderItem) => {
       if (!sumsByItem[orderItem.productId]) {
+        // eslint-disable-next-line no-param-reassign
         sumsByItem[orderItem.productId] = { productId: orderItem.productId, quantity: 0 };
         mostPopular.push(sumsByItem[orderItem.productId]);
       }
+      // eslint-disable-next-line no-param-reassign
       sumsByItem[orderItem.productId].quantity += orderItem.quantity;
       return sumsByItem;
     }, {});
