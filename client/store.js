@@ -94,9 +94,8 @@ export const filterProducts = categoryIds => {
 
 export const checkUser = enteredUser => async dispatch => {
   try {
-    const response = await axios.put('/api/auth/login', enteredUser);
-    const user = response.data;
-    return dispatch(setUser(user));
+    await axios.delete('/api/auth/logout');
+    return dispatch(setUser({}));
   } catch (error) {
     throw new Error(error);
   }
