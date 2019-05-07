@@ -5,10 +5,10 @@ import { connect } from 'react-redux';
 import { fetchProductReviews, fetchProduct } from '../store';
 
 const mapStateToProps = (state, props) => {
-  const { products } = state.product;
+  const { product } = state.product;
   const { reviews } = state.review;
   return {
-    products,
+    product,
     reviews,
   };
 };
@@ -48,10 +48,12 @@ class ProductSingle extends React.Component {
             <i>Reviews</i>
           </h1>
           {reviews.map(review => {
+            const { id, rating, comment } = review;
+
             return (
-              <ul key={review.id}>
-                <li>{review.rating}</li>
-                <li>{review.comment}</li>
+              <ul key={id}>
+                <li>{rating}</li>
+                <li>{comment}</li>
               </ul>
             );
           })}

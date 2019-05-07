@@ -9,6 +9,7 @@ const SET_USER = 'SET_USER';
 const SET_PRODUCTS = 'SET_PRODUCTS';
 const SET_CATEGORIES = 'SET_CATEGORIES';
 const SET_REVIEWS = 'SET_REVIEWS';
+const SET_PRODUCT = 'SET_PRODUCT';
 
 //ACTION CREATORS
 const setUser = user => ({
@@ -31,6 +32,11 @@ const setReviews = reviews => ({
   reviews,
 });
 
+const setProduct = product => ({
+  type: SET_PRODUCT,
+  product,
+});
+
 //THUNK CREATORS
 export const fetchProducts = () => {
   return dispatch => {
@@ -46,7 +52,7 @@ export const fetchProduct = id => {
     return axios
       .get(`api/products/${id}`)
       .then(res => res.data)
-      .then(product => dispatch(setProducts([product])));
+      .then(product => dispatch(setProduct(product)));
   };
 };
 
