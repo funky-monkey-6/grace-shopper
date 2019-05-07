@@ -11,7 +11,7 @@ router.get('/', (req, res, next) => {
 //add user
 router.post('/adduser/', (req, res, next) => {
   User.create(req.body)
-    .then(() => res.sendStatus(204))
+    .then(newUser => res.send(newUser)
     .catch(next);
 });
 
