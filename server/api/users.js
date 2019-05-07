@@ -23,7 +23,7 @@ router.get('/:userId/cart', (req, res, next) => {
 
 // get cart for specific user (if exists)
 router.get('/:userId/cart', (req, res, next) => {
-  Order.findAll({
+  Order.findOne({
     where: {
       userId: req.params.userId,
       status: 'cart',
@@ -54,14 +54,9 @@ router.post('/:userId/orders', (req, res, next) => {
 
 // updating an order itself (not order items) (e.g updating order status)
 router.put('/:userId/orders/:orderId', (req, res, next) => {
-  Order.update(req.body, {
-    returning: true,
-    where: {
-      userId: req.params.userId,
-      id: req.params.orderId,
-    },
-  })
-    .then(([rowsUpdated, [updatedOrder]]) => res.send(updatedOrder))
+  Order.findByPk(req.params.orderId)
+    .then(order => order.update(req.body))
+    .then(updatedOrder => res.send(updatedOrder))
     .catch(next);
 });
 
