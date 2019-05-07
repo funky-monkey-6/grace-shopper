@@ -50,7 +50,7 @@ class ProductSingle extends React.Component {
           {reviews.map(review => {
           const { id, rating, comment } = review;
             return (
-              <ul key={review.id}>
+              <ul key={id}>
                 <li>{review.rating}</li>
                 <li>{review.comment}</li>
               </ul>
