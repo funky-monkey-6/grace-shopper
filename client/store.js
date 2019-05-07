@@ -63,7 +63,6 @@ const setOrderItems = orderItems => ({
 //   orderItemId,
 // })
 
-
 //THUNK CREATORS
 export const fetchProducts = () => async dispatch => {
   try {
@@ -172,29 +171,32 @@ export const fetchOrder = userId => {
 
 export const addOrderThunk = (userId, order) => {
   return dispatch => {
-    return axios.post(`/api/users/${userId}/orders`, order)
+    return axios
+      .post(`/api/users/${userId}/orders`, order)
       .then(resp => dispatch(setOrder(resp.data)))
       .catch(err => {
         throw new Error(err);
       });
-  }
+  };
 };
 
 export const fetchOrderItems = orderId => {
   return dispatch => {
-    return axios
-      .get(`/api/users/orders/${orderId}/orderItems`)
-      // .then(resp => resp)
-      .then(resp => {
-        if (resp.data) {
-          console.log('fetchOrderItems() being called')
-          return dispatch(setOrderItems(resp.data));
-        }
-        return null;
-      })
-      .catch(err => {
-        throw new Error(err);
-      });
+    return (
+      axios
+        .get(`/api/users/orders/${orderId}/orderItems`)
+        // .then(resp => resp)
+        .then(resp => {
+          if (resp.data) {
+            console.log('fetchOrderItems() being called');
+            return dispatch(setOrderItems(resp.data));
+          }
+          return null;
+        })
+        .catch(err => {
+          throw new Error(err);
+        })
+    );
   };
 };
 
@@ -217,24 +219,26 @@ export const updateOrderThunk = order => {
 export const deleteOrderItemThunk = (userId, orderId, orderItemId) => {
   return dispatch => {
     // TODO change on line below:  1 => ${userId}
-    return axios.delete(`/api/users/1/orders/${orderId}/orderItem/${orderItemId}`)
+    return axios
+      .delete(`/api/users/1/orders/${orderId}/orderItem/${orderItemId}`)
       .then(() => {
         return dispatch(fetchOrderItems(orderId));
       })
       .catch(err => {
         throw new Error(err);
       });
-  }
+  };
 };
 
 export const addOrderItemThunk = (userId, orderId, orderItem) => {
   return dispatch => {
-    return axios.post(`/api/users/${userId}/orders/${orderId}/orderItem`, orderItem)
+    return axios
+      .post(`/api/users/${userId}/orders/${orderId}/orderItem`, orderItem)
       .then(() => dispatch(fetchOrderItems(orderId)))
       .catch(err => {
         throw new Error(err);
-      })
-  }
+      });
+  };
 };
 
 //REDUCERS
