@@ -32,33 +32,31 @@ class Signup extends Component {
 
     return (
       <div>
-        <div>
-          <h4>Enter sign-up information below:</h4>
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label>
-                First Name:
-                <input type="text" name="firstName" value={firstName} onChange={handleChange} />
-              </label>
-              <label>
-                Last Name:
-                <input type="text" name="lastName" value={lastName} onChange={handleChange} />
-              </label>
-              <label>
-                Email:
-                <input type="email" name="email" value={email} onChange={handleChange} />
-              </label>
-            </div>
+        <h4>Enter sign-up information below:</h4>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>
+              First Name:
+              <input type="text" name="firstName" value={firstName} onChange={handleChange} />
+            </label>
+            <label>
+              Last Name:
+              <input type="text" name="lastName" value={lastName} onChange={handleChange} />
+            </label>
+            <label>
+              Email:
+              <input type="email" name="email" value={email} onChange={handleChange} />
+            </label>
+          </div>
 
-            <div className="form-group">
-              <label>
-                Password:
-                <input type="password" name="password" value={password} onChange={handleChange} />
-              </label>
-            </div>
-            <input type="submit" value="Login" />
-          </form>
-        
+          <div className="form-group">
+            <label>
+              Password:
+              <input type="password" name="password" value={password} onChange={handleChange} />
+            </label>
+          </div>
+          <input type="submit" value="Login" />
+        </form>
       </div>
     );
   }
