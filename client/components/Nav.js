@@ -4,14 +4,8 @@ import { connect } from 'react-redux';
 import { logOut as logOutActionCreator } from '../store';
 
 class Nav extends Component {
-  constructor(props) {
-    super(props);
-    // eslint-disable-next-line react/destructuring-assignment
-    this.state = { isLoggedIn: this.props.user.id ? true : false };
-  }
-
   onClick = () => {
-    const { history, logOut } = this.props;
+    const { logOut } = this.props;
     // eslint-disable-next-line react/destructuring-assignment
     logOut().then(() => <Redirect to="/" />);
   };
