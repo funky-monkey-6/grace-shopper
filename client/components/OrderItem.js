@@ -25,7 +25,7 @@ class OrderItem extends Component {
 				<td>{item.quantity}</td>
 				<td>{itemTotal}</td>
 				<td>
-					<a href="#">X</a>
+					<a href="/#">X</a>
 				</td>
 			</tr>
 		);
