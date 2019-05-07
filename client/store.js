@@ -97,6 +97,16 @@ export const logOut = () => async dispatch => {
   }
 };
 
+export const addUser = enteredUser => async dispatch => {
+  try {
+    const response = await axios.post('/api/users/adduser', enteredUser);
+    const newUser = response.data;
+    return dispatch(setUser(newUser));
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 // export const getMe = () => async dispatch => {
 //     try {
 //         const response = await axios.get('/api/auth/me')

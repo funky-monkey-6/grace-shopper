@@ -8,6 +8,13 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
+//add user
+router.post('/adduser/', (req, res, next) => {
+  User.create(req.body)
+    .then(newUser => res.send(newUser)
+    .catch(next);
+});
+
 // get all orders for specific user
 router.get('/:userId/orders', (req, res, next) => {
   Order.findAll({
