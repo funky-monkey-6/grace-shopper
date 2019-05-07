@@ -6,6 +6,7 @@ import Nav from './Nav';
 import Login from './Login';
 import Signup from './Signup';
 import Home from './Home';
+import Order from './Order';
 
 const App = () => {
   return (
@@ -15,8 +16,8 @@ const App = () => {
         <Route exact path="/menu" component={Menu} />
         <Route path="/menu/:productId" component={ProductSingle} />
         <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
-        <Route exact path="/" component={Home} />
+        <Route path="/signup" render={() => <div>Sign Up Here</div>} />
+        <Route path="/bag" component={Order} />
       </div>
     </Router>
   );

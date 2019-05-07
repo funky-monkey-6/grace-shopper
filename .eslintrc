@@ -50,7 +50,7 @@
         "ignoreComments": true
       }
     ],
-    "no-unused-vars": 0,
+    "no-unused-vars": 1,
     "no-unneeded-ternary": 0,
     "no-restricted-syntax": 1,
     "radix": 0,
@@ -61,15 +61,16 @@
     "import/no-extraneous-dependencies": 1,
     "react/jsx-filename-extension": 0,
     "react/prop-types": 0,
+    "react/no-multi-comp": 0,
     "react/jsx-closing-tag-location": 0,
     "react/prefer-stateless-function": 0,
+    "react/destructuring-assignment": 0,
     "jsx-a11y/aria-proptypes": 0,
     "jsx-a11y/label-has-associated-control": 0,
     "jsx-a11y/label-has-for": 0,
     "no-useless-escape": 0,
     "spaced-comment": 0,
     "import/newline-after-import": 0,
-    "react/no-multi-comp": 0,
     "prefer-rest-params": 1,
     "padding-line-between-statements": 1,
     "lines-between-class-members": 1
