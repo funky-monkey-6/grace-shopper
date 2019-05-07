@@ -120,15 +120,6 @@ export const addUser = enteredUser => async dispatch => {
   }
 };
 
-export const logOut = () => async dispatch => {
-  try {
-    await axios.delete('/api/auth/logout');
-    return dispatch(setUser({}));
-  } catch (error) {
-    throw new Error(error);
-  }
-};
-
 // export const getMe = () => async dispatch => {
 //     try {
 //         const response = await axios.get('/api/auth/me')
