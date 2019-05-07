@@ -27,13 +27,13 @@ class MostPopular extends React.Component {
   }
 
   componentDidMount() {
-    const { orderItems } = this.state;
     fetchProducts();
     axios
       .get('api/orderItems')
       .then(res => res.data)
       .then(_orderItems => this.setState({ orderItems: _orderItems }))
-      .then(() => this.setState({ mostPopular: this.filterPopular(orderItems) }));
+      // eslint-disable-next-line react/destructuring-assignment
+      .then(() => this.setState({ mostPopular: this.filterPopular(this.state.orderItems) }));
   }
 
   filterPopular = orderItems => {
