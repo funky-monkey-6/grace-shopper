@@ -103,7 +103,7 @@ router.put('/:userId/orders/:orderId/orderItem/:orderItemId', (req, res, next) =
     .catch(next);
 });
 
-// delete order item from order
+// delete orderItem from order
 router.delete('/:userId/orders/:orderId/orderItem/:orderItemId', (req, res, next) => {
   OrderItem.destroy({
     where: {

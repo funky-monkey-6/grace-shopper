@@ -2,6 +2,9 @@
 import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { addOrderThunk, addOrderItemThunk } from '../store';
 
 class ProductSingle extends React.Component {
   constructor() {
@@ -29,8 +32,36 @@ class ProductSingle extends React.Component {
       .then(reviews => this.setState({ reviews }));
   }
 
+  // if adding item
+  // check state.order.status = cart
+  // if not, addOrderThunk()
+  // addOrderItemThunk()
+
+  addOrderItem = async (userId, order, orderItem) => {
+    const { addOrderThunk, addOrderItemThunk } = this.props;
+    userId = 1;  // simulates logged-in user 
+    let newOrder = {}
+    try {
+      if (Object.keys(order).length === 0) {
+        console.log('status is cart')
+        addOrderThunk(userId, order)
+        const _newOrder = await axios.post(`/api/users/${userId}/orders`, order);
+        newOrder = _newOrder.data;
+        console.log('newOrder: ', newOrder)
+      }
+      console.log('adding orderItem')
+      const _order = newOrder ? newOrder : this.props.order;
+      await addOrderItemThunk(userId, _order.id, orderItem)
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   render() {
     const { product, reviews } = this.state;
+    const { user, order } = this.props;
+    const { addOrderItem } = this;
+    const orderItem = { quantity: 1, price: product.price, orderId: order.id, productId: product.id }
 
     return (
       <div>
@@ -42,7 +73,8 @@ class ProductSingle extends React.Component {
           <li>{product.description}</li>
           <li>{product.price}</li>
         </ul>
-        <button type="submit">Add to Cart</button>
+        {/* userId, order, orderItem */}
+        <button onClick={() => addOrderItem(user.id, order, orderItem)}>Add to Cart</button>
         <Link to="/menu">
           <button type="submit">Return to Main Menu</button>
         </Link>
@@ -54,4 +86,19 @@ class ProductSingle extends React.Component {
   }
 }
 
-export default ProductSingle;
+const mapStateToProps = state => {
+  const { user, order } = state;
+  return {
+    order,
+    user,
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addOrderThunk: (userId, order) => dispatch(addOrderThunk(userId, order)),
+    addOrderItemThunk: (userId, orderId, orderItem) => dispatch(addOrderItemThunk(userId, orderId, orderItem)),
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductSingle);
