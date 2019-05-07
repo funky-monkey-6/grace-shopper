@@ -5,19 +5,19 @@ import { fetchOrder, fetchOrderItems, updateOrderThunk } from '../store';
 import OrderItem from './OrderItem';
 
 class Order extends Component {
-	constructor(props) {
-		super(props);
-		// this.state = {
-		// 	type: '',
-		// 	subtotal: 0,
-		// 	shipping: 0,
-		// 	total: 0,
-		// 	status: '',
-		// 	date: '',
-		// 	orderItems: [],
-		// 	userId: null,
-		// }
-	}
+	// constructor(props) {
+	//   super(props);
+	// this.state = {
+	// 	type: '',
+	// 	subtotal: 0,
+	// 	shipping: 0,
+	// 	total: 0,
+	// 	status: '',
+	// 	date: '',
+	// 	orderItems: [],
+	// 	userId: null,
+	// }
+	// }
 
 	// componentDidUpdate(prevProps) {
 	// 	if (prevProps !== this.props) {
@@ -28,7 +28,8 @@ class Order extends Component {
 	componentDidMount() {
 		// const { fetchOrder, fetchOrderItems, user, order } = this.props;
 		// TODO grab current logged in user - this.props.user.id
-		this.props.fetchOrder(1)
+		this.props
+			.fetchOrder(1)
 			.then(() => {
 				if (this.props.order) {
 					this.props.fetchOrderItems(this.props.order.id);
@@ -53,21 +54,18 @@ class Order extends Component {
 	// 		, () => console.log('state from setLocalState: ', this.state))
 	// };
 
-	onChange = (ev) => {
+	onChange = ev => {
 		this.props.updateOrderThunk({ ...this.props.order, [ev.target.name]: ev.target.value });
 	};
 
 	render() {
 		const { onChange } = this;
-		const { user, orderItems, order } = this.props;
-		// console.log(order, orderItems);
-		console.log('user: ', user)
-
+		const { orderItems, order } = this.props;
 
 		// TODO save values in db for subtotal, shipping, total
 		let subtotal = 0;
 		if (orderItems) {
-			subtotal = orderItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+			subtotal = orderItems.reduce((total, item) => total + item.price * item.quantity, 0);
 		}
 		const shipping = order.type === 'delivery' ? 5 : 0;
 
@@ -76,7 +74,7 @@ class Order extends Component {
 		return (
 			<div>
 				<h2>Bag</h2>
-				<table className='table table-striped table-condensed'>
+				<table className="table table-striped table-condensed">
 					<thead>
 						<tr>
 							<th>Product</th>
@@ -87,37 +85,40 @@ class Order extends Component {
 						</tr>
 					</thead>
 					<tbody>
-						{
-							orderItems.map(item => {
-								return <OrderItem key={item.id} item={item} />;
-							})
-						}
+						{orderItems.map(item => {
+							return <OrderItem key={item.id} item={item} />;
+						})}
 						<tr>
-							<td></td>
-							<td></td>
+							<td />
+							<td />
 							<td>
 								{/* TODO drop down - [delivery, pickup] */}
-								Order Type:<br />
-								Subtotal:<br />
-								Shipping:<br />
+								Order Type:
+                <br />
+								Subtotal:
+                <br />
+								Shipping:
+                <br />
 								Total:
-							</td>
+              </td>
 							<td>
-								<select
-									name='type'
-									value={order.type}
-									onChange={onChange}
-									className='form-control'
-								>
-									<option key={1} value='pickup'>Pickup</option>
-									<option key={2} value='delivery'>Delivery</option>
+								<select name="type" value={order.type} onChange={onChange} className="form-control">
+									<option key={1} value="pickup">
+										Pickup
+                  </option>
+									<option key={2} value="delivery">
+										Delivery
+                  </option>
 								</select>
-								{order.type}<br />
-								{subtotal}<br />
-								{shipping}<br />
+								{order.type}
+								<br />
+								{subtotal}
+								<br />
+								{shipping}
+								<br />
 								{total}
 							</td>
-							<td></td>
+							<td />
 						</tr>
 					</tbody>
 				</table>
