@@ -30,6 +30,7 @@ class MostPopular extends React.Component {
 
   componentDidMount() {
     fetchProducts();
+// TODO change to thunk
     axios
       .get('api/orderItems')
       .then(res => res.data)
