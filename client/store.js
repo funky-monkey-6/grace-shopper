@@ -9,7 +9,6 @@ const SET_USER = 'SET_USER';
 const SET_PRODUCTS = 'SET_PRODUCTS';
 const SET_CATEGORIES = 'SET_CATEGORIES';
 const SET_REVIEWS = 'SET_REVIEWS';
-const FIND_PRODUCT = 'FIND_PRODUCT';
 
 //ACTION CREATORS
 const setUser = user => ({
@@ -30,11 +29,6 @@ const setCategories = categories => ({
 const setReviews = reviews => ({
   type: SET_REVIEWS,
   reviews,
-});
-
-const findProduct = product => ({
-  type: FIND_PRODUCT,
-  product,
 });
 
 //THUNK CREATORS
@@ -99,6 +93,15 @@ export const filterProducts = categoryIds => {
 };
 
 export const checkUser = enteredUser => async dispatch => {
+  try {
+    await axios.delete('/api/auth/logout');
+    return dispatch(setUser({}));
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const logOut = () => async dispatch => {
   try {
     await axios.delete('/api/auth/logout');
     return dispatch(setUser({}));
