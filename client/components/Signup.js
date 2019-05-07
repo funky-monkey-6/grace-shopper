@@ -15,7 +15,7 @@ class Signup extends Component {
 
   handleChange = ev => {
     ev.preventDefault();
-    this.setState({ [`${ev.target.name}`]: ev.target.value });
+    this.setState({ [ev.target.name]: ev.target.value });
   };
 
   handleSubmit = ev => {
