@@ -4,6 +4,7 @@ import Menu from './Menu';
 import ProductSingle from './ProductSingle';
 import Nav from './Nav';
 import Login from './Login';
+import Signup from './Signup';
 
 const App = () => {
   return (
@@ -13,7 +14,7 @@ const App = () => {
         <Route exact path="/menu" component={Menu} />
         <Route path="/menu/:productId" component={ProductSingle} />
         <Route path="/login" component={Login} />
-        <Route path="/signup" render={() => <div>Sign Up Here</div>} />
+        <Route path="/signup" component={Signup} />
       </div>
     </Router>
   );
