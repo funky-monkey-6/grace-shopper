@@ -21,6 +21,7 @@ class Nav extends Component {
 
   render() {
     let buttonStatus;
+    console.log(this.props.user)
     // eslint-disable-next-line react/destructuring-assignment
     if (!this.props.user.id) {
       buttonStatus = (
