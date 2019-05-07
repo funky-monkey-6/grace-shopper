@@ -283,7 +283,7 @@ const categories = (state = [], action) => {
 const order = (state = {}, action) => {
   switch (action.type) {
     case SET_ORDER:
-      return action.order[0];
+      return action.order;
     default:
       return state;
   }
