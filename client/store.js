@@ -100,8 +100,9 @@ export const filterProducts = categoryIds => {
 
 export const checkUser = enteredUser => async dispatch => {
   try {
-    await axios.delete('/api/auth/logout');
-    return dispatch(setUser({}));
+    const response = await axios.put('/api/auth/login', enteredUser);
+    const user = response.data;
+    return dispatch(setUser(user));
   } catch (error) {
     throw new Error(error);
   }
@@ -136,10 +137,10 @@ export const addUser = enteredUser => async dispatch => {
 
 //REDUCERS
 
-const product = (state = { products: [] }, action) => {
+const products = (state = {}, action) => {
   switch (action.type) {
     case SET_PRODUCTS:
-      return { ...state, products: action.products };
+      return action.products;
     default:
       return state;
   }
@@ -154,29 +155,39 @@ const user = (state = {}, action) => {
   }
 };
 
-const category = (state = { categories: [] }, action) => {
+const categories = (state = {}, action) => {
   switch (action.type) {
     case SET_CATEGORIES:
-      return { ...state, categories: action.categories };
+      return action.categories;
     default:
       return state;
   }
 };
 
-const review = (state = { reviews: [] }, action) => {
+const reviews = (state = {}, action) => {
   switch (action.type) {
     case SET_REVIEWS:
-      return { ...state, reviews: action.reviews };
+      return action.reviews;
+    default:
+      return state;
+  }
+};
+
+const product = (state = {}, action) => {
+  switch (action.type) {
+    case SET_PRODUCT:
+      return action.product;
     default:
       return state;
   }
 };
 
 const reducer = combineReducers({
+  products,
   product,
   user,
-  category,
-  review,
+  categories,
+  reviews,
 });
 
 export const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunkMiddleware)));

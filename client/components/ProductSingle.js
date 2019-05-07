@@ -4,9 +4,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { fetchProductReviews, fetchProduct } from '../store';
 
-const mapStateToProps = (state, props) => {
+const mapStateToProps = state => {
   const { product } = state.product;
-  const { reviews } = state.review;
+  const { reviews } = state.reviews;
   return {
     product,
     reviews,
@@ -29,9 +29,8 @@ class ProductSingle extends React.Component {
   };
 
   render() {
-    const { products, reviews } = this.props;
-    if (!products.length) return null;
-    const product = products[0];
+    const { product, reviews } = this.props;
+    if (!product) return null;
     return (
       <div>
         <h1>

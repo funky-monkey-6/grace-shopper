@@ -6,8 +6,8 @@ import { connect } from 'react-redux';
 import { fetchProducts, fetchCategories, searchProducts, filterProducts } from '../store';
 
 const mapStateToProps = state => {
-  const { products } = state.product;
-  const { categories } = state.category;
+  const { products } = state.products;
+  const { categories } = state.categories;
   return {
     products,
     categories,
