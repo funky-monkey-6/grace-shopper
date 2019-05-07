@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 const Sequelize = require('sequelize');
-const conn = new Sequelize(process.env.DATABASE_URL, { logging: true });
+const conn = new Sequelize(process.env.DATABASE_URL, { logging: false });
 
 const seedProducts = require('./seed/seedProducts');
 const seedCategories = require('./seed/seedCategories');

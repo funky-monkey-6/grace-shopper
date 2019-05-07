@@ -15,6 +15,18 @@ router.post('/adduser/', (req, res, next) => {
     .catch(next);
 });
 
+// get cart for specific user (if exists)
+router.get('/:userId/cart', (req, res, next) => {
+  Order.findOne({
+    where: {
+      userId: req.params.userId,
+      status: 'cart',
+    },
+  })
+    .then(cart => res.send(cart))
+    .catch(next);
+});
+
 // get all orders for specific user
 router.get('/:userId/orders', (req, res, next) => {
   Order.findAll({
@@ -36,14 +48,9 @@ router.post('/:userId/orders', (req, res, next) => {
 
 // updating an order itself (not order items) (e.g updating order status)
 router.put('/:userId/orders/:orderId', (req, res, next) => {
-  Order.update(req.body, {
-    returning: true,
-    where: {
-      userId: req.params.userId,
-      id: req.params.orderId,
-    },
-  })
-    .then(([rowsUpdated, [updatedOrder]]) => res.send(updatedOrder))
+  Order.findByPk(req.params.orderId)
+    .then(order => order.update(req.body))
+    .then(updatedOrder => res.send(updatedOrder))
     .catch(next);
 });
 
@@ -60,7 +67,7 @@ router.delete('/:userId/orders/:orderId', (req, res, next) => {
 });
 
 // get all the order items from within an order
-router.get('/:userId/orders/:orderId/orderItems', (req, res, next) => {
+router.get('/orders/:orderId/orderItems', (req, res, next) => {
   OrderItem.findAll({
     where: {
       orderId: req.params.orderId,
@@ -90,7 +97,7 @@ router.put('/:userId/orders/:orderId/orderItem/:orderItemId', (req, res, next) =
     .catch(next);
 });
 
-// delete order item from order
+// delete orderItem from order
 router.delete('/:userId/orders/:orderId/orderItem/:orderItemId', (req, res, next) => {
   OrderItem.destroy({
     where: {
