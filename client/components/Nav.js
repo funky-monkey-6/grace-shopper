@@ -38,7 +38,7 @@ class Nav extends Component {
         </div>
         <div className="nav-login">
           {buttonStatus}
-          <Link to="/cart" className="nav-item">
+          <Link to="/bag" className="nav-item">
             Bag
           </Link>
         </div>

@@ -16,9 +16,8 @@ const App = () => {
         <Route exact path="/menu" component={Menu} />
         <Route path="/menu/:productId" component={ProductSingle} />
         <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
-        <Route exact path="/" component={Home} />
-        <Route path='/cart' component={Order} />
+        <Route path="/signup" render={() => <div>Sign Up Here</div>} />
+        <Route path="/bag" component={Order} />
       </div>
     </Router>
   );
