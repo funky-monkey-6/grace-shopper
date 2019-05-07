@@ -32,7 +32,6 @@ class Signup extends Component {
 
     return (
       <div>
-        <div>
           <h4>Enter sign-up information below:</h4>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
