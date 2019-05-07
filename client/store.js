@@ -10,6 +10,8 @@ const SET_PRODUCTS = 'SET_PRODUCTS';
 const SET_CATEGORIES = 'SET_CATEGORIES';
 const SET_ORDER = 'SET_ORDER';
 const SET_ORDERITEMS = 'SET_ORDERITEMS';
+const ADD_ORDERITEM = 'ADD_ORDERITEM';
+const UPDATE_ORDER = 'UPDATE_ORDER';
 
 //ACTION CREATORS
 const setUser = user => ({
@@ -36,6 +38,16 @@ const setOrderItems = orderItems => ({
   type: SET_ORDERITEMS,
   orderItems,
 });
+
+const setOrderItem = orderItem => ({
+  type: ADD_ORDERITEM,
+  orderItem,
+});
+
+const updateOrder = order => ({
+  type: UPDATE_ORDER,
+  order,
+})
 
 //THUNK CREATORS
 export const fetchProducts = () => async dispatch => {
@@ -135,7 +147,7 @@ export const fetchOrder = userId => {
         if (response.data) {
           return dispatch(setOrder(response.data));
         }
-        return {};
+        return dispatch(setOrder({}));
       })
       .catch(err => {
         throw new Error(err);
@@ -150,14 +162,31 @@ export const fetchOrderItems = orderId => {
         .get(`/api/users/orders/${orderId}/orderItems`)
         // .then(resp => resp)
         .then(resp => {
-          console.log('resp: ', resp.data);
-          dispatch(setOrderItems(resp.data));
+          if (resp.data) {
+            return dispatch(setOrderItems(resp.data));
+          }
+          return null;
         })
         .catch(err => {
           throw new Error(err);
         })
     );
   };
+};
+
+export const updateOrderThunk = order => {
+  return dispatch => {
+    return (
+      axios.put(`/api/users/${order.userId}/orders/${order.id}`, order)
+        .then(resp => {
+          console.log('resp.data: ', resp.data)
+          return dispatch(updateOrder(resp.data))
+        }))
+      .catch(err => {
+        throw new Error(err);
+      });
+
+  }
 };
 
 //REDUCERS
@@ -202,6 +231,8 @@ const order = (state = { order: {} }, action) => {
   switch (action.type) {
     case SET_ORDER:
       return action.order[0];
+    case UPDATE_ORDER:
+      return action.order;
     default:
       return state;
   }

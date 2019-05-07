@@ -1,10 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { fetchOrder, fetchOrderItems } from '../store';
+import { fetchOrder, fetchOrderItems, updateOrderThunk } from '../store';
 import OrderItem from './OrderItem';
 
 class Order extends Component {
+	constructor(props) {
+		super(props);
+		// this.state = {
+		// 	type: '',
+		// 	subtotal: 0,
+		// 	shipping: 0,
+		// 	total: 0,
+		// 	status: '',
+		// 	date: '',
+		// 	orderItems: [],
+		// 	userId: null,
+		// }
+	}
+
+	// componentDidUpdate(prevProps) {
+	// 	if (prevProps !== this.props) {
+
+	// 	}
+	// }
 
 	componentDidMount() {
 		// const { fetchOrder, fetchOrderItems, user, order } = this.props;
@@ -18,17 +37,38 @@ class Order extends Component {
 			.catch(err => console.log(err));
 	}
 
+	// setLocalState = () => {
+	// 	const { type, subtotal, shipping, total, status, date } = this.props.order;
+	// 	const { orderItems, user, order } = this.props;
+	// 	this.setState({
+	// 		type: order ? type : 'pickup',
+	// 		subtotal: order ? subtotal : 0,
+	// 		shipping: order ? shipping : 0,
+	// 		total: order ? total : 0,
+	// 		status: order ? status : '',
+	// 		date: order ? date : '',
+	// 		orderItems: orderItems ? orderItems : [],
+	// 		userId: user ? user.id : null,
+	// 	}
+	// 		, () => console.log('state from setLocalState: ', this.state))
+	// };
+
+	onChange = (ev) => {
+		this.props.updateOrderThunk({ ...this.props.order, [ev.target.name]: ev.target.value });
+	};
+
 	render() {
-		const { user, order, orderItems } = this.props;
+		const { onChange } = this;
+		const { user, orderItems, order } = this.props;
 		// console.log(order, orderItems);
 		console.log('user: ', user)
 
 
+		// TODO save values in db for subtotal, shipping, total
 		let subtotal = 0;
 		if (orderItems) {
 			subtotal = orderItems.reduce((total, item) => total + (item.price * item.quantity), 0);
 		}
-		// TODO save values in db
 		const shipping = order.type === 'delivery' ? 5 : 0;
 
 		const total = subtotal + shipping;
@@ -63,6 +103,15 @@ class Order extends Component {
 								Total:
 							</td>
 							<td>
+								<select
+									name='type'
+									value={order.type}
+									onChange={onChange}
+									className='form-control'
+								>
+									<option key={1} value='pickup'>Pickup</option>
+									<option key={2} value='delivery'>Delivery</option>
+								</select>
 								{order.type}<br />
 								{subtotal}<br />
 								{shipping}<br />
@@ -90,6 +139,7 @@ const mapDispatchToProps = dispatch => {
 	return {
 		fetchOrder: userId => dispatch(fetchOrder(userId)),
 		fetchOrderItems: orderId => dispatch(fetchOrderItems(orderId)),
+		updateOrderThunk: order => dispatch(updateOrderThunk(order)),
 	};
 };
 
