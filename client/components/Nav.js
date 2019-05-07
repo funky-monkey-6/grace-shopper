@@ -13,15 +13,11 @@ class Nav extends Component {
   onClick = () => {
     const { history, logOut } = this.props;
     // eslint-disable-next-line react/destructuring-assignment
-    logOut()
-      .then(() => <Redirect to="/" />)
-      // eslint-disable-next-line react/destructuring-assignment
-      .then(() => console.log(this.state.isLoggedIn));
+    logOut().then(() => <Redirect to="/" />);
   };
 
   render() {
     let buttonStatus;
-    console.log(this.props.user)
     // eslint-disable-next-line react/destructuring-assignment
     if (!this.props.user.id) {
       buttonStatus = (
