@@ -1,3 +1,5 @@
+/* eslint-disable react/no-access-state-in-setstate */
+/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
@@ -32,7 +34,6 @@ class MostPopular extends React.Component {
       .get('api/orderItems')
       .then(res => res.data)
       .then(orderItems => this.setState({ orderItems }))
-      // eslint-disable-next-line react/destructuring-assignment
       .then(() => this.setState({ mostPopular: this.filterPopular(this.state.orderItems) }));
   }
 
