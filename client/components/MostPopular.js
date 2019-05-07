@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { fetchProducts } from '../store';
 
 const mapStateToProps = state => {
-  const { products } = state.product;
+  const { products } = state.products;
   return {
     products,
   };
@@ -31,7 +31,7 @@ class MostPopular extends React.Component {
     axios
       .get('api/orderItems')
       .then(res => res.data)
-      .then(_orderItems => this.setState({ orderItems: _orderItems }))
+      .then(orderItems => this.setState({ orderItems }))
       // eslint-disable-next-line react/destructuring-assignment
       .then(() => this.setState({ mostPopular: this.filterPopular(this.state.orderItems) }));
   }
@@ -55,10 +55,14 @@ class MostPopular extends React.Component {
     mostPopular.sort((a, b) => (b.quantity > a.quantity ? 1 : -1));
 
     //adjust the second slice index to change how many productIds are returned:
-    const mostPopularProdIds = mostPopular.slice(0, 4).reduce((accum, curVal) => {
-      accum.push(curVal.productId);
-      return accum;
-    }, []);
+    const numProductsDisplayed = 4;
+
+    const mostPopularProdIds = mostPopular
+      .slice(0, numProductsDisplayed)
+      .reduce((accum, curVal) => {
+        accum.push(curVal.productId);
+        return accum;
+      }, []);
 
     const mostPopularProds = products.filter(product => mostPopularProdIds.includes(product.id));
 
@@ -67,20 +71,22 @@ class MostPopular extends React.Component {
 
   render() {
     const { mostPopular } = this.state;
+
     return (
       <div>
         <h4>Popular menu items</h4>
         <div className="menu-list">
           {mostPopular.map(prod => {
+            const { id, title, description, price } = prod;
             return (
-              <div key={prod.id} className="menu-item">
+              <div key={id} className="menu-item">
                 <ul>
                   <li>Placeholder for image</li>
-                  <Link to={`/menu/${prod.id}`}>
-                    <li>{prod.title}</li>
+                  <Link to={`/menu/${id}`}>
+                    <li>{title}</li>
                   </Link>
-                  <li>{prod.description}</li>
-                  <li>{prod.price}</li>
+                  <li>{description}</li>
+                  <li>{price}</li>
                 </ul>
               </div>
             );
