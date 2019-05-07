@@ -57,17 +57,15 @@ class Order extends Component {
 	onChange = ev => {
 		this.props.updateOrderThunk({
 			...this.props.order,
-			type: ev.target.value
+			type: ev.target.value,
 		});
 	};
-
-
 
 	render() {
 		const { onChange } = this;
 		const { orderItems, order, user, history } = this.props;
-		console.log('order: ', order)
-		console.log('orderItems: ', orderItems)
+		console.log('order: ', order);
+		console.log('orderItems: ', orderItems);
 
 		// TODO save values in db for subtotal, shipping, total
 		let subtotal = 0;
@@ -81,7 +79,7 @@ class Order extends Component {
 		return (
 			<div>
 				<h2>Bag</h2>
-				<table className='table table-striped table-condensed'>
+				<table className="table table-striped table-condensed">
 					<thead>
 						<tr>
 							<th>Product</th>
@@ -93,13 +91,15 @@ class Order extends Component {
 					</thead>
 					<tbody>
 						{orderItems.map(orderItem => {
-							return <OrderItem
-								key={orderItem.id}
-								userId={user.id}
-								orderId={order.id}
-								orderItem={orderItem}
-								history={history}
-							/>;
+							return (
+								<OrderItem
+									key={orderItem.id}
+									userId={user.id}
+									orderId={order.id}
+									orderItem={orderItem}
+									history={history}
+								/>
+							);
 						})}
 						<tr>
 							<td />
@@ -116,15 +116,16 @@ class Order extends Component {
               </td>
 							<td>
 								<select
-									name='type'
+									name="type"
 									value={order.type}
-									selected='pickup'
+									selected="pickup"
 									onChange={onChange}
-									className='form-control'>
-									<option key={1} value='pickup'>
+									className="form-control"
+								>
+									<option key={1} value="pickup">
 										Pickup
                   </option>
-									<option key={2} value='delivery'>
+									<option key={2} value="delivery">
 										Delivery
                   </option>
 								</select>
@@ -140,7 +141,7 @@ class Order extends Component {
 						</tr>
 					</tbody>
 				</table>
-				<button>Start Checkout</button>
+				<button type='submit'>Start Checkout</button>
 			</div>
 		);
 	}

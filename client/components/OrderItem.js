@@ -10,7 +10,7 @@ class OrderItem extends Component {
 	}
 
 	render() {
-		const { orderItem, product, deleteOrderItemThunk, userId, orderId } = this.props;
+		const { orderItem, product, userId, orderId } = this.props;
 		const { price, quantity } = orderItem;
 		console.log('orderItem: ', orderItem);
 		// console.log('products: ', this.props.products);
@@ -27,7 +27,7 @@ class OrderItem extends Component {
 				<td>{quantity}</td>
 				<td>{itemTotal}</td>
 				<td>
-					<button onClick={() => deleteOrderItemThunk(userId, orderId, orderItem.id)}>X</button>
+					<button type='submit' onClick={() => this.props.deleteOrderItemThunk(userId, orderId, orderItem.id)}>X</button>
 				</td>
 			</tr>
 		);
@@ -44,10 +44,14 @@ const mapStateToProps = (state, { orderItem }) => {
 	};
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
 	return {
-		deleteOrderItemThunk: (userId, orderId, orderItemId) => dispatch(deleteOrderItemThunk(userId, orderId, orderItemId)),
-	}
+		deleteOrderItemThunk: (userId, orderId, orderItemId) =>
+			dispatch(deleteOrderItemThunk(userId, orderId, orderItemId)),
+	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(OrderItem);
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(OrderItem);

@@ -38,20 +38,20 @@ class ProductSingle extends React.Component {
   // addOrderItemThunk()
 
   addOrderItem = async (userId, order, orderItem) => {
-    const { addOrderThunk, addOrderItemThunk } = this.props;
-    userId = 1;  // simulates logged-in user 
-    let newOrder = {}
+    // const { addOrderThunk, addOrderItemThunk } = this.props;
+    userId = 1; // simulates logged-in user
+    let newOrder = {};
     try {
       if (Object.keys(order).length === 0) {
-        console.log('status is cart')
-        addOrderThunk(userId, order)
-        const _newOrder = await axios.post(`/api/users/${userId}/orders`, order);
-        newOrder = _newOrder.data;
-        console.log('newOrder: ', newOrder)
+        console.log('status is cart');
+        // this.props.addOrderThunk(userId, order);
+        const newOrderData = await axios.post(`/api/users/${userId}/orders`, order);
+        newOrder = newOrderData.data;
+        console.log('newOrder: ', newOrder);
       }
-      console.log('adding orderItem')
-      const _order = newOrder ? newOrder : this.props.order;
-      await addOrderItemThunk(userId, _order.id, orderItem)
+      console.log('adding orderItem');
+      const currOrder = newOrder ? newOrder : this.props.order;
+      await this.props.addOrderItemThunk(userId, currOrder.id, orderItem);
     } catch (err) {
       console.log(err);
     }
@@ -61,7 +61,12 @@ class ProductSingle extends React.Component {
     const { product, reviews } = this.state;
     const { user, order } = this.props;
     const { addOrderItem } = this;
-    const orderItem = { quantity: 1, price: product.price, orderId: order.id, productId: product.id }
+    const orderItem = {
+      quantity: 1,
+      price: product.price,
+      orderId: order.id,
+      productId: product.id,
+    };
 
     return (
       <div>
@@ -74,7 +79,7 @@ class ProductSingle extends React.Component {
           <li>{product.price}</li>
         </ul>
         {/* userId, order, orderItem */}
-        <button onClick={() => addOrderItem(user.id, order, orderItem)}>Add to Cart</button>
+        <button type='submit' onClick={() => addOrderItem(user.id, order, orderItem)}>Add to Cart</button>
         <Link to="/menu">
           <button type="submit">Return to Main Menu</button>
         </Link>
@@ -91,14 +96,18 @@ const mapStateToProps = state => {
   return {
     order,
     user,
-  }
+  };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     addOrderThunk: (userId, order) => dispatch(addOrderThunk(userId, order)),
-    addOrderItemThunk: (userId, orderId, orderItem) => dispatch(addOrderItemThunk(userId, orderId, orderItem)),
-  }
+    addOrderItemThunk: (userId, orderId, orderItem) =>
+      dispatch(addOrderItemThunk(userId, orderId, orderItem)),
+  };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductSingle);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ProductSingle);
