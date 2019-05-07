@@ -53,7 +53,7 @@ class Signup extends Component {
             <div className="form-group">
               <label>
                 Password:
-                <input type="text" name="password" value={password} onChange={handleChange} />
+                <input type="password" name="password" value={password} onChange={handleChange} />
               </label>
             </div>
             <input type="submit" value="Login" />
