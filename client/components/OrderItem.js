@@ -10,7 +10,7 @@ class OrderItem extends Component {
 	render() {
 		const { item, product } = this.props;
 		const { price, quantity } = item;
-		console.log('item: ', item)
+		console.log('item: ', item);
 		// console.log('products: ', this.props.products);
 		if (!item.price) {
 			item.price = product.price;
@@ -24,21 +24,22 @@ class OrderItem extends Component {
 				<td>{item.price}</td>
 				<td>{item.quantity}</td>
 				<td>{itemTotal}</td>
-				<td><a href=''>X</a></td>
+				<td>
+					<a href="#">X</a>
+				</td>
 			</tr>
 		);
-	};
-	;
+	}
 }
 
 const mapStateToProps = (state, { item }) => {
 	const { products } = state;
-	const product = products.find(product => product.id === item.productId)
-	console.log('product: ', product)
+	const product = products.find(_product => _product.id === item.productId);
+	console.log('product: ', product);
 	console.log('state: ', state);
 	return {
-		product
-	}
+		product,
+	};
 };
 
 export default connect(mapStateToProps)(OrderItem);

@@ -47,7 +47,7 @@ const setOrderItem = orderItem => ({
 const updateOrder = order => ({
   type: UPDATE_ORDER,
   order,
-})
+});
 
 //THUNK CREATORS
 export const fetchProducts = () => async dispatch => {
@@ -166,17 +166,16 @@ export const fetchOrderItems = orderId => {
 
 export const updateOrderThunk = order => {
   return dispatch => {
-    return (
-      axios.put(`/api/users/${order.userId}/orders/${order.id}`, order)
-        .then(resp => {
-          console.log('resp.data: ', resp.data)
-          return dispatch(updateOrder(resp.data))
-        }))
+    return axios
+      .put(`/api/users/${order.userId}/orders/${order.id}`, order)
+      .then(resp => {
+        console.log('resp.data: ', resp.data);
+        return dispatch(updateOrder(resp.data));
+      })
       .catch(err => {
         throw new Error(err);
       });
-
-  }
+  };
 };
 
 //REDUCERS
@@ -196,7 +195,7 @@ const products = (state = [], action) => {
       return action.products;
     default:
       return state;
-  };
+  }
 };
 
 const categories = (state = [], action) => {
