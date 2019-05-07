@@ -109,6 +109,7 @@ const User = conn.define('user', {
   userType: {
     type: Sequelize.ENUM('customer', 'admin'),
     allowNull: false,
+    defaultValue: 'customer',
     validate: {
       notEmpty: {
         args: true,
