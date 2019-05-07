@@ -79,7 +79,9 @@ class ProductSingle extends React.Component {
           <li>{product.price}</li>
         </ul>
         {/* userId, order, orderItem */}
-        <button type='submit' onClick={() => addOrderItem(user.id, order, orderItem)}>Add to Cart</button>
+        <button type="submit" onClick={() => addOrderItem(user.id, order, orderItem)}>
+          Add to Cart
+        </button>
         <Link to="/menu">
           <button type="submit">Return to Main Menu</button>
         </Link>
