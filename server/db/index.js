@@ -29,7 +29,7 @@ const syncAndSeed = () => {
         Promise.all(seedCategories.map(cat => Category.create(cat))),
         Promise.all(seedUsers.map(user => User.create(user))),
         Promise.all(seedOrders.map(order => Order.create(order))),
-        // Promise.all(seedReviews.map(review => Review.create(review))),
+        Promise.all(seedReviews.map(review => Review.create(review))),
       ]);
     })
     .then(([products, categories, users, orders]) => {
