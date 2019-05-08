@@ -1,9 +1,11 @@
 import axios from 'axios';
 
 //ACTION TYPES
+
 const SET_USER = 'SET_USER';
 
 //ACTION CREATORS
+
 const setUser = user => ({
 	type: SET_USER,
 	user,
@@ -40,6 +42,7 @@ export const addUser = enteredUser => async dispatch => {
 	}
 };
 
+// TODO Erin - keep or delete ?
 // export const getMe = () => async dispatch => {
 //     try {
 //         const response = await axios.get('/api/auth/me')

@@ -1,30 +1,14 @@
 import axios from 'axios';
 
 //ACTION TYPES
+
 const SET_ORDER = 'SET_ORDER';
-// const ADD_ORDER = 'ADD_ORDER';
-// const UPDATE_ORDER = 'UPDATE_ORDER';
 
 //ACTION CREATORS
+
 const setOrder = order => ({
 	type: SET_ORDER,
 	order,
-});
-
-// const addOrder = (userId, order) => ({
-//   type: ADD_ORDER,
-//   userId,
-//   order,
-// });
-
-// const updateOrder = order => ({
-//   type: UPDATE_ORDER,
-//   order,
-// });
-
-const setOrderItems = orderItems => ({
-	type: SET_ORDERITEMS,
-	orderItems,
 });
 
 //THUNK CREATORS
@@ -45,6 +29,7 @@ export const fetchOrder = userId => {
 	};
 };
 
+// TODO may need
 // export const deleteOrderThunk = (userId, orderId) => {
 //   return dispatch => {
 //     return axios.delete(`/api/users/${userId}/orders/${orderId}`)

@@ -1,21 +1,15 @@
 import axios from 'axios';
 
 //ACTION TYPES
+
 const SET_ORDERITEMS = 'SET_ORDERITEMS';
-// const ADD_ORDERITEM = 'ADD_ORDERITEM';
-// const DELETE_ORDERITEM = 'DELETE_ORDERITEM';
 
-//ACTION CREATORS
-// const addOrderItem = (orderItem, userId) => ({
-//   type: ADD_ORDERITEM,
-//   orderItem,
-//   userId
-// });
+// ACTION CREATORS
 
-// const deleteOrderItem = orderItemId => ({
-//   type: DELETE_ORDERITEM,
-//   orderItemId,
-// })
+const setOrderItems = orderItems => ({
+	type: SET_ORDERITEMS,
+	orderItems,
+});
 
 //THUNK CREATORS
 

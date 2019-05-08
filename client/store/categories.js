@@ -1,15 +1,18 @@
 import axios from 'axios';
 
 //ACTION TYPES
+
 const SET_CATEGORIES = 'SET_CATEGORIES';
 
 //ACTION CREATORS
+
 const setCategories = categories => ({
 	type: SET_CATEGORIES,
 	categories,
 });
 
 //THUNK CREATORS
+
 export const fetchCategories = () => {
 	return dispatch => {
 		return axios
