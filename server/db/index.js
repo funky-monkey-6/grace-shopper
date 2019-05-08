@@ -5,6 +5,7 @@ const conn = new Sequelize(process.env.DATABASE_URL, { logging: false });
 const seedProducts = require('./seed/seedProducts');
 const seedCategories = require('./seed/seedCategories');
 const seedUsers = require('./seed/seedUsers');
+const seedReviews = require('./seed/seedReviews');
 const { seedOrders, seedOrderItems } = require('./seed/seedOrders');
 
 // Models:
@@ -229,6 +230,7 @@ const syncAndSeed = () => {
         Promise.all(seedCategories.map(cat => Category.create(cat))),
         Promise.all(seedUsers.map(user => User.create(user))),
         Promise.all(seedOrders.map(order => Order.create(order))),
+        Promise.all(seedReviews.map(review => Review.create(review))),
       ]);
     })
     .then(([products, categories, users, orders]) => {

@@ -1,19 +1,19 @@
 const seedReviews = [
   {
     rating: 4,
-    comment: 'I like this car',
+    comment: 'Yum, Bimimbap is good',
     userId: 3,
     productId: 1,
   },
   {
     rating: 3,
-    comment: 'Too fast!',
+    comment: 'It was great. I like it a lot - I will buy again.',
     userId: 2,
     productId: 2,
   },
   {
     rating: 1,
-    comment: 'I dont like the color',
+    comment: 'Too much salt. I didnt like it',
     userId: 2,
     productId: 1,
   },
