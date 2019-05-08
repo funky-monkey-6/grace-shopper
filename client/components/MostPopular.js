@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { fetchProducts } from '../store';
 
 const mapStateToProps = state => {
-  const { products } = state.products;
+  const { products } = state;
   return {
     products,
   };

@@ -2,23 +2,8 @@
 /* eslint-disable no-shadow */
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchProductReviews, fetchProduct } from '../store';
-
-const mapStateToProps = state => {
-  const { product } = state.product;
-  const { reviews } = state.reviews;
-  return {
-    product,
-    reviews,
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchProductReviews: id => dispatch(fetchProductReviews(id)),
-    fetchProduct: id => dispatch(fetchProduct(id)),
-  };
-};
+import axios from 'axios';
+import { fetchProductReviews, fetchProduct, addOrderThunk, addOrderItemThunk } from '../store';
 
 class ProductSingle extends React.Component {
   componentDidMount = () => {
@@ -28,8 +13,41 @@ class ProductSingle extends React.Component {
     fetchProduct(productId);
   };
 
+  // if adding item
+  // check state.order.status = cart
+  // if not, addOrderThunk()
+  // addOrderItemThunk()
+
+  addOrderItem = async (userId, order, orderItem) => {
+    // const { addOrderThunk, addOrderItemThunk } = this.props;
+    userId = 1; // simulates logged-in user
+    let newOrder = {};
+    try {
+      if (Object.keys(order).length === 0) {
+        console.log('status is cart');
+        // this.props.addOrderThunk(userId, order);
+        const newOrderData = await axios.post(`/api/users/${userId}/orders`, order);
+        newOrder = newOrderData.data;
+        console.log('newOrder: ', newOrder);
+      }
+      console.log('adding orderItem');
+      const currOrder = newOrder ? newOrder : this.props.order;
+      await this.props.addOrderItemThunk(userId, currOrder.id, orderItem);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   render() {
-    const { product, reviews } = this.props;
+    const { user, order, product, reviews } = this.props;
+    const { addOrderItem } = this;
+    const orderItem = {
+      quantity: 1,
+      price: product.price,
+      orderId: order.id,
+      productId: product.id,
+    };
+
     if (!product) return null;
     return (
       <div>
@@ -41,7 +59,10 @@ class ProductSingle extends React.Component {
           <li>{product.description}</li>
           <li>{product.price}</li>
         </ul>
-        <button type="submit">Add to Cart</button>
+        {/* userId, order, orderItem */}
+        <button type="submit" onClick={() => addOrderItem(user.id, order, orderItem)}>
+          Add to Cart
+        </button>
         <div>
           <h1>
             <i>Reviews</i>
@@ -61,6 +82,26 @@ class ProductSingle extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  const { user, order, product, reviews } = state;
+  return {
+    order,
+    user,
+    product,
+    reviews,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addOrderThunk: (userId, order) => dispatch(addOrderThunk(userId, order)),
+    addOrderItemThunk: (userId, orderId, orderItem) =>
+      dispatch(addOrderItemThunk(userId, orderId, orderItem)),
+    fetchProductReviews: id => dispatch(fetchProductReviews(id)),
+    fetchProduct: id => dispatch(fetchProduct(id)),
+  };
+};
 
 export default connect(
   mapStateToProps,
