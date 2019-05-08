@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { checkUser as checkUserActionCreator } from '../store';
+import { checkUser as checkUserActionCreator } from '../store/index';
 
 class Login extends Component {
   constructor(props) {

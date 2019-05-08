@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logOut as logOutActionCreator } from '../store';
+import { logOut as logOutActionCreator } from '../store/index';
 
 class Nav extends Component {
   onClick = () => {

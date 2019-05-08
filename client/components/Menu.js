@@ -3,7 +3,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchProducts, fetchCategories, searchProducts, filterProducts } from '../store';
+import { fetchProducts, fetchCategories, searchProducts, filterProducts } from '../store/index';
 
 const mapStateToProps = state => {
   const { products, categories } = state;

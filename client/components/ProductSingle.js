@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { addOrderThunk, addOrderItemThunk } from '../store';
+import { addOrderThunk, addOrderItemThunk } from '../store/index';
 
 class ProductSingle extends React.Component {
   constructor() {
