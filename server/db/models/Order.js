@@ -1,5 +1,5 @@
-const Sequelize = require('sequelize');
-const { conn } = require('../index.js');
+const conn = require('../conn');
+const { Sequelize } = conn;
 
 // TODO - plan how to configure Order model to handle guest session (authenticated vs non-authenticated)
 

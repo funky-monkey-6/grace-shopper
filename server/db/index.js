@@ -1,17 +1,9 @@
 /* eslint-disable no-console */
-// const Sequelize = require('sequelize');
-// const conn = new Sequelize(process.env.DATABASE_URL, { logging: false });
 
 const conn = require('./conn');
 
-const {
-  seedCategories,
-  seedOrders,
-  seedOrderItems,
-  seedProducts,
-  seedReviews,
-  seedUsers,
-} = require('./seed');
+const seed = require('./seed');
+const { seedCategories, seedOrders, seedOrderItems, seedProducts, seedReviews, seedUsers } = seed;
 
 const { Category, Order, OrderItem, Product, Review, User } = require('./models');
 
@@ -31,7 +23,6 @@ const updateProdCatId = (prods, seedProds, cats) => {
 const syncAndSeed = () => {
   return conn
     .sync({ force: true })
-    .then(() => console.log('foo'))
     .then(() => {
       return Promise.all([
         Promise.all(seedProducts.map(prod => Product.create(prod))),
@@ -59,4 +50,10 @@ const syncAndSeed = () => {
 module.exports = {
   conn,
   syncAndSeed,
+  Category,
+  Order,
+  OrderItem,
+  Product,
+  Review,
+  User,
 };

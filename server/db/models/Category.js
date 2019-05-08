@@ -1,5 +1,5 @@
-const Sequelize = require('sequelize');
-const { conn } = require('../index.js');
+const conn = require('../conn');
+const { Sequelize } = conn;
 
 module.exports = conn.define('category', {
   name: {

@@ -1,6 +1,6 @@
 const seedCategories = require('./seedCategories');
-const seedOrders = require('./seedOrders');
-const seedOrderItems = require('./seedOrders');
+const { seedOrders } = require('./seedOrders');
+const { seedOrderItems } = require('./seedOrders');
 const seedProducts = require('./seedProducts');
 const seedReviews = require('./seedReviews');
 const seedUsers = require('./seedUsers');

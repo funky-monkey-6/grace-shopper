@@ -1,5 +1,5 @@
-const Sequelize = require('sequelize');
 const conn = require('../conn');
+const { Sequelize } = conn;
 
 module.exports = conn.define('product', {
   // from associations: categoryId
