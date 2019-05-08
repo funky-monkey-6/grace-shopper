@@ -26,7 +26,7 @@ class ProductSingle extends React.Component {
 
   addOrderItem = async (userId, order, orderItem) => {
     // const { addOrderThunk, addOrderItemThunk } = this.props;
-    userId = 1; // simulates logged-in user
+    // userId = 1; // simulates logged-in user
     let newOrder = {};
     try {
       if (Object.keys(order).length === 0) {

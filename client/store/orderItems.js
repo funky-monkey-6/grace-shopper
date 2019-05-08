@@ -6,7 +6,7 @@ const SET_ORDERITEMS = 'SET_ORDERITEMS';
 
 // ACTION CREATORS
 
-const setOrderItems = orderItems => ({
+export const setOrderItems = orderItems => ({
   type: SET_ORDERITEMS,
   orderItems,
 });
@@ -21,7 +21,6 @@ export const fetchOrderItems = orderId => {
         // .then(resp => resp)
         .then(resp => {
           if (resp.data) {
-            console.log('fetchOrderItems() being called');
             return dispatch(setOrderItems(resp.data));
           }
           return null;
