@@ -1,36 +1,17 @@
 /* eslint-disable react/destructuring-assignment */
+/* eslint-disable no-shadow */
 import React from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
-import { addOrderThunk, addOrderItemThunk } from '../store';
+import axios from 'axios';
+import { fetchProductReviews, fetchProduct, addOrderThunk, addOrderItemThunk } from '../store';
 
 class ProductSingle extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      product: {},
-      reviews: [],
-    };
-  }
-
-  componentDidMount() {
-    // TODO: what's a more efficient way of doing this (that linter likes)?
-    const { match } = this.props;
-    const { params } = match;
-    const { productId } = params;
-
-    axios
-      .get(`api/products/${productId}`)
-      .then(res => res.data)
-      .then(product => this.setState({ product }));
-
-    axios
-      .get(`api/reviews/${productId}`)
-      .then(res => res.data)
-      .then(reviews => this.setState({ reviews }));
-  }
+  componentDidMount = () => {
+    const { productId } = this.props.match.params;
+    const { fetchProduct, fetchProductReviews } = this.props;
+    fetchProductReviews(productId);
+    fetchProduct(productId);
+  };
 
   // if adding item
   // check state.order.status = cart
@@ -58,8 +39,7 @@ class ProductSingle extends React.Component {
   };
 
   render() {
-    const { product, reviews } = this.state;
-    const { user, order } = this.props;
+    const { user, order, product, reviews } = this.props;
     const { addOrderItem } = this;
     const orderItem = {
       quantity: 1,
@@ -68,6 +48,7 @@ class ProductSingle extends React.Component {
       productId: product.id,
     };
 
+    if (!product) return null;
     return (
       <div>
         <h1>
@@ -82,22 +63,33 @@ class ProductSingle extends React.Component {
         <button type="submit" onClick={() => addOrderItem(user.id, order, orderItem)}>
           Add to Cart
         </button>
-        <Link to="/menu">
-          <button type="submit">Return to Main Menu</button>
-        </Link>
-        {reviews.map(review => {
-          return <div key={review.id}>{review.comments}</div>;
-        })}
+        <div>
+          <h1>
+            <i>Reviews</i>
+          </h1>
+          {reviews.map(review => {
+            const { id, rating, comment } = review;
+
+            return (
+              <ul key={id}>
+                <li>{rating}</li>
+                <li>{comment}</li>
+              </ul>
+            );
+          })}
+        </div>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => {
-  const { user, order } = state;
+  const { user, order, product, reviews } = state;
   return {
     order,
     user,
+    product,
+    reviews,
   };
 };
 
@@ -106,6 +98,8 @@ const mapDispatchToProps = dispatch => {
     addOrderThunk: (userId, order) => dispatch(addOrderThunk(userId, order)),
     addOrderItemThunk: (userId, orderId, orderItem) =>
       dispatch(addOrderItemThunk(userId, orderId, orderItem)),
+    fetchProductReviews: id => dispatch(fetchProductReviews(id)),
+    fetchProduct: id => dispatch(fetchProduct(id)),
   };
 };
 

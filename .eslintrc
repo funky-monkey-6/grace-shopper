@@ -4,15 +4,24 @@
     "browser": true,
     "jest": true
   },
-  "extends": ["eslint-config-airbnb", "plugin:prettier/recommended", "prettier/react"],
-  "plugins": ["jest", "prettier"],
+  "extends": [
+    "eslint-config-airbnb",
+    "plugin:prettier/recommended",
+    "prettier/react"
+  ],
+  "plugins": [
+    "jest",
+    "prettier"
+  ],
   "rules": {
     "import/prefer-default-export": 0,
     "prettier/prettier": "error",
     "no-bitwise": [
       "error",
       {
-        "allow": ["~"]
+        "allow": [
+          "~"
+        ]
       }
     ],
     "no-tabs": 1,
@@ -30,8 +39,14 @@
         "capIsNew": false
       }
     ],
-    "space-before-function-paren": [0, "always"],
-    "arrow-body-style": [0, "always"],
+    "space-before-function-paren": [
+      0,
+      "always"
+    ],
+    "arrow-body-style": [
+      0,
+      "always"
+    ],
     "function-paren-newline": 0,
     "global-require": 1,
     "no-nested-ternary": 1,
@@ -42,7 +57,10 @@
     "no-continue": 1,
     "no-case-declarations": 0,
     "class-methods-use-this": 0,
-    "quotes": [1, "single"],
+    "quotes": [
+      1,
+      "single"
+    ],
     "max-len": [
       "warn",
       {

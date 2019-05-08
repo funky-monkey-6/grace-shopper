@@ -8,6 +8,8 @@ import axios from 'axios';
 const SET_USER = 'SET_USER';
 const SET_PRODUCTS = 'SET_PRODUCTS';
 const SET_CATEGORIES = 'SET_CATEGORIES';
+const SET_REVIEWS = 'SET_REVIEWS';
+const SET_PRODUCT = 'SET_PRODUCT';
 const SET_ORDER = 'SET_ORDER';
 // const ADD_ORDER = 'ADD_ORDER';
 // const UPDATE_ORDER = 'UPDATE_ORDER';
@@ -29,6 +31,16 @@ const setProducts = products => ({
 const setCategories = categories => ({
   type: SET_CATEGORIES,
   categories,
+});
+
+const setReviews = reviews => ({
+  type: SET_REVIEWS,
+  reviews,
+});
+
+const setProduct = product => ({
+  type: SET_PRODUCT,
+  product,
 });
 
 const setOrder = order => ({
@@ -64,14 +76,22 @@ const setOrderItems = orderItems => ({
 // })
 
 //THUNK CREATORS
-export const fetchProducts = () => async dispatch => {
-  try {
-    const response = await axios.get('api/products');
-    const products = response.data;
-    return dispatch(setProducts(products));
-  } catch (error) {
-    throw new Error(error);
-  }
+export const fetchProducts = () => {
+  return dispatch => {
+    return axios
+      .get('api/products')
+      .then(res => res.data)
+      .then(products => dispatch(setProducts(products)));
+  };
+};
+
+export const fetchProduct = id => {
+  return dispatch => {
+    return axios
+      .get(`api/products/${id}`)
+      .then(res => res.data)
+      .then(product => dispatch(setProduct(product)));
+  };
 };
 
 export const fetchCategories = () => {
@@ -80,6 +100,15 @@ export const fetchCategories = () => {
       .get('api/categories')
       .then(res => res.data)
       .then(categories => dispatch(setCategories(categories)));
+  };
+};
+
+export const fetchProductReviews = id => {
+  return dispatch => {
+    return axios
+      .get(`api/reviews/${id}`)
+      .then(res => res.data)
+      .then(reviews => dispatch(setReviews(reviews)));
   };
 };
 
@@ -104,15 +133,6 @@ export const filterProducts = categoryIds => {
       .then(res => res.data)
       .then(allProducts => allProducts.filter(product => categoryIds.includes(product.categoryId)))
       .then(products => dispatch(setProducts(products)));
-  };
-};
-
-export const getProduct = id => {
-  return dispatch => {
-    return axios
-      .get(`api/products/${id}`)
-      .then(res => res.data)
-      .then(product => dispatch(setProducts(product)));
   };
 };
 
@@ -280,10 +300,28 @@ const categories = (state = [], action) => {
   }
 };
 
+const reviews = (state = [], action) => {
+  switch (action.type) {
+    case SET_REVIEWS:
+      return action.reviews;
+    default:
+      return state;
+  }
+};
+
 const order = (state = {}, action) => {
   switch (action.type) {
     case SET_ORDER:
       return action.order;
+    default:
+      return state;
+  }
+};
+
+const product = (state = {}, action) => {
+  switch (action.type) {
+    case SET_PRODUCT:
+      return action.product;
     default:
       return state;
   }
@@ -299,9 +337,11 @@ const orderItems = (state = [], action) => {
 };
 
 const reducer = combineReducers({
-  user,
   products,
+  product,
+  user,
   categories,
+  reviews,
   order,
   orderItems,
 });
