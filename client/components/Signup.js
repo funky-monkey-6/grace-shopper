@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addUser as thunkCreatorAddUser } from '../store/index';
+import { addUser as thunkCreatorAddUser } from '../store';
 
 class Signup extends Component {
   constructor(props) {

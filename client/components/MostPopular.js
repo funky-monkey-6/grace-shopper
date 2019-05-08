@@ -4,7 +4,7 @@ import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchProducts } from '../store/index';
+import { fetchProducts } from '../store';
 
 const mapStateToProps = state => {
   const { products } = state;
