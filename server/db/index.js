@@ -48,7 +48,6 @@ const syncAndSeed = () => {
 };
 
 module.exports = {
-  conn,
   syncAndSeed,
   Category,
   Order,
