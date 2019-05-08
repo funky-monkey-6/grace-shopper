@@ -7,7 +7,7 @@ const seedReviews = [
   },
   {
     rating: 3,
-    comment: 'It was fine.',
+    comment: 'It was great. I like it a lot - I will buy again.',
     userId: 2,
     productId: 2,
   },
