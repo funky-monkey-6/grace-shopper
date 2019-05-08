@@ -3,8 +3,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { fetchProductReviews, fetchProduct, addOrderThunk, addOrderItemThunk } from '../store/index';
 import axios from 'axios';
+import {
+  fetchProductReviews,
+  fetchProduct,
+  addOrderThunk,
+  addOrderItemThunk,
+} from '../store/index';
 
 class ProductSingle extends React.Component {
   componentDidMount = () => {
