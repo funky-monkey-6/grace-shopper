@@ -25,7 +25,7 @@ export {
   fetchOrderItems,
   deleteOrderItemThunk,
   addOrderItemThunk,
-}
+};
 
 const reducer = combineReducers({
   user,
