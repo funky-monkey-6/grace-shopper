@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-shadow */
 /* eslint-disable react/button-has-type */
 import React from 'react';
@@ -73,14 +74,21 @@ class Menu extends React.Component {
   applyFilter = evt => {
     evt.preventDefault();
     const { filterCategories } = this.state;
-    const { filterProducts } = this.props;
-    filterProducts(filterCategories);
+    const { filterProducts, fetchProducts } = this.props;
+    if (filterCategories.length === 0) {
+      fetchProducts();
+    } else {
+      filterProducts(filterCategories);
+    }
   };
 
-  // TODO: fix the filter logic to undo filtering correctly
+  // clear filter
   clearFilter = evt => {
     evt.preventDefault();
     const { fetchProducts } = this.props;
+    document.querySelectorAll('input[type=checkbox]').forEach(el => {
+      el.checked = false;
+    });
     this.setState({ filterCategories: [] });
     fetchProducts();
   };
