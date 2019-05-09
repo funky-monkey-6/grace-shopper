@@ -7,6 +7,7 @@ import Nav from './Nav';
 import Signup from './Signup';
 import Home from './Home';
 import Order from './Order';
+import { Checkout } from './Checkout';
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/bag" component={Order} />
+        <Route path="/checkout" component={Checkout} />
       </div>
     </Router>
   );
