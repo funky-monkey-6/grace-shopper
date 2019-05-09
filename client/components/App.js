@@ -11,15 +11,33 @@ import Order from './Order';
 const App = () => {
   return (
     <Router>
-      <Nav />
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/menu" component={Menu} />
-        <Route path="/menu/:productId" component={ProductSingle} />
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
-        <Route path="/bag" component={Order} />
-      </Switch>
+      <header id='main-header'>
+        <div id='site-name' className='flex-container'>
+          Lovin' Today
+        </div>
+        <Route render={location => <Nav location={location} />} />
+      </header>
+      <section id='content' className='container-fluid'>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/menu" component={Menu} />
+          <Route path="/menu/:productId" component={ProductSingle} />
+          <Route path="/login" component={Login} />
+          <Route path="/signup" component={Signup} />
+          <Route path="/bag" component={Order} />
+          {/* TODO new paths added, not done with */}
+          {/* put user.id (?), category.id, product.id in url */}
+
+          {/* <Route path="/user/orders" component={Orders} />
+          <Route path="/user/account" component={Account} />
+          <Route path="/admin/orders" component={Orders} />
+          <Route path="/admin/product" component={Product} />
+          <Route path="/admin/products" component={Products} />
+          <Route path="/admin/categories" component={Categories} />
+          <Route path="/admin/user" component={User} />
+          <Route path="/admin/users" component={Users} /> */}
+        </Switch>
+      </section>
     </Router>
   );
 };
