@@ -33,10 +33,10 @@ class Nav extends Component {
           <div className="nav-menu">
             <Link to="/" className="nav-item">
               Home
-          </Link>
+            </Link>
             <Link to="/menu" className="nav-item">
               Menu
-          </Link>
+            </Link>
           </div>
           <div className="nav-login">
             {/* TODO isLoggedIn(user) = true - then show Account and Orders  */}
@@ -59,7 +59,7 @@ class Nav extends Component {
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <div className="nav-admin">
             <span className="nav-item">Admin:</span>
-            <NavLink to="/admin/products" className="nav-item" activeClassName='active'>
+            <NavLink to="/admin/products" className="nav-item" activeClassName="active">
               Products
             </NavLink>
             <NavLink to="/admin/categories" className="nav-item">

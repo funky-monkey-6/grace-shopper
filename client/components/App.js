@@ -11,13 +11,13 @@ import Order from './Order';
 const App = () => {
   return (
     <Router>
-      <header id='main-header'>
-        <div id='site-name' className='flex-container'>
-          Lovin' Today
+      <header id="main-header">
+        <div id="site-name" className="flex-container">
+          Lovin Today
         </div>
         <Route render={location => <Nav location={location} />} />
       </header>
-      <section id='content' className='container-fluid'>
+      <section id="content" className="container-fluid">
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/menu" component={Menu} />
