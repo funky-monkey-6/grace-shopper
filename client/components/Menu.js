@@ -2,7 +2,7 @@
 /* eslint-disable no-shadow */
 /* eslint-disable react/button-has-type */
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchProducts, fetchCategories, searchProducts, filterProducts } from '../store';
 
