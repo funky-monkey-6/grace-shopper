@@ -36,7 +36,7 @@ class ProductSingle extends React.Component {
       }
 
       const currOrder = !isCart(order) ? newOrder : this.props.order;
-      console.log({ currOrder })
+      console.log({ currOrder });
       await this.props.addOrderItemThunk(userId, currOrder.id, orderItem);
     } catch (err) {
       console.log(err);
