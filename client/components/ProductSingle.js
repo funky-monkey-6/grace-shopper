@@ -10,6 +10,7 @@ import {
   addOrderThunk,
   addOrderItemThunk,
 } from '../store/index';
+import { isCart } from './helperFunctions';
 
 class ProductSingle extends React.Component {
   componentDidMount = () => {
@@ -19,31 +20,23 @@ class ProductSingle extends React.Component {
     fetchProduct(productId);
   };
 
-  // if adding item
-  // check state.order.status = cart
-  // if not, addOrderThunk()
-  // addOrderItemThunk()
-
   addOrderItem = async (userId, order, orderItem) => {
-    // const { addOrderThunk, addOrderItemThunk } = this.props;
-    // userId = 1; // simulates logged-in user
-    console.log({ userId });
     let newOrder = {};
     try {
-      if (Object.keys(order).length === 0) {
-        console.log('status is cart');
-        // this.props.addOrderThunk(userId, order);
+      if (!isCart(order)) {
         const newOrderObj = {
           type: 'pickup',
           status: 'cart',
+          subtotal: orderItem.price * orderItem.quantity,
+          shipping: 0,
+          total: orderItem.price * orderItem.quantity,
         };
         const newOrderData = await axios.post(`/api/users/${userId}/orders`, newOrderObj);
         newOrder = newOrderData.data;
-        console.log('newOrder: ', newOrder);
       }
-      console.log('adding orderItem');
-      const currOrder = Object.keys(newOrder).length ? newOrder : this.props.order;
-      console.log(currOrder);
+
+      const currOrder = !isCart(order) ? newOrder : this.props.order;
+      console.log({ currOrder })
       await this.props.addOrderItemThunk(userId, currOrder.id, orderItem);
     } catch (err) {
       console.log(err);
