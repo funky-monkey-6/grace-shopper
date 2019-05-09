@@ -18,7 +18,6 @@ export const fetchOrderItems = orderId => {
     return (
       axios
         .get(`/api/users/orders/${orderId}/orderItems`)
-        // .then(resp => resp)
         .then(resp => {
           if (resp.data) {
             return dispatch(setOrderItems(resp.data));
@@ -37,7 +36,7 @@ export const deleteOrderItemThunk = (userId, orderId, orderItemId) => {
   return dispatch => {
     // TODO change on line below:  1 => ${userId}
     return axios
-      .delete(`/api/users/1/orders/${orderId}/orderItem/${orderItemId}`)
+      .delete(`/api/users/${userId}/orders/${orderId}/orderItem/${orderItemId}`)
       .then(() => {
         return dispatch(fetchOrderItems(orderId));
       })
