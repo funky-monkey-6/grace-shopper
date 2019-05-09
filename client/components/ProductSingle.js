@@ -27,7 +27,7 @@ class ProductSingle extends React.Component {
   addOrderItem = async (userId, order, orderItem) => {
     // const { addOrderThunk, addOrderItemThunk } = this.props;
     // userId = 1; // simulates logged-in user
-    console.log({ userId })
+    console.log({ userId });
     let newOrder = {};
     try {
       if (Object.keys(order).length === 0) {
@@ -35,7 +35,7 @@ class ProductSingle extends React.Component {
         // this.props.addOrderThunk(userId, order);
         const newOrderObj = {
           type: 'pickup',
-          status: 'cart'
+          status: 'cart',
         };
         const newOrderData = await axios.post(`/api/users/${userId}/orders`, newOrderObj);
         newOrder = newOrderData.data;
@@ -43,7 +43,7 @@ class ProductSingle extends React.Component {
       }
       console.log('adding orderItem');
       const currOrder = Object.keys(newOrder).length ? newOrder : this.props.order;
-      console.log(currOrder)
+      console.log(currOrder);
       await this.props.addOrderItemThunk(userId, currOrder.id, orderItem);
     } catch (err) {
       console.log(err);

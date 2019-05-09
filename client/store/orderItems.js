@@ -15,19 +15,17 @@ export const setOrderItems = orderItems => ({
 
 export const fetchOrderItems = orderId => {
   return dispatch => {
-    return (
-      axios
-        .get(`/api/users/orders/${orderId}/orderItems`)
-        .then(resp => {
-          if (resp.data) {
-            return dispatch(setOrderItems(resp.data));
-          }
-          return null;
-        })
-        .catch(err => {
-          throw new Error(err);
-        })
-    );
+    return axios
+      .get(`/api/users/orders/${orderId}/orderItems`)
+      .then(resp => {
+        if (resp.data) {
+          return dispatch(setOrderItems(resp.data));
+        }
+        return null;
+      })
+      .catch(err => {
+        throw new Error(err);
+      });
   };
 };
 

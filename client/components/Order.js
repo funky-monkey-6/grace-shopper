@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { fetchOrder, fetchOrderItems, updateOrderThunk, fetchProducts } from '../store';
+import { fetchOrder as fetchOrderThunk, fetchOrderItems as fetchOrderItemsThunk, updateOrderThunk, fetchProducts } from '../store';
 import OrderItem from './OrderItem';
 import { isLoggedIn, isCart } from './helperFunctions';
 
@@ -14,7 +14,7 @@ class Order extends Component {
 
 		fetchProducts();
 		if (isCart(order)) {
-			console.log('trying to fetch orders...')
+			console.log('trying to fetch orders...');
 			fetchOrderItems(order.id);
 		}
 	}
@@ -30,7 +30,6 @@ class Order extends Component {
 		const { onChange } = this;
 		const { orderItems, order, user, history } = this.props;
 
-
 		// TODO save values in db for subtotal, shipping, total
 		order.subtotal = 0;
 		if (orderItems) {
@@ -39,9 +38,9 @@ class Order extends Component {
 		order.shipping = order.type === 'delivery' ? 5 : 0;
 		order.total = order.subtotal + order.shipping;
 
-		let { subtotal, shipping, total, type } = order;
+		const { subtotal, shipping, total, type } = order;
 
-		console.log({ order })
+		console.log({ order });
 
 		return (
 			<div>
@@ -135,8 +134,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		fetchOrder: userId => dispatch(fetchOrder(userId)),
-		fetchOrderItems: orderId => dispatch(fetchOrderItems(orderId)),
+		fetchOrder: userId => dispatch(fetchOrderThunk(userId)),
+		fetchOrderItems: orderId => dispatch(fetchOrderItemsThunk(orderId)),
 		updateOrderThunk: order => dispatch(updateOrderThunk(order)),
 		fetchProducts: () => dispatch(fetchProducts()),
 	};
