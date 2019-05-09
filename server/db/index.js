@@ -117,7 +117,34 @@ const User = conn.define('user', {
       },
     },
   },
-  // address ?
+  shippingAddress: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  shippingCity: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  shippingState: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  billingAddress: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  billingCity: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  billingState: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  ccNumber: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
 });
 
 // TODO - plan how to configure Order model to handle guest session (authenticated vs non-authenticated)

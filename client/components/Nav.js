@@ -41,6 +41,9 @@ class Nav extends Component {
           <Link to="/bag" className="nav-item">
             Bag
           </Link>
+          <Link to="/checkout" className="nav-item">
+            Checkout
+          </Link>
         </div>
       </nav>
     );
