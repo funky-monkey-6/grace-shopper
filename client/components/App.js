@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter as Router, Route } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import Menu from './Menu';
 import Login from './Login';
 import ProductSingle from './ProductSingle';
@@ -11,15 +11,15 @@ import Order from './Order';
 const App = () => {
   return (
     <Router>
-      <div>
-        <Nav />
+      <Nav />
+      <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/menu" component={Menu} />
         <Route path="/menu/:productId" component={ProductSingle} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/bag" component={Order} />
-      </div>
+      </Switch>
     </Router>
   );
 };

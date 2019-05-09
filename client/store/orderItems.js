@@ -6,7 +6,7 @@ const SET_ORDERITEMS = 'SET_ORDERITEMS';
 
 // ACTION CREATORS
 
-const setOrderItems = orderItems => ({
+export const setOrderItems = orderItems => ({
   type: SET_ORDERITEMS,
   orderItems,
 });
@@ -15,21 +15,17 @@ const setOrderItems = orderItems => ({
 
 export const fetchOrderItems = orderId => {
   return dispatch => {
-    return (
-      axios
-        .get(`/api/users/orders/${orderId}/orderItems`)
-        // .then(resp => resp)
-        .then(resp => {
-          if (resp.data) {
-            console.log('fetchOrderItems() being called');
-            return dispatch(setOrderItems(resp.data));
-          }
-          return null;
-        })
-        .catch(err => {
-          throw new Error(err);
-        })
-    );
+    return axios
+      .get(`/api/users/orders/${orderId}/orderItems`)
+      .then(resp => {
+        if (resp.data) {
+          return dispatch(setOrderItems(resp.data));
+        }
+        return null;
+      })
+      .catch(err => {
+        throw new Error(err);
+      });
   };
 };
 
@@ -38,7 +34,7 @@ export const deleteOrderItemThunk = (userId, orderId, orderItemId) => {
   return dispatch => {
     // TODO change on line below:  1 => ${userId}
     return axios
-      .delete(`/api/users/1/orders/${orderId}/orderItem/${orderItemId}`)
+      .delete(`/api/users/${userId}/orders/${orderId}/orderItem/${orderItemId}`)
       .then(() => {
         return dispatch(fetchOrderItems(orderId));
       })
