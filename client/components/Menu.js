@@ -110,8 +110,10 @@ class Menu extends React.Component {
               value={searchTerm}
               onChange={this.enterSearch}
             />
-            <button type="submit">Search</button>
-            <button type="submit" onClick={this.clearSearch}>
+            <button type="submit" className="btn btn-secondary">
+              Search
+            </button>
+            <button type="submit" onClick={this.clearSearch} className="btn btn-secondary">
               Clear Search
             </button>
           </form>
@@ -130,8 +132,10 @@ class Menu extends React.Component {
                 </div>
               );
             })}
-            <button type="submit">Apply Filter</button>
-            <button type="reset" onClick={this.clearFilter}>
+            <button type="submit" className="btn btn-secondary">
+              Apply Filter
+            </button>
+            <button type="reset" onClick={this.clearFilter} className="btn btn-secondary">
               Clear Filter
             </button>
           </form>
@@ -141,12 +145,12 @@ class Menu extends React.Component {
             return (
               <div key={prod.id} className="menu-item">
                 <ul>
-                  <li>Placeholder for image</li>
+                  <img src="default.jpg" className="menu-img" alt="menu-default" />
                   <Link to={`/menu/product/${prod.id}`}>
-                    <li>{prod.title}</li>
+                    <h5>{prod.title}</h5>
                   </Link>
-                  <li>{prod.description}</li>
-                  <li>{prod.price}</li>
+                  <p>{prod.description}</p>
+                  <p>${prod.price.toFixed(2)}</p>
                 </ul>
               </div>
             );

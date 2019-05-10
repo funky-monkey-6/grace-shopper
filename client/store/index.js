@@ -8,7 +8,7 @@ import { fetchProduct, product } from './product';
 import { fetchCategories, categories } from './categories';
 import { fetchOrder, addOrderThunk, updateOrderThunk, order } from './order';
 import { fetchOrderItems, deleteOrderItemThunk, addOrderItemThunk, orderItems } from './orderItems';
-import { fetchProductReviews, reviews } from './reviews';
+import { fetchProductReviews, reviews, addProductReview } from './reviews';
 
 //THUNK CREATORS
 
@@ -28,6 +28,7 @@ export {
   deleteOrderItemThunk,
   addOrderItemThunk,
   fetchProductReviews,
+  addProductReview,
 };
 
 const reducer = combineReducers({

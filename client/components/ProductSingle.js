@@ -2,10 +2,11 @@
 /* eslint-disable no-shadow */
 import React from 'react';
 import { connect } from 'react-redux';
-
 import axios from 'axios';
+import StarRatingComponent from 'react-star-rating-component';
 import {
   fetchProductReviews,
+  addProductReview,
   fetchProduct,
   addOrderThunk,
   addOrderItemThunk,
@@ -13,6 +14,14 @@ import {
 import { isCart } from './helperFunctions';
 
 class ProductSingle extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      rating: 0,
+      comment: '',
+    };
+  }
+
   componentDidMount = () => {
     const { productId } = this.props.match.params;
     const { fetchProduct, fetchProductReviews } = this.props;
@@ -43,9 +52,34 @@ class ProductSingle extends React.Component {
     }
   };
 
+  // post a new review
+  addReview = evt => {
+    evt.preventDefault();
+    const { rating, comment } = this.state;
+    const { addProductReview, product } = this.props;
+    addProductReview({
+      rating,
+      comment,
+      productId: product.id,
+      userId: 1,
+    });
+  };
+
+  handleReviewChange = ({ target }) => {
+    this.setState({
+      [target.name]: target.value,
+    });
+  };
+
+  onStarClick = (nextValue, prevValue, name) => {
+    this.setState({ rating: nextValue });
+    console.log(this.state);
+  };
+
   render() {
     const { user, order, product, reviews } = this.props;
-    const { addOrderItem } = this;
+    const { rating } = this.state;
+    const { addOrderItem, onStarClick } = this;
     const orderItem = {
       quantity: 1,
       price: product.price,
@@ -56,32 +90,69 @@ class ProductSingle extends React.Component {
     if (!product) return null;
     return (
       <div>
-        <h1>
-          <i>Placeholder for image</i>
-        </h1>
-        <ul>
-          <li>{product.title}</li>
-          <li>{product.description}</li>
-          <li>{product.price}</li>
-        </ul>
-        {/* userId, order, orderItem */}
-        <button type="submit" onClick={() => addOrderItem(user.id, order, orderItem)}>
-          Add to Cart
-        </button>
-        <div>
-          <h1>
-            <i>Reviews</i>
-          </h1>
-          {reviews.map(review => {
-            const { id, rating, comment } = review;
-
-            return (
-              <ul key={id}>
-                <li>{rating}</li>
-                <li>{comment}</li>
-              </ul>
-            );
-          })}
+        <div className="product-single-container">
+          <div className="product-single">
+            <img src="default.jpg" className="product-single-img" alt="default" />
+            <div className="product-single-details">
+              <div className="product-single-info">
+                <h1>{product.title}</h1>
+                <p>{product.description}</p>
+              </div>
+              <div className="product-single-pricing">
+                <p>{product.price ? `$${product.price.toFixed(2)}` : 'NA'}</p>
+                {/* userId, order, orderItem */}
+                <button
+                  type="submit"
+                  onClick={() => addOrderItem(user.id, order, orderItem)}
+                  className="btn btn-secondary"
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="reviews">
+          <div className="review-form">
+            <h1>
+              <i>Add Review</i>
+            </h1>
+            <StarRatingComponent
+              name="rate1"
+              starCount={5}
+              value={rating}
+              onStarClick={onStarClick}
+            />
+            <form onSubmit={this.addReview}>
+              <br />
+              <label htmlFor="rating">Comments:</label>
+              <br />
+              <textarea
+                type="text"
+                name="comment"
+                value={this.state.comment}
+                onChange={this.handleReviewChange}
+              />
+              <br />
+              <button type="submit" className="btn btn-secondary">
+                Submit Review:
+              </button>
+            </form>
+          </div>
+          <div className="review-list">
+            <h1>
+              <i>Reviews</i>
+            </h1>
+            {reviews.map(review => {
+              const { id, rating, comment } = review;
+              return (
+                <div className="review-card" key={id}>
+                  <StarRatingComponent name="rating" editing={false} starCount={5} value={rating} />
+                  <p>{comment}</p>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     );
@@ -105,6 +176,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(addOrderItemThunk(userId, orderId, orderItem)),
     fetchProductReviews: id => dispatch(fetchProductReviews(id)),
     fetchProduct: id => dispatch(fetchProduct(id)),
+    addProductReview: review => dispatch(addProductReview(review)),
   };
 };
 
@@ -112,3 +184,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps,
 )(ProductSingle);
+
+// TODO: add the star rating
