@@ -1,13 +1,13 @@
 import React from 'react';
 import { HashRouter as Router, Route } from 'react-router-dom';
-import Menu from '../components/Menu';
-import Login from '../components/Login';
-import ProductSingle from '../components/ProductSingle';
-import Nav from '../components/Nav';
-import Signup from '../components/Signup';
-import Home from '../components/Home';
-import Order from '../components/Order';
-import Checkout from '../components/Checkout';
+import Menu from './Menu';
+import Login from './Login';
+import ProductSingle from './ProductSingle';
+import Nav from './Nav';
+import Signup from './Signup';
+import Home from './Home';
+import Order from './Order';
+import Checkout from './Checkout';
 
 const App = () => {
   return (
