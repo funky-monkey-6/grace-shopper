@@ -12,7 +12,6 @@ class OrderItem extends Component {
   render() {
     const { orderItem, product, userId, orderId } = this.props;
     const { price, quantity } = orderItem;
-
     if (!orderItem.price) {
       orderItem.price = product.price;
     }

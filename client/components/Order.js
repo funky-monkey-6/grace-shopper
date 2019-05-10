@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable indent */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -74,14 +76,14 @@ class Order extends Component {
                 );
               })
             ) : (
-              <tr>
-                <td>Your bag is empty.</td>
-                <td />
-                <td />
-                <td />
-                <td />
-              </tr>
-            )}
+                <tr>
+                  <td>Your bag is empty.</td>
+                  <td />
+                  <td />
+                  <td />
+                  <td />
+                </tr>
+              )}
             <tr>
               <td />
               <td />
