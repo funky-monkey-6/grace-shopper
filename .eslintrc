@@ -72,7 +72,7 @@
     "no-unneeded-ternary": 0,
     "no-restricted-syntax": 1,
     "radix": 0,
-    "prefer-destructuring": 1,
+    "prefer-destructuring": 0,
     "jest/no-disabled-tests": "warn",
     "jest/no-focused-tests": "error",
     "jest/no-identical-title": "error",
