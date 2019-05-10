@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchOrder as fetchOrderThunk, fetchOrderItems } from '../store';
+import { fetchOrder as fetchOrderThunk, fetchOrderItems, updateOrderThunk } from '../store';
 
 class Checkout extends Component {
   constructor(props) {
@@ -36,6 +36,8 @@ class Checkout extends Component {
 
   handleSubmit = ev => {
     ev.preventDefault();
+    // thunk to update user information
+    // thunk to update order to status 'processing'
   };
 
   sameAsAboveButtons = () => {
@@ -269,6 +271,7 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchOrder: id => dispatch(fetchOrderThunk(id)),
     fetchOrderItems: orderId => dispatch(fetchOrderItems(orderId)),
+    updateOrderThunk: order => dispatch(updateOrderThunk(order)),
   };
 };
 
