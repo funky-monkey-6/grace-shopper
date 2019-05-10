@@ -2,7 +2,7 @@
 /* eslint-disable no-shadow */
 /* eslint-disable react/button-has-type */
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchProducts, fetchCategories, searchProducts, filterProducts } from '../store';
 
@@ -48,6 +48,7 @@ class Menu extends React.Component {
     evt.preventDefault();
     const { fetchProducts } = this.props;
     this.setState({ searchTerm: '' });
+    // this.props.history.push('/menu');
     fetchProducts();
   };
 
@@ -56,6 +57,7 @@ class Menu extends React.Component {
     evt.preventDefault();
     const { searchTerm } = this.state;
     const { searchProducts } = this.props;
+    // this.props.history.push(`/menu/search/${searchTerm}`);
     searchProducts(searchTerm);
   };
 
@@ -76,8 +78,10 @@ class Menu extends React.Component {
     const { filterCategories } = this.state;
     const { filterProducts, fetchProducts } = this.props;
     if (filterCategories.length === 0) {
+      // this.props.history.push('/menu');
       fetchProducts();
     } else {
+      // this.props.history.push(`/menu/search/${filterCategories.join('-')}`);
       filterProducts(filterCategories);
     }
   };
@@ -90,6 +94,7 @@ class Menu extends React.Component {
       el.checked = false;
     });
     this.setState({ filterCategories: [] });
+    // this.props.history.push('/menu');
     fetchProducts();
   };
 
@@ -142,7 +147,7 @@ class Menu extends React.Component {
               <div key={prod.id} className="menu-item">
                 <ul>
                   <li>Placeholder for image</li>
-                  <Link to={`/menu/${prod.id}`}>
+                  <Link to={`/menu/product/${prod.id}`}>
                     <li>{prod.title}</li>
                   </Link>
                   <li>{prod.description}</li>
