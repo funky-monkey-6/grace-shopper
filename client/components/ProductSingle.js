@@ -27,7 +27,6 @@ class ProductSingle extends React.Component {
       comment: '',
       quantity: 0,
       selectedSize: '',
-
     };
   }
 
@@ -117,21 +116,47 @@ class ProductSingle extends React.Component {
               <div className="product-single-pricing">
                 <form>
                   <select>
-                    <option name="quantity" onChange={handleChange} value="1">1</option>
-                    <option name="quantity" onChange={handleChange} value="2">2</option>
-                    <option name="quantity" onChange={handleChange} value="3">3</option>
-                    <option name="quantity" onChange={handleChange} value="4">4</option>
-                    <option name="quantity" onChange={handleChange} value="5">5</option>
-                    <option name="quantity" onChange={handleChange} value="6">6</option>
-                    <option name="quantity" onChange={handleChange} value="7">7</option>
-                    <option name="quantity" onChange={handleChange} value="8">8</option>
-                    <option name="quantity" onChange={handleChange} value="9">9</option>
-                    <option name="quantity" onChange={handleChange} value="10">10</option>
+                    <option name="quantity" onChange={handleChange} value="1">
+                      1
+                    </option>
+                    <option name="quantity" onChange={handleChange} value="2">
+                      2
+                    </option>
+                    <option name="quantity" onChange={handleChange} value="3">
+                      3
+                    </option>
+                    <option name="quantity" onChange={handleChange} value="4">
+                      4
+                    </option>
+                    <option name="quantity" onChange={handleChange} value="5">
+                      5
+                    </option>
+                    <option name="quantity" onChange={handleChange} value="6">
+                      6
+                    </option>
+                    <option name="quantity" onChange={handleChange} value="7">
+                      7
+                    </option>
+                    <option name="quantity" onChange={handleChange} value="8">
+                      8
+                    </option>
+                    <option name="quantity" onChange={handleChange} value="9">
+                      9
+                    </option>
+                    <option name="quantity" onChange={handleChange} value="10">
+                      10
+                    </option>
                   </select>
                   <select>
-                    <option name="selectedSize" onChange={handleChange} value="1">Small</option>
-                    <option name="selectedSize" onChange={handleChange} value="2">Medium</option>
-                    <option name="selectedSize" onChange={handleChange} value="3">Large</option>
+                    <option name="selectedSize" onChange={handleChange} value="1">
+                      Small
+                    </option>
+                    <option name="selectedSize" onChange={handleChange} value="2">
+                      Medium
+                    </option>
+                    <option name="selectedSize" onChange={handleChange} value="3">
+                      Large
+                    </option>
                   </select>
                 </form>
                 <p>{product.price ? `$${product.price.toFixed(2)}` : 'NA'}</p>
@@ -173,12 +198,7 @@ class ProductSingle extends React.Component {
                   <br />
                   <label htmlFor="comment">Comments:</label>
                   <br />
-                  <textarea
-                    type="text"
-                    name="comment"
-                    value={comment}
-                    onChange={handleChange}
-                  />
+                  <textarea type="text" name="comment" value={comment} onChange={handleChange} />
                   <br />
                   <button type="submit" className="btn btn-secondary">
                     Submit Review:
@@ -186,12 +206,12 @@ class ProductSingle extends React.Component {
                 </form>
               </div>
             ) : (
-                <Link to="/login">
-                  <button type="submit" className="btn btn-secondary">
-                    Login to add review:
+              <Link to="/login">
+                <button type="submit" className="btn btn-secondary">
+                  Login to add review:
                 </button>
-                </Link>
-              )}
+              </Link>
+            )}
           </div>
           <div className="review-list">
             <h1>

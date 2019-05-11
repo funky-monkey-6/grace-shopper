@@ -11,6 +11,7 @@ import {
   filterCategories,
   filterProducts,
 } from '../store';
+import MenuItem from './MenuItem';
 
 const mapStateToProps = state => {
   const { products, categories } = state;
@@ -151,16 +152,7 @@ class Menu extends React.Component {
         </div>
         <div className="menu-list">
           {products.map(prod => {
-            return (
-              <div key={prod.id} className="menu-item">
-                <img src="default.jpg" className="menu-img" alt="menu-default" />
-                <Link to={`/menu/product/${prod.id}`}>
-                  <h5>{prod.title}</h5>
-                </Link>
-                <p>{prod.description}</p>
-                <p>${prod.price.toFixed(2)}</p>
-              </div>
-            );
+            return <MenuItem product={prod} />;
           })}
         </div>
       </div>

@@ -3,8 +3,8 @@
 import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { fetchProducts } from '../store';
+import MenuItem from './MenuItem';
 
 const mapStateToProps = state => {
   const { products } = state;
@@ -79,19 +79,7 @@ class MostPopular extends React.Component {
         <h4>Popular menu items</h4>
         <div className="menu-list">
           {mostPopular.map(prod => {
-            const { id, title, description, price } = prod;
-            return (
-              <div key={id} className="menu-item">
-                <ul>
-                  <li>Placeholder for image</li>
-                  <Link to={`/menu/product/${id}`}>
-                    <li>{title}</li>
-                  </Link>
-                  <li>{description}</li>
-                  <li>{price}</li>
-                </ul>
-              </div>
-            );
+            return <MenuItem product={prod} />;
           })}
         </div>
       </div>
