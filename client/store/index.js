@@ -6,8 +6,8 @@ import { checkUser, logOut, addUser, user } from './user';
 import { fetchProducts, searchProducts, filterProducts, products } from './products';
 import { fetchProduct, product } from './product';
 import { fetchCategories, categories } from './categories';
-import { fetchOrder, addOrderThunk, updateOrderThunk, order } from './order';
-import { fetchOrderItems, deleteOrderItemThunk, addOrderItemThunk, orderItems } from './orderItems';
+import { fetchOrder, addOrderThunk, updateOrderThunk, setLocalCartToStateThunk, order } from './order';
+import { fetchOrderItems, deleteOrderItemThunk, addOrderItemThunk, setLocalCartItemsToStateThunk, orderItems } from './orderItems';
 import { fetchProductReviews, reviews } from './reviews';
 
 //THUNK CREATORS
@@ -24,9 +24,11 @@ export {
   fetchOrder,
   addOrderThunk,
   updateOrderThunk,
+  setLocalCartToStateThunk,
   fetchOrderItems,
   deleteOrderItemThunk,
   addOrderItemThunk,
+  setLocalCartItemsToStateThunk,
   fetchProductReviews,
 };
 

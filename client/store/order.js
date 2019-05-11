@@ -18,8 +18,12 @@ export const fetchOrder = userId => {
     return axios
       .get(`/api/users/${userId}/cart`)
       .then(response => {
-        if (response.data) {
-          return dispatch(setOrder(response.data));
+        const dbCart = response.data;
+        const localCart = JSON.parse(localStorage.getItem('cart'));
+        if (dbCart) {
+          // compare dbCart to localCart
+
+          return dispatch(setOrder(dbCart));
         }
         return dispatch(setOrder({}));
       })
@@ -63,6 +67,12 @@ export const updateOrderThunk = order => {
       .catch(err => {
         throw new Error(err);
       });
+  };
+};
+
+export const setLocalCartToStateThunk = order => {
+  return dispatch => {
+    return dispatch(setOrder(order));
   };
 };
 

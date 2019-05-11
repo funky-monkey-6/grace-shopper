@@ -55,6 +55,12 @@ export const addOrderItemThunk = (userId, orderId, orderItem) => {
   };
 };
 
+export const setLocalCartItemsToStateThunk = orderItems => {
+  return dispatch => {
+    return dispatch(setOrderItems(orderItems));
+  };
+};
+
 //REDUCER
 
 export const orderItems = (state = [], action) => {
