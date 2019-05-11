@@ -26,7 +26,7 @@ class Checkout extends Component {
       billingCity: '',
       billingState: '',
       billingZip: 0,
-      ccNumber: 0,
+      // ccNumber: 0,
       sameAddress: false,
       submitted: false,
     };
