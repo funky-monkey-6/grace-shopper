@@ -38,7 +38,7 @@ module.exports = conn.define('user', {
     },
   },
   phone: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.BIGINT,
     allowNull: true,
     // validate: {
     //   len: {
@@ -47,30 +47,7 @@ module.exports = conn.define('user', {
     //   },
     // },
   },
-  shippingAddress: {
-    type: Sequelize.STRING,
-  },
-  shippingCity: {
-    type: Sequelize.STRING,
-  },
-  shippingState: {
-    type: Sequelize.STRING,
-    // validate: {
-    //   len: {
-    //     args: [2, 2],
-    //     msg: 'Please enter a valid state',
-    //   },
-    // },
-  },
-  shippingZip: {
-    type: Sequelize.INTEGER,
-    // validate: {
-    //   len: {
-    //     args: [5],
-    //     msg: 'Zip code must be at least 5 digits',
-    //   },
-    // },
-  },
+
   billingFirstName: {
     type: Sequelize.STRING,
   },
@@ -102,6 +79,12 @@ module.exports = conn.define('user', {
     // },
   },
   ccNumber: {
+    type: Sequelize.BIGINT,
+  },
+  ccv: {
     type: Sequelize.INTEGER,
+  },
+  ccExpDate: {
+    type: Sequelize.DATE,
   },
 });
