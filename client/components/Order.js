@@ -125,10 +125,13 @@ class Order extends Component {
             </tr>
           </tbody>
         </table>
-
-        <Link to="/checkout">
-          <button type="submit">Start Checkout </button>
-        </Link>
+        {order.length ? (
+          <Link to="/checkout">
+            <button type="submit">Start Checkout </button>
+          </Link>
+        ) : (
+          ''
+        )}
       </div>
     );
   }
