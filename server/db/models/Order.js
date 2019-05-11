@@ -35,15 +35,15 @@ const Order = conn.define('order', {
   // payment info
 });
 
-Order.findOrCreateCart = function (userId) {
+Order.findOrCreateCart = function(userId) {
   return this.findAll({
     where: {
-      userId: userId
+      userId,
     },
     // include: [{
     //   model: OrderItem,
     // }]
-  })
+  });
   // .then(async (orders) => {
   //   let cart = orders.find(order => order.status === 'cart');
   //   if (cart) {
@@ -61,4 +61,4 @@ Order.findOrCreateCart = function (userId) {
 
 module.exports = {
   Order,
-}
+};

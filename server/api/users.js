@@ -17,56 +17,59 @@ router.post('/adduser/', (req, res, next) => {
 
 // get cart for specific user (if exists), otherwise create
 router.get('/cart', (req, res, next) => {
-  console.log('session id:', req.session.userId)
-  return Order.findOrCreate({
-    where: {
-      userId: req.session.userId,
-      status: 'cart',
-    },
-    include: [{
-      model: OrderItem,
-    }]
-  })
-    .then(async ([order, created]) => {
-      console.log({ created })
+  console.log('session id:', req.session.userId);
+  return (
+    Order.findOrCreate({
+      where: {
+        userId: req.session.userId,
+        status: 'cart',
+      },
+      include: [
+        {
+          model: OrderItem,
+        },
+      ],
+    })
+      .then(async ([order, created]) => {
+        console.log({ created });
 
-      // if (created) {
-      const newItem = await OrderItem.create({ where: { orderId: order.id } })
-      order.orderItems = newItem
-      // res.send(order)
-      // }
-      // console.log(order.orderItems)
-      return order;
-      // return order.findAll({
-      //   where: {
-      //     orderId: order.id
-      //   },
-      //   include: [{
-      //     model: OrderItem,
-      //   }]
+        // if (created) {
+        const newItem = await OrderItem.create({ where: { orderId: order.id } });
+        order.orderItems = newItem;
+        // res.send(order)
+        // }
+        // console.log(order.orderItems)
+        return order;
+        // return order.findAll({
+        //   where: {
+        //     orderId: order.id
+        //   },
+        //   include: [{
+        //     model: OrderItem,
+        //   }]
+        // })
+      })
+      .then(async order => {
+        const _order = await Order.findByPk(order.id);
+        const _orderWithIncl = await OrderItem.findAll({ where: { orderId: order.id } });
+        return _orderWithIncl;
+      })
+      .then(order => res.send(order))
+
+      // .then(orderWithIncl => {
+
+      //   res.send(orderWithIncl)
       // })
-    })
-    .then(async order => {
-      const _order = await Order.findByPk(order.id);
-      const _orderWithIncl = await OrderItem.findAll({ where: { orderId: order.id } })
-      return _orderWithIncl;
 
-    })
-    .then(order => res.send(order))
-
-    // .then(orderWithIncl => {
-
-    //   res.send(orderWithIncl)
-    // })
-
-    // Order.findOne({
-    //   where: {
-    //     userId: req.params.userId,
-    //     status: 'cart',
-    //   },
-    // })
-    // .then(cart => res.send(cart))
-    .catch(next);
+      // Order.findOne({
+      //   where: {
+      //     userId: req.params.userId,
+      //     status: 'cart',
+      //   },
+      // })
+      // .then(cart => res.send(cart))
+      .catch(next)
+  );
 });
 
 // get cart for specific user (if exists), otherwise create
@@ -75,11 +78,13 @@ router.get('/:userId/cart', (req, res, next) => {
     where: {
       userId: req.params.userId,
     },
-    include: [{
-      model: OrderItem,
-    }]
+    include: [
+      {
+        model: OrderItem,
+      },
+    ],
   })
-    .then(async (orders) => {
+    .then(async orders => {
       let cart = orders.find(order => order.status === 'cart');
       if (cart) {
         return orders;
@@ -88,9 +93,11 @@ router.get('/:userId/cart', (req, res, next) => {
         userId: req.params.userId,
       });
       cart = await Order.findByPk(cart.id, {
-        include: [{
-          model: OrderItem,
-        }]
+        include: [
+          {
+            model: OrderItem,
+          },
+        ],
       });
       return cart;
     })
