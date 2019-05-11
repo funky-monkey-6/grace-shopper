@@ -3,6 +3,7 @@ import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { checkUser, logOut, addUser, user } from './user';
+import { fetchUsers, users } from './users';
 import { fetchProducts, searchProducts, filterProducts, products } from './products';
 import { fetchProduct, product } from './product';
 import { fetchCategories, categories } from './categories';
@@ -16,6 +17,7 @@ export {
   checkUser,
   logOut,
   addUser,
+  fetchUsers,
   fetchProducts,
   searchProducts,
   filterProducts,
@@ -33,6 +35,7 @@ export {
 
 const reducer = combineReducers({
   user,
+  users,
   products,
   product,
   categories,

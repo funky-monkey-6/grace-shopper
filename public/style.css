@@ -23,6 +23,14 @@
   border: 1px solid grey;
 }
 
+.menu-list-category {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  border: 1px solid grey;
+  justify-content: space-evenly;
+}
+
 .menu-item {
   border: 1px solid grey;
   width: 30%;
@@ -102,4 +110,8 @@
 
 .product-single-info {
   width: 50%;
+}
+
+.filter-cat {
+  display: flex;
 }

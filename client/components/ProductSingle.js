@@ -10,6 +10,7 @@ import {
   fetchProduct,
   addOrderThunk,
   addOrderItemThunk,
+  fetchUsers,
 } from '../store/index';
 import { isCart } from './helperFunctions';
 
@@ -18,15 +19,17 @@ class ProductSingle extends React.Component {
     super();
     this.state = {
       rating: 0,
+      title: '',
       comment: '',
     };
   }
 
   componentDidMount = () => {
     const { productId } = this.props.match.params;
-    const { fetchProduct, fetchProductReviews } = this.props;
+    const { fetchProduct, fetchProductReviews, fetchUsers } = this.props;
     fetchProductReviews(productId);
     fetchProduct(productId);
+    fetchUsers();
   };
 
   addOrderItem = async (userId, order, orderItem) => {
@@ -52,19 +55,6 @@ class ProductSingle extends React.Component {
     }
   };
 
-  // post a new review
-  addReview = evt => {
-    evt.preventDefault();
-    const { rating, comment } = this.state;
-    const { addProductReview, product } = this.props;
-    addProductReview({
-      rating,
-      comment,
-      productId: product.id,
-      userId: 1,
-    });
-  };
-
   handleReviewChange = ({ target }) => {
     this.setState({
       [target.name]: target.value,
@@ -73,7 +63,25 @@ class ProductSingle extends React.Component {
 
   onStarClick = (nextValue, prevValue, name) => {
     this.setState({ rating: nextValue });
-    console.log(this.state);
+  };
+
+  // TODO: get the correct userID (right now Doug Funny is eating everything)
+  addReview = evt => {
+    evt.preventDefault();
+    const { rating, comment, title } = this.state;
+    const { addProductReview, product } = this.props;
+    addProductReview({
+      rating,
+      comment,
+      title,
+      productId: product.id,
+      userId: 1,
+    });
+    this.setState({
+      rating: 0,
+      title: '',
+      comment: '',
+    });
   };
 
   render() {
@@ -86,7 +94,6 @@ class ProductSingle extends React.Component {
       orderId: order.id,
       productId: product.id,
     };
-
     if (!product) return null;
     return (
       <div>
@@ -118,14 +125,28 @@ class ProductSingle extends React.Component {
               <i>Add Review</i>
             </h1>
             <StarRatingComponent
-              name="rate1"
+              name="rating"
               starCount={5}
               value={rating}
               onStarClick={onStarClick}
+              renderStarIcon={() => (
+                <span>
+                  <h4>★</h4>
+                </span>
+              )}
             />
             <form onSubmit={this.addReview}>
               <br />
-              <label htmlFor="rating">Comments:</label>
+              <label htmlFor="title">Review Title:</label>
+              <br />
+              <input
+                type="text"
+                name="title"
+                value={this.state.title}
+                onChange={this.handleReviewChange}
+              />
+              <br />
+              <label htmlFor="comment">Comments:</label>
               <br />
               <textarea
                 type="text"
@@ -144,10 +165,27 @@ class ProductSingle extends React.Component {
               <i>Reviews</i>
             </h1>
             {reviews.map(review => {
-              const { id, rating, comment } = review;
+              const { id, rating, comment, userId } = review;
+              const user = this.props.users.filter(u => u.id === userId)[0];
               return (
                 <div className="review-card" key={id}>
-                  <StarRatingComponent name="rating" editing={false} starCount={5} value={rating} />
+                  <h5>
+                    <i>{review.title}</i>
+                  </h5>
+                  <p>
+                    <i>{user ? `${user.firstName} ${user.lastName}` : 'Anonymous'}</i>
+                  </p>
+                  <StarRatingComponent
+                    name="rating"
+                    editing={false}
+                    starCount={5}
+                    value={rating}
+                    renderStarIcon={() => (
+                      <span>
+                        <h4>★</h4>
+                      </span>
+                    )}
+                  />
                   <p>{comment}</p>
                 </div>
               );
@@ -160,12 +198,13 @@ class ProductSingle extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const { user, order, product, reviews } = state;
+  const { user, order, product, reviews, users } = state;
   return {
     order,
     user,
     product,
     reviews,
+    users,
   };
 };
 
@@ -176,6 +215,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(addOrderItemThunk(userId, orderId, orderItem)),
     fetchProductReviews: id => dispatch(fetchProductReviews(id)),
     fetchProduct: id => dispatch(fetchProduct(id)),
+    fetchUsers: () => dispatch(fetchUsers()),
     addProductReview: review => dispatch(addProductReview(review)),
   };
 };
@@ -184,5 +224,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps,
 )(ProductSingle);
-
-// TODO: add the star rating

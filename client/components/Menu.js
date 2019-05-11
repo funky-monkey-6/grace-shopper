@@ -121,7 +121,7 @@ class Menu extends React.Component {
           <form onSubmit={this.applyFilter}>
             {categories.map(cat => {
               return (
-                <div key={cat.id}>
+                <div key={cat.id} className="filter-cat">
                   <label htmlFor="filterCategories">{cat.name}</label>
                   <input
                     type="checkbox"
@@ -141,17 +141,25 @@ class Menu extends React.Component {
           </form>
         </div>
         <div className="menu-list">
-          {products.map(prod => {
+          {categories.map(cat => {
+            const productsInCategory = products.filter(prod => prod.categoryId === cat.id);
             return (
-              <div key={prod.id} className="menu-item">
-                <ul>
-                  <img src="default.jpg" className="menu-img" alt="menu-default" />
-                  <Link to={`/menu/product/${prod.id}`}>
-                    <h5>{prod.title}</h5>
-                  </Link>
-                  <p>{prod.description}</p>
-                  <p>${prod.price.toFixed(2)}</p>
-                </ul>
+              <div key={cat.id}>
+                <h3>{cat.name}</h3>
+                <div className="menu-list-category">
+                  {productsInCategory.map(prod => {
+                    return (
+                      <div key={prod.id} className="menu-item">
+                        <img src="default.jpg" className="menu-img" alt="menu-default" />
+                        <Link to={`/menu/product/${prod.id}`}>
+                          <h5>{prod.title}</h5>
+                        </Link>
+                        <p>{prod.description}</p>
+                        <p>${prod.price.toFixed(2)}</p>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             );
           })}
