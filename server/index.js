@@ -22,16 +22,17 @@ app.use(express.static(path.join(__dirname, '../public')));
 //   }),
 // );
 
-// does save a cookie in browser when 
-app.use(cookieSession({
-  name: 'session',
-  secret: '592&3)$93482%',
+// does save a cookie in browser when
+app.use(
+  cookieSession({
+    name: 'session',
+    secret: '592&3)$93482%',
 
-  // options
-  // httpOnly: true,
-  // sameSite: true,
-}));
-
+    // options
+    // httpOnly: true,
+    // sameSite: true,
+  }),
+);
 
 //just for checking on the session, can delete whenever
 app.use((req, res, next) => {

@@ -50,10 +50,12 @@ export const addUser = enteredUser => async dispatch => {
 // TODO Erin - keep or delete ?
 export const getUser = () => async dispatch => {
   try {
-    const response = await axios.get('/api/auth/user')
-    const user = response.data
-    return dispatch(setUser(user))
-  } catch (error) { throw new Error(error) }
+    const response = await axios.get('/api/auth/user');
+    const user = response.data;
+    return dispatch(setUser(user));
+  } catch (error) {
+    throw new Error(error);
+  }
 };
 
 //REDUCER

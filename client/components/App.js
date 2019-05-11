@@ -12,7 +12,6 @@ import Order from './Order';
 import { getUser } from '../store';
 
 class App extends Component {
-
   // componentDidUpdate(prevProps) {
   //   const cookie = Cookies.get('userId')
   //   console.log(cookie)
@@ -34,10 +33,10 @@ class App extends Component {
   render() {
     // const cookie = Cookies.get('userId')
     // able to set cookies here, but not sure how to read session cookie
-    const cookie = Cookies.set('name', 'value')
-    console.log({ cookie })
-    const getCookie = Cookies.get()
-    console.log('getCookie: ', getCookie)
+    const cookie = Cookies.set('name', 'value');
+    console.log({ cookie });
+    const getCookie = Cookies.get();
+    console.log('getCookie: ', getCookie);
 
     return (
       <Router>
@@ -71,19 +70,22 @@ class App extends Component {
       </Router>
     );
   }
-};
+}
 
 const mapStateToProps = state => {
   return {
     state,
     user: state.user,
-  }
-}
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
     getUser: () => dispatch(getUser()),
-  }
+  };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(App);
