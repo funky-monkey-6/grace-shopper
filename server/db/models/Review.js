@@ -25,4 +25,7 @@ module.exports = conn.define('review', {
       },
     },
   },
+  title: {
+    type: Sequelize.STRING,
+  },
 });
