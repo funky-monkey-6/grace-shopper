@@ -26,7 +26,10 @@ class Checkout extends Component {
       billingCity: '',
       billingState: '',
       billingZip: 0,
-      // ccNumber: 0,
+      ccNumber: 0,
+      ccv: 0,
+      ccExpDateMonth: 1,
+      ccExpDateYear: 2019,
       sameAddress: false,
       submitted: false,
     };
@@ -52,6 +55,7 @@ class Checkout extends Component {
     } = this.state;
 
     this.setState({ [`${ev.target.name}`]: ev.target.value });
+
     if (sameAddress) {
       this.setState({
         billingFirstName: firstName,
@@ -78,27 +82,41 @@ class Checkout extends Component {
       billingCity,
       billingState,
       billingZip,
+      ccNumber,
+      ccv,
+      ccExpDateMonth,
+      ccExpDateYear,
+      email,
+      phone,
     } = this.state;
     const { updateOrder, updateUserThunk, order, user } = this.props;
     ev.preventDefault();
-    updateOrder({ ...order, status: 'processing' });
-    updateUserThunk({
-      ...user,
-      firstName,
-      lastName,
+    updateOrder({
+      ...order,
+      status: 'processing',
       shippingAddress,
       shippingCity,
       shippingState,
       shippingZip: parseInt(shippingZip),
+      date: new Date(),
+    });
+    updateUserThunk({
+      ...user,
+      firstName,
+      lastName,
       billingFirstName,
       billingLastName,
       billingAddress,
       billingCity,
       billingState,
       billingZip: parseInt(billingZip),
+      email,
+      phone: parseInt(phone),
+      ccNumber: parseInt(ccNumber),
+      ccv: parseInt(ccv),
+      ccExpDate: new Date(ccExpDateYear, ccExpDateMonth, 0, 0, 0, 0, 0),
     });
     this.setState({ submitted: true });
-    // thunk to update user information
   };
 
   copyBillingAddress = ev => {
@@ -139,12 +157,16 @@ class Checkout extends Component {
       billingCity,
       billingState,
       billingZip,
+      ccNumber,
+      ccv,
+      ccExpDateMonth,
+      ccExpDateYear,
       email,
+      phone,
       sameAddress,
       submitted,
     } = this.state;
 
-    // const { order } = this.state.props;
     const { orderItems, order, products, user } = this.props;
 
     // TODO save values in db for subtotal, shipping, total
@@ -164,7 +186,7 @@ class Checkout extends Component {
           <Fragment>
             <div>
               <h4> Review order: </h4>
-              <table className="table table-condensed">
+              <table className="table table-striped table-condensed">
                 <thead>
                   <tr>
                     <th>Product</th>
@@ -245,7 +267,7 @@ class Checkout extends Component {
                   <label>
                     Zip Code:
                     <input
-                      type="text"
+                      type="number"
                       name="shippingZip"
                       value={shippingZip}
                       onChange={handleChange}
@@ -253,7 +275,11 @@ class Checkout extends Component {
                   </label>
                   <label>
                     Email:
-                    <input type="text" name="shippingEmail" value={email} onChange={handleChange} />
+                    <input type="text" name="email" value={email} onChange={handleChange} />
+                  </label>
+                  <label>
+                    Phone number:
+                    <input type="text" name="phone" value={phone} onChange={handleChange} />
                   </label>
                 </div>
                 <br />
@@ -314,22 +340,38 @@ class Checkout extends Component {
                   <label>
                     Zip Code:
                     <input
-                      type="text"
+                      type="number"
                       name="billingZip"
                       value={sameAddress ? shippingZip : billingZip}
                       onChange={handleChange}
                     />
                   </label>
-                  {/* TODO? add email? credit card info? */}
-                  {/* <label>
-                Email:
-                <input
-                  type="text"
-                  name="email"
-                  value={sameAddress ? email : billingEmail}
-                  onChange={handleChange}
-                />
-              </label> */}
+                  <label>
+                    Credit Card Number:
+                    <input type="number" name="ccNumber" value={ccNumber} onChange={handleChange} />
+                  </label>
+                  <label>
+                    CCV:
+                    <input type="number" name="ccv" value={ccv} onChange={handleChange} />
+                  </label>
+                  <label>
+                    Credit Card Expiration Date:
+                    <input
+                      type="number"
+                      name="ccExpDateMonth"
+                      value={ccExpDateMonth}
+                      onChange={handleChange}
+                      min="1"
+                      max="12"
+                    />
+                    /
+                    <input
+                      type="number"
+                      name="ccExpDateYear"
+                      value={ccExpDateYear}
+                      onChange={handleChange}
+                    />
+                  </label>
                 </div>
 
                 <button type="submit" onClick={handleSubmit}>
