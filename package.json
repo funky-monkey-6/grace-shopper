@@ -1,6 +1,6 @@
 {
   "name": "grace-shopper-funky-monkey",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "description": "",
   "main": "db.js",
   "dependencies": {
@@ -13,6 +13,8 @@
     "react-dom": "^16.8.3",
     "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.0",
+    "react-star-rating-component": "^1.4.1",
+    "react-star-ratings": "^2.3.0",
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
