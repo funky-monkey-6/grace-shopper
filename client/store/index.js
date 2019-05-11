@@ -4,7 +4,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { checkUser, logOut, addUser, user } from './user';
 import { fetchProducts, searchProducts, filterProducts, products } from './products';
-import { fetchProduct, product } from './product';
+import { fetchProduct, deleteProduct, product } from './product';
 import { fetchCategories, categories } from './categories';
 import { fetchOrder, addOrderThunk, updateOrderThunk, order } from './order';
 import { fetchOrderItems, deleteOrderItemThunk, addOrderItemThunk, orderItems } from './orderItems';
@@ -20,6 +20,7 @@ export {
   searchProducts,
   filterProducts,
   fetchProduct,
+  deleteProduct,
   fetchCategories,
   fetchOrder,
   addOrderThunk,
