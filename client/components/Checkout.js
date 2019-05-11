@@ -25,8 +25,9 @@ class Checkout extends Component {
   }
 
   componentDidMount = () => {
-    const { fetchOrder, user } = this.props;
+    const { fetchOrder, user, order } = this.props;
     fetchOrder(user.id);
+    fetchOrderItems(order.id);
   };
 
   handleChange = ev => {
@@ -105,16 +106,18 @@ class Checkout extends Component {
               </tr>
             </thead>
             <tbody>
-              {orderItems.map(orderItem => {
-                return (
-                  <tr key={orderItem.id}>
-                    <td>{findProduct(products, orderItem).title}</td>
-                    <td>${orderItem.price}</td>
-                    <td>{orderItem.quantity}</td>
-                    <td>${orderItem ? orderItem.price * orderItem.quantity : 0}</td>
-                  </tr>
-                );
-              })}
+              {orderItems.length
+                ? orderItems.map(orderItem => {
+                    return (
+                      <tr key={orderItem.id}>
+                        <td>{findProduct(products, orderItem).title}</td>
+                        <td>${orderItem.price}</td>
+                        <td>{orderItem.quantity}</td>
+                        <td>${orderItem ? orderItem.price * orderItem.quantity : 0}</td>
+                      </tr>
+                    );
+                  })
+                : ''}
             </tbody>
           </table>
         </div>

@@ -42,7 +42,7 @@ export const addUser = enteredUser => async dispatch => {
   }
 };
 
-export const updateUser = user =>
+// export const updateUser = user =>
 
 // TODO Erin - keep or delete ?
 // export const getMe = () => async dispatch => {
