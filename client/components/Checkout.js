@@ -120,6 +120,21 @@ class Checkout extends Component {
           </table>
         </div>
         <br />
+
+        <div className="d-flex flex-row">
+          <div>
+            <br />
+            Order Type: <span>{order.type}</span>
+            <br />
+            Subtotal: <span>${order.subtotal}</span>
+            <br />
+            Shipping: <span>${order.shipping}</span>
+            <br />
+            <strong>Total: ${order.total}</strong>
+          </div>
+        </div>
+
+        <br />
         <br />
 
         <div>
