@@ -43,12 +43,18 @@ class Nav extends Component {
           </div>
           <div className="nav-login">
             {/* TODO isLoggedIn(user) = true - then show Account and Orders  */}
-            <NavLink to="/user/account" className="nav-item">
-              Account
-            </NavLink>
-            <NavLink to="/user/orders" className="nav-item">
-              Orders
-            </NavLink>
+            {isLoggedIn(user) ? (
+              <Fragment>
+                <NavLink to="/user/account" className="nav-item">
+                  Account
+                </NavLink>
+                <NavLink to="/user/orders" className="nav-item">
+                  Orders
+                </NavLink>
+              </Fragment>
+            ) : (
+              ''
+            )}
             {/* end isLoggedIn */}
 
             {buttonStatus}
