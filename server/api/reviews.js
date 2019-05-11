@@ -22,7 +22,7 @@ router.get('/:productId', (req, res, next) => {
 // api/reviews: create review
 router.post('/', (req, res, next) => {
   Review.create(req.body)
-    .then(review => res.status(201).send(review))
+    .then(review => res.send(review))
     .catch(next);
 });
 
