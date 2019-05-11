@@ -1,7 +1,11 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable indent */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-shadow */
+
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import StarRatingComponent from 'react-star-rating-component';
 import {
@@ -55,27 +59,29 @@ class ProductSingle extends React.Component {
     }
   };
 
+  // update comment/title on state as user enters review
   handleReviewChange = ({ target }) => {
     this.setState({
       [target.name]: target.value,
     });
   };
 
-  onStarClick = (nextValue, prevValue, name) => {
-    this.setState({ rating: nextValue });
+  // update rating based on selected stars
+  onStarClick = rating => {
+    this.setState({ rating });
   };
 
-  // TODO: get the correct userID (right now Doug Funny is eating everything)
+  // post review to database
   addReview = evt => {
     evt.preventDefault();
     const { rating, comment, title } = this.state;
-    const { addProductReview, product } = this.props;
+    const { addProductReview, product, user } = this.props;
     addProductReview({
       rating,
       comment,
       title,
       productId: product.id,
-      userId: 1,
+      userId: user.id,
     });
     this.setState({
       rating: 0,
@@ -85,9 +91,9 @@ class ProductSingle extends React.Component {
   };
 
   render() {
-    const { user, order, product, reviews } = this.props;
-    const { rating } = this.state;
-    const { addOrderItem, onStarClick } = this;
+    const { user, order, product, reviews, users } = this.props;
+    const { rating, title, comment } = this.state;
+    const { addOrderItem, onStarClick, handleReviewChange, addReview } = this;
     const orderItem = {
       quantity: 1,
       price: product.price,
@@ -121,44 +127,54 @@ class ProductSingle extends React.Component {
         </div>
         <div className="reviews">
           <div className="review-form">
-            <h1>
-              <i>Add Review</i>
-            </h1>
-            <StarRatingComponent
-              name="rating"
-              starCount={5}
-              value={rating}
-              onStarClick={onStarClick}
-              renderStarIcon={() => (
-                <span>
-                  <h4>★</h4>
-                </span>
-              )}
-            />
-            <form onSubmit={this.addReview}>
-              <br />
-              <label htmlFor="title">Review Title:</label>
-              <br />
-              <input
-                type="text"
-                name="title"
-                value={this.state.title}
-                onChange={this.handleReviewChange}
-              />
-              <br />
-              <label htmlFor="comment">Comments:</label>
-              <br />
-              <textarea
-                type="text"
-                name="comment"
-                value={this.state.comment}
-                onChange={this.handleReviewChange}
-              />
-              <br />
-              <button type="submit" className="btn btn-secondary">
-                Submit Review:
+            {user.id ? (
+              <div>
+                <h1>
+                  <i>Add Review</i>
+                </h1>
+                <StarRatingComponent
+                  name="rating"
+                  starCount={5}
+                  value={rating}
+                  onStarClick={onStarClick}
+                  renderStarIcon={() => (
+                    <span>
+                      <h4>★</h4>
+                    </span>
+                  )}
+                />
+                <form onSubmit={addReview}>
+                  <br />
+                  <label htmlFor="title">Review Title:</label>
+                  <br />
+                  <input
+                    type="text"
+                    name="title"
+                    value={title}
+                    onChange={handleReviewChange}
+                  />
+                  <br />
+                  <label htmlFor="comment">Comments:</label>
+                  <br />
+                  <textarea
+                    type="text"
+                    name="comment"
+                    value={comment}
+                    onChange={handleReviewChange}
+                  />
+                  <br />
+                  <button type="submit" className="btn btn-secondary">
+                    Submit Review:
+                </button>
+                </form>
+              </div>
+            ) : (
+                <Link to="/login">
+                  <button type="submit" className="btn btn-secondary">
+                    Login to add review:
               </button>
-            </form>
+                </Link>
+              )}
           </div>
           <div className="review-list">
             <h1>
@@ -166,7 +182,7 @@ class ProductSingle extends React.Component {
             </h1>
             {reviews.map(review => {
               const { id, rating, comment, userId } = review;
-              const user = this.props.users.filter(u => u.id === userId)[0];
+              const user = users.filter(u => u.id === userId)[0];
               return (
                 <div className="review-card" key={id}>
                   <h5>
@@ -192,7 +208,7 @@ class ProductSingle extends React.Component {
             })}
           </div>
         </div>
-      </div>
+      </div >
     );
   }
 }
