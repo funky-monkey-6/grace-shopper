@@ -6,7 +6,7 @@ import { checkUser, logOut, addUser, user } from './user';
 import { fetchUsers, users } from './users';
 import { fetchProducts, searchProducts, filterProducts, products } from './products';
 import { fetchProduct, product } from './product';
-import { fetchCategories, categories } from './categories';
+import { fetchCategories, filterCategories, categories } from './categories';
 import { fetchOrder, addOrderThunk, updateOrderThunk, order } from './order';
 import { fetchOrderItems, deleteOrderItemThunk, addOrderItemThunk, orderItems } from './orderItems';
 import { fetchProductReviews, reviews, addProductReview } from './reviews';
@@ -23,6 +23,7 @@ export {
   filterProducts,
   fetchProduct,
   fetchCategories,
+  filterCategories,
   fetchOrder,
   addOrderThunk,
   updateOrderThunk,
