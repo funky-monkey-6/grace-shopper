@@ -59,8 +59,14 @@ class Nav extends Component {
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <div className="nav-admin">
             <span className="nav-item">Admin:</span>
-            <NavLink to="/admin/dash" className="nav-item" activeClassName="active">
-              Admin Dashboard
+            <NavLink to="/admin/products" className="nav-item" activeClassName="active">
+              Products
+            </NavLink>
+            <NavLink to="/admin/categories" className="nav-item" activeClassName="active">
+              Categories
+            </NavLink>
+            <NavLink to="/admin/users" className="nav-item" activeClassName="active">
+              Users
             </NavLink>
           </div>
         </nav>

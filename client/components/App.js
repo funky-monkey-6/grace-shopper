@@ -7,7 +7,7 @@ import Nav from './Nav';
 import Signup from './Signup';
 import Home from './Home';
 import Order from './Order';
-import AdminDash from './AdminDash';
+import AdminProducts from './AdminProducts';
 
 const App = () => {
   return (
@@ -26,7 +26,9 @@ const App = () => {
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
           <Route path="/bag" component={Order} />
-          <Route path="/admin/dash" component={AdminDash} />
+          <Route path="/admin/products" component={AdminProducts} />
+          {/* <Route path="/admin/categories" component={AdminCategories} />
+          <Route path="/admin/users" component={AdminUsers} /> */}
           {/* TODO new paths added, not done with */}
           {/* put user.id (?), category.id, product.id in url */}
 
