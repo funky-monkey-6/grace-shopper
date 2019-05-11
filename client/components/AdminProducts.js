@@ -12,6 +12,7 @@ class AdminDash extends Component {
   }
 
   componentDidMount() {
+    // eslint-disable-next-line no-shadow
     const { fetchCategories, fetchProducts } = this.props;
     fetchCategories();
     fetchProducts();
@@ -24,12 +25,14 @@ class AdminDash extends Component {
   // clear user search
   clearSearch = evt => {
     evt.preventDefault();
+    // eslint-disable-next-line no-shadow
     const { fetchProducts } = this.props;
     this.setState({ searchTerm: '' });
     fetchProducts();
   };
 
   deleteButton = productId => {
+    // eslint-disable-next-line no-shadow
     const { fetchProducts } = this.props;
     deleteProduct(productId).then(() => fetchProducts());
   };
