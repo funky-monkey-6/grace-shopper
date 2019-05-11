@@ -63,14 +63,14 @@
 }
 
 .review-form {
-  background-color: pink;
+  background-color: rosybrown;
   width: 40%;
   padding: 2%;
 }
 
 .review-card {
-  border: 1px solid grey;
-  background-color: aqua;
+  border: 1px solid  grey;
+  background-color:  grey;
   margin: 5%;
   width: 90%;
   padding: 5%;
@@ -87,7 +87,7 @@
 }
 
 .product-single-container {
-  background-color: goldenrod;
+  background-color: rosybrown;
 }
 
 .product-single {
