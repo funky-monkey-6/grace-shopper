@@ -75,39 +75,42 @@ router.get('/cart', (req, res, next) => {
 
 // get cart for specific user (if exists), otherwise create
 router.get('/:userId/cart', (req, res, next) => {
-  Order.findAll({
-    where: {
-      userId: req.params.userId,
-    },
-    include: [
-      {
-        model: OrderItem,
-      },
-    ],
-  })
-    .then(async orders => {
-      let cart = orders.find(order => order.status === 'cart');
-      if (cart) {
-        return orders;
-      }
-      cart = await Order.create({
-        userId: req.params.userId,
-      });
-      cart = await Order.findByPk(cart.id, {
-        include: [
-          {
-            model: OrderItem,
-          },
-        ],
-      });
-      return cart;
-    })
-    // Order.findOne({
+  Order.findOrCreateCart(Number(req.params.userId))
+
+    // Order.findAll({
     //   where: {
     //     userId: req.params.userId,
-    //     status: 'cart',
     //   },
+    //   include: [
+    //     {
+    //       model: OrderItem,
+    //     },
+    //   ],
     // })
+    //   .then(async orders => {
+    //     let cart = orders.find(order => order.status === 'cart');
+    //     if (cart) {
+    //       return orders;
+    //     }
+    //     cart = await Order.create({
+    //       userId: req.params.userId,
+    //       status: 'cart',
+    //     });
+    //     cart = await Order.findByPk(cart.id, {
+    //       include: [
+    //         {
+    //           model: OrderItem,
+    //         },
+    //       ],
+    //     });
+    //     return cart;
+    //   })
+    //   // Order.findOne({
+    //   //   where: {
+    //   //     userId: req.params.userId,
+    //   //     status: 'cart',
+    //   //   },
+    //   // })
     .then(cart => res.send(cart))
     .catch(next);
 });

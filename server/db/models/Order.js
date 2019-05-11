@@ -1,5 +1,6 @@
 const conn = require('../conn');
 const { Sequelize } = conn;
+const OrderItem = require('./OrderItem')
 
 // TODO - plan how to configure Order model to handle guest session (authenticated vs non-authenticated)
 
@@ -35,28 +36,32 @@ const Order = conn.define('order', {
   // payment info
 });
 
-Order.findOrCreateCart = function(userId) {
+Order.findOrCreateCart = function (userId) {
   return this.findAll({
     where: {
       userId,
     },
-    // include: [{
-    //   model: OrderItem,
-    // }]
-  });
-  // .then(async (orders) => {
-  //   let cart = orders.find(order => order.status === 'cart');
-  //   if (cart) {
-  //     return cart;
-  //   }
-  //   cart = await this.create({
-  //     userId: userId
-  //   });
-  //   cart = await this.findByPk(cart.id, {
-  //     include: [conn.OrderItem]
-  //   });
-  //   return cart;
-  // })
+    include: [{
+      model: OrderItem,
+    }]
+  })
+    .then(async (orders) => {
+      let cart = orders.find(order => order.status === 'cart');
+      if (cart) {
+        return orders;
+      }
+      cart = await this.create({
+        userId: userId
+      });
+      const orderItem = await OrderItem.create({
+        orderId: cart.id
+        // 
+      })
+      cart = await this.findByPk(cart.id, {
+        include: [conn.OrderItem]
+      });
+      return cart;
+    })
 };
 
 module.exports = {
