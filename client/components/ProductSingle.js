@@ -96,16 +96,16 @@ class ProductSingle extends React.Component {
                         <option key={q} value={q}>
                           {q}
                         </option>
-                      )
+                      );
                     })}
                   </select>
-                  <select name="selectedSize" onChange={handleChange} >
+                  <select name="selectedSize" onChange={handleChange}>
                     {['Small', 'Medium', 'Large'].map(size => {
                       return (
                         <option key={size} value={size}>
                           {size}
                         </option>
-                      )
+                      );
                     })}
                   </select>
                 </form>
@@ -127,12 +127,12 @@ class ProductSingle extends React.Component {
             {user.id ? (
               <ReviewForm />
             ) : (
-                <Link to="/login">
-                  <button type="submit" className="btn btn-secondary">
-                    Login to add review:
+              <Link to="/login">
+                <button type="submit" className="btn btn-secondary">
+                  Login to add review:
                 </button>
-                </Link>
-              )}
+              </Link>
+            )}
           </div>
           <div className="review-list">
             <h1>

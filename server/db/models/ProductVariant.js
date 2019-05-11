@@ -34,4 +34,14 @@ module.exports = conn.define('productvariant', {
       },
     },
   },
+  productName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: {
+        args: true,
+        msg: 'Title must be provided',
+      },
+    },
+  },
 });

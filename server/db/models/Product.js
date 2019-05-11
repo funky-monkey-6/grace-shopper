@@ -13,16 +13,6 @@ module.exports = conn.define('product', {
       },
     },
   },
-  variationName: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: {
-        args: true,
-        msg: 'Variation Name must be provided',
-      },
-    },
-  },
   description: {
     type: Sequelize.TEXT,
     // allowNull: false,
@@ -32,27 +22,6 @@ module.exports = conn.define('product', {
     // msg: 'Description must be provided'
     // }
     // }
-  },
-  inventory: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    defaultValue: 0,
-    validate: {
-      notEmpty: {
-        args: true,
-        msg: 'Quantity must be provided',
-      },
-    },
-  },
-  price: {
-    type: Sequelize.FLOAT,
-    allowNull: false,
-    validate: {
-      notEmpty: {
-        args: true,
-        msg: 'Price must be provided',
-      },
-    },
   },
   images: {
     type: Sequelize.STRING,
