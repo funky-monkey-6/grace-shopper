@@ -19,15 +19,15 @@ class Checkout extends Component {
       shippingAddress: '',
       shippingCity: '',
       shippingState: '',
-      shippingZip: 0,
+      shippingZip: '',
       billingFirstName: '',
       billingLastName: '',
       billingAddress: '',
       billingCity: '',
       billingState: '',
-      billingZip: 0,
-      ccNumber: 0,
-      ccv: 0,
+      billingZip: '',
+      ccNumber: '',
+      ccv: '',
       ccExpDateMonth: 1,
       ccExpDateYear: 2019,
       sameAddress: false,
@@ -267,7 +267,7 @@ class Checkout extends Component {
                   <label>
                     Zip Code:
                     <input
-                      type="number"
+                      type="text"
                       name="shippingZip"
                       value={shippingZip}
                       onChange={handleChange}
@@ -289,70 +289,76 @@ class Checkout extends Component {
 
                   <label>
                     <input type="checkBox" name="sameAddress" onChange={this.copyBillingAddress} />
-                    Billing information same as above
+                    Billing address is same as above
                   </label>
                   <br />
-                  <label>
-                    First Name:
-                    <input
-                      type="text"
-                      name="billingFirstName"
-                      value={sameAddress ? firstName : billingFirstName}
-                      onChange={handleChange}
-                    />
-                  </label>
-                  <label>
-                    Last Name:
-                    <input
-                      type="text"
-                      name="billingLastName"
-                      value={sameAddress ? lastName : billingLastName}
-                      onChange={handleChange}
-                    />
-                  </label>
-                  <label>
-                    Address:
-                    <input
-                      type="text"
-                      name="billingAddress"
-                      value={sameAddress ? shippingAddress : billingAddress}
-                      onChange={handleChange}
-                    />
-                  </label>
-                  <label>
-                    City:
-                    <input
-                      type="text"
-                      name="billingCity"
-                      value={sameAddress ? shippingCity : billingCity}
-                      onChange={handleChange}
-                    />
-                  </label>
-                  <label>
-                    State:
-                    <input
-                      type="text"
-                      name="billingState"
-                      value={sameAddress ? shippingState : billingState}
-                      onChange={handleChange}
-                    />
-                  </label>
-                  <label>
-                    Zip Code:
-                    <input
-                      type="number"
-                      name="billingZip"
-                      value={sameAddress ? shippingZip : billingZip}
-                      onChange={handleChange}
-                    />
-                  </label>
+                  {!sameAddress ? (
+                    <Fragment>
+                      <label>
+                        First Name:
+                        <input
+                          type="text"
+                          name="billingFirstName"
+                          value={sameAddress ? firstName : billingFirstName}
+                          onChange={handleChange}
+                        />
+                      </label>
+                      <label>
+                        Last Name:
+                        <input
+                          type="text"
+                          name="billingLastName"
+                          value={sameAddress ? lastName : billingLastName}
+                          onChange={handleChange}
+                        />
+                      </label>
+                      <label>
+                        Address:
+                        <input
+                          type="text"
+                          name="billingAddress"
+                          value={sameAddress ? shippingAddress : billingAddress}
+                          onChange={handleChange}
+                        />
+                      </label>
+                      <label>
+                        City:
+                        <input
+                          type="text"
+                          name="billingCity"
+                          value={sameAddress ? shippingCity : billingCity}
+                          onChange={handleChange}
+                        />
+                      </label>
+                      <label>
+                        State:
+                        <input
+                          type="text"
+                          name="billingState"
+                          value={sameAddress ? shippingState : billingState}
+                          onChange={handleChange}
+                        />
+                      </label>
+                      <label>
+                        Zip Code:
+                        <input
+                          type="text"
+                          name="billingZip"
+                          value={sameAddress ? shippingZip : billingZip}
+                          onChange={handleChange}
+                        />
+                      </label>
+                    </Fragment>
+                  ) : (
+                    ''
+                  )}
                   <label>
                     Credit Card Number:
-                    <input type="number" name="ccNumber" value={ccNumber} onChange={handleChange} />
+                    <input type="text" name="ccNumber" value={ccNumber} onChange={handleChange} />
                   </label>
                   <label>
                     CCV:
-                    <input type="number" name="ccv" value={ccv} onChange={handleChange} />
+                    <input type="text" name="ccv" value={ccv} onChange={handleChange} />
                   </label>
                   <label>
                     Credit Card Expiration Date:
