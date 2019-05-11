@@ -21,6 +21,7 @@ class ProductSingle extends React.Component {
   };
 
   addOrderItem = async (userId, order, orderItem) => {
+    // localStorage.setItem('cart', JSON.stringify(order))
     let newOrder = {};
     try {
       if (!isCart(order)) {
@@ -30,6 +31,7 @@ class ProductSingle extends React.Component {
           subtotal: orderItem.price * orderItem.quantity,
           shipping: 0,
           total: orderItem.price * orderItem.quantity,
+          date: Date.now(),
         };
         const newOrderData = await axios.post(`/api/users/${userId}/orders`, newOrderObj);
         newOrder = newOrderData.data;
