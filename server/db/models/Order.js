@@ -3,8 +3,7 @@ const { Sequelize } = conn;
 
 // TODO - plan how to configure Order model to handle guest session (authenticated vs non-authenticated)
 
-// order and cart use same model
-module.exports = conn.define('order', {
+const Order = conn.define('order', {
   // from associations: userId
   type: {
     type: Sequelize.ENUM('pickup', 'delivery'),
@@ -35,3 +34,31 @@ module.exports = conn.define('order', {
   // will probably want to include shipping address
   // payment info
 });
+
+Order.findOrCreateCart = function (userId) {
+  return this.findAll({
+    where: {
+      userId: userId
+    },
+    // include: [{
+    //   model: OrderItem,
+    // }]
+  })
+  // .then(async (orders) => {
+  //   let cart = orders.find(order => order.status === 'cart');
+  //   if (cart) {
+  //     return cart;
+  //   }
+  //   cart = await this.create({
+  //     userId: userId
+  //   });
+  //   cart = await this.findByPk(cart.id, {
+  //     include: [conn.OrderItem]
+  //   });
+  //   return cart;
+  // })
+};
+
+module.exports = {
+  Order,
+}
