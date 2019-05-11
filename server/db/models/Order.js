@@ -36,7 +36,7 @@ const Order = conn.define('order', {
   // payment info
 });
 
-Order.findOrCreateCart = function (userId) {
+Order.findOrCreateCart = function(userId) {
   return this.findAll({
     where: {
       userId,
