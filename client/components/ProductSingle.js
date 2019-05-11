@@ -25,6 +25,9 @@ class ProductSingle extends React.Component {
       rating: 0,
       title: '',
       comment: '',
+      quantity: 0,
+      selectedSize: '',
+
     };
   }
 
@@ -60,7 +63,7 @@ class ProductSingle extends React.Component {
   };
 
   // update comment/title on state as user enters review
-  handleReviewChange = ({ target }) => {
+  handleChange = ({ target }) => {
     this.setState({
       [target.name]: target.value,
     });
@@ -93,7 +96,7 @@ class ProductSingle extends React.Component {
   render() {
     const { user, order, product, reviews, users } = this.props;
     const { rating, title, comment } = this.state;
-    const { addOrderItem, onStarClick, handleReviewChange, addReview } = this;
+    const { addOrderItem, onStarClick, handleChange, addReview } = this;
     const orderItem = {
       quantity: 1,
       price: product.price,
@@ -112,6 +115,25 @@ class ProductSingle extends React.Component {
                 <p>{product.description}</p>
               </div>
               <div className="product-single-pricing">
+                <form>
+                  <select>
+                    <option name="quantity" onChange={handleChange} value="1">1</option>
+                    <option name="quantity" onChange={handleChange} value="2">2</option>
+                    <option name="quantity" onChange={handleChange} value="3">3</option>
+                    <option name="quantity" onChange={handleChange} value="4">4</option>
+                    <option name="quantity" onChange={handleChange} value="5">5</option>
+                    <option name="quantity" onChange={handleChange} value="6">6</option>
+                    <option name="quantity" onChange={handleChange} value="7">7</option>
+                    <option name="quantity" onChange={handleChange} value="8">8</option>
+                    <option name="quantity" onChange={handleChange} value="9">9</option>
+                    <option name="quantity" onChange={handleChange} value="10">10</option>
+                  </select>
+                  <select>
+                    <option name="selectedSize" onChange={handleChange} value="1">Small</option>
+                    <option name="selectedSize" onChange={handleChange} value="2">Medium</option>
+                    <option name="selectedSize" onChange={handleChange} value="3">Large</option>
+                  </select>
+                </form>
                 <p>{product.price ? `$${product.price.toFixed(2)}` : 'NA'}</p>
                 {/* userId, order, orderItem */}
                 <button
@@ -147,7 +169,7 @@ class ProductSingle extends React.Component {
                   <br />
                   <label htmlFor="title">Review Title:</label>
                   <br />
-                  <input type="text" name="title" value={title} onChange={handleReviewChange} />
+                  <input type="text" name="title" value={title} onChange={handleChange} />
                   <br />
                   <label htmlFor="comment">Comments:</label>
                   <br />
@@ -155,7 +177,7 @@ class ProductSingle extends React.Component {
                     type="text"
                     name="comment"
                     value={comment}
-                    onChange={handleReviewChange}
+                    onChange={handleChange}
                   />
                   <br />
                   <button type="submit" className="btn btn-secondary">
@@ -164,12 +186,12 @@ class ProductSingle extends React.Component {
                 </form>
               </div>
             ) : (
-              <Link to="/login">
-                <button type="submit" className="btn btn-secondary">
-                  Login to add review:
+                <Link to="/login">
+                  <button type="submit" className="btn btn-secondary">
+                    Login to add review:
                 </button>
-              </Link>
-            )}
+                </Link>
+              )}
           </div>
           <div className="review-list">
             <h1>

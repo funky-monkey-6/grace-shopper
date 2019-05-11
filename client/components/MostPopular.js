@@ -84,7 +84,7 @@ class MostPopular extends React.Component {
               <div key={id} className="menu-item">
                 <ul>
                   <li>Placeholder for image</li>
-                  <Link to={`/menu/${id}`}>
+                  <Link to={`/menu/product/${id}`}>
                     <li>{title}</li>
                   </Link>
                   <li>{description}</li>
