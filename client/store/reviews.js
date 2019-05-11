@@ -34,13 +34,9 @@ export const addProductReview = newReview => {
       .post('api/reviews', newReview)
       .then(res => res.data)
       .then(review => dispatch(addReview(review)))
-<<<<<<< HEAD
       .catch(err => {
         throw new Error(err);
       });
-=======
-      .catch(err => { throw new Error(err) });
->>>>>>> c2de50ef30d1eb0516a07e882c18d6017a04b307
   };
 };
 
