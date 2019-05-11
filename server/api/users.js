@@ -56,10 +56,10 @@ router.get('/cart', (req, res, next) => {
       })
       .then(order => res.send(order))
 
-      // .then(orderWithIncl => {
+      //.then(orderWithIncl => {
 
-      //   res.send(orderWithIncl)
-      // })
+      //res.send(orderWithIncl)
+      //})
 
       // Order.findOne({
       //   where: {
