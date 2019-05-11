@@ -9,6 +9,7 @@ class Nav extends Component {
     const { logOut } = this.props;
     // eslint-disable-next-line react/destructuring-assignment
     logOut().then(() => <Redirect to="/" />);
+    // TODO remove user from localStorage
   };
 
   render() {

@@ -22,6 +22,7 @@ class Login extends Component {
     checkUser(this.state).then(() => {
       history.push('/');
     });
+    // TODO add user to localStorage
   };
 
   routeChange = () => {
