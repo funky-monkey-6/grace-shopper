@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { fetchOrder, setOrder } from './order';
+import { setOrderItems } from './orderItems';
 
 //ACTION TYPES
 
@@ -17,7 +19,8 @@ export const checkUser = enteredUser => async dispatch => {
   try {
     const response = await axios.put('/api/auth/login', enteredUser);
     const user = response.data;
-    return dispatch(setUser(user));
+    dispatch(setUser(user));
+    dispatch(fetchOrder(user.id));
   } catch (error) {
     throw new Error(error);
   }
@@ -26,7 +29,9 @@ export const checkUser = enteredUser => async dispatch => {
 export const logOut = () => async dispatch => {
   try {
     await axios.delete('/api/auth/logout');
-    return dispatch(setUser({}));
+    dispatch(setUser({}));
+    dispatch(setOrder({}));
+    dispatch(setOrderItems([]));
   } catch (error) {
     throw new Error(error);
   }

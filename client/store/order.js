@@ -6,7 +6,7 @@ const SET_ORDER = 'SET_ORDER';
 
 //ACTION CREATORS
 
-const setOrder = order => ({
+export const setOrder = order => ({
   type: SET_ORDER,
   order,
 });

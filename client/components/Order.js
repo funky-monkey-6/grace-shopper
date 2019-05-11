@@ -1,58 +1,30 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable indent */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { fetchOrder, fetchOrderItems, updateOrderThunk } from '../store';
+import {
+  fetchOrder as fetchOrderThunk,
+  fetchOrderItems as fetchOrderItemsThunk,
+  updateOrderThunk,
+  fetchProducts,
+} from '../store';
 import OrderItem from './OrderItem';
+import { isLoggedIn, isCart } from './helperFunctions';
 
 class Order extends Component {
-  // constructor(props) {
-  //   super(props);
-  // this.state = {
-  // 	type: '',
-  // 	subtotal: 0,
-  // 	shipping: 0,
-  // 	total: 0,
-  // 	status: '',
-  // 	date: '',
-  // 	orderItems: [],
-  // 	userId: null,
-  // }
-  // }
-
-  // componentDidUpdate(prevProps) {
-  // 	if (prevProps !== this.props) {
-
-  // 	}
-  // }
-
   componentDidMount() {
-    // const { fetchOrder, fetchOrderItems, user, order } = this.props;
-    // TODO grab current logged in user - this.props.user.id
-    this.props
-      .fetchOrder(1)
-      .then(() => {
-        if (this.props.order) {
-          this.props.fetchOrderItems(this.props.order.id);
-        }
-      })
-      .catch(err => console.log(err));
-  }
+    const { order, fetchOrder, fetchOrderItems, user } = this.props;
+    if (isLoggedIn(user)) {
+      fetchOrder(user.id);
+    }
 
-  // setLocalState = () => {
-  // 	const { type, subtotal, shipping, total, status, date } = this.props.order;
-  // 	const { orderItems, user, order } = this.props;
-  // 	this.setState({
-  // 		type: order ? type : 'pickup',
-  // 		subtotal: order ? subtotal : 0,
-  // 		shipping: order ? shipping : 0,
-  // 		total: order ? total : 0,
-  // 		status: order ? status : '',
-  // 		date: order ? date : '',
-  // 		orderItems: orderItems ? orderItems : [],
-  // 		userId: user ? user.id : null,
-  // 	}
-  // 		, () => console.log('state from setLocalState: ', this.state))
-  // };
+    fetchProducts();
+    if (isCart(order)) {
+      console.log('trying to fetch orders...');
+      fetchOrderItems(order.id);
+    }
+  }
 
   onChange = ev => {
     this.props.updateOrderThunk({
@@ -64,17 +36,18 @@ class Order extends Component {
   render() {
     const { onChange } = this;
     const { orderItems, order, user, history } = this.props;
-    console.log('order: ', order);
-    console.log('orderItems: ', orderItems);
 
     // TODO save values in db for subtotal, shipping, total
-    let subtotal = 0;
+    order.subtotal = 0;
     if (orderItems) {
-      subtotal = orderItems.reduce((total, item) => total + item.price * item.quantity, 0);
+      order.subtotal = orderItems.reduce((total, item) => total + item.price * item.quantity, 0);
     }
-    const shipping = order.type === 'delivery' ? 5 : 0;
+    order.shipping = order.type === 'delivery' ? 5 : 0;
+    order.total = order.subtotal + order.shipping;
 
-    const total = subtotal + shipping;
+    const { subtotal, shipping, total, type } = order;
+
+    console.log({ order });
 
     return (
       <div>
@@ -90,17 +63,27 @@ class Order extends Component {
             </tr>
           </thead>
           <tbody>
-            {orderItems.map(orderItem => {
-              return (
-                <OrderItem
-                  key={orderItem.id}
-                  userId={user.id}
-                  orderId={order.id}
-                  orderItem={orderItem}
-                  history={history}
-                />
-              );
-            })}
+            {isCart(order) && isLoggedIn(user) ? (
+              orderItems.map(orderItem => {
+                return (
+                  <OrderItem
+                    key={orderItem.id}
+                    userId={user.id}
+                    orderId={order.id}
+                    orderItem={orderItem}
+                    history={history}
+                  />
+                );
+              })
+            ) : (
+              <tr>
+                <td>Your bag is empty.</td>
+                <td />
+                <td />
+                <td />
+                <td />
+              </tr>
+            )}
             <tr>
               <td />
               <td />
@@ -117,7 +100,7 @@ class Order extends Component {
               <td>
                 <select
                   name="type"
-                  value={order.type}
+                  value={type}
                   selected="pickup"
                   onChange={onChange}
                   className="form-control"
@@ -129,7 +112,7 @@ class Order extends Component {
                     Delivery
                   </option>
                 </select>
-                {order.type}
+                {type}
                 <br />
                 {subtotal}
                 <br />
@@ -158,9 +141,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchOrder: userId => dispatch(fetchOrder(userId)),
-    fetchOrderItems: orderId => dispatch(fetchOrderItems(orderId)),
+    fetchOrder: userId => dispatch(fetchOrderThunk(userId)),
+    fetchOrderItems: orderId => dispatch(fetchOrderItemsThunk(orderId)),
     updateOrderThunk: order => dispatch(updateOrderThunk(order)),
+    fetchProducts: () => dispatch(fetchProducts()),
   };
 };
 

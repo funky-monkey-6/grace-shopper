@@ -107,16 +107,14 @@ class Checkout extends Component {
             </thead>
             <tbody>
               {orderItems.length
-                ? orderItems.map(orderItem => {
-                    return (
-                      <tr key={orderItem.id}>
-                        <td>{findProduct(products, orderItem).title}</td>
-                        <td>${orderItem.price}</td>
-                        <td>{orderItem.quantity}</td>
-                        <td>${orderItem ? orderItem.price * orderItem.quantity : 0}</td>
-                      </tr>
-                    );
-                  })
+                ? orderItems.map(orderItem => (
+                    <tr key={orderItem.id}>
+                      <td>{findProduct(products, orderItem).title}</td>
+                      <td>${orderItem.price}</td>
+                      <td>{orderItem.quantity}</td>
+                      <td>${orderItem ? orderItem.price * orderItem.quantity : 0}</td>
+                    </tr>
+                  ))
                 : ''}
             </tbody>
           </table>

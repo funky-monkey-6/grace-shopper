@@ -12,8 +12,6 @@ class OrderItem extends Component {
   render() {
     const { orderItem, product, userId, orderId } = this.props;
     const { price, quantity } = orderItem;
-    console.log('orderItem: ', orderItem);
-    // console.log('products: ', this.props.products);
     if (!orderItem.price) {
       orderItem.price = product.price;
     }
@@ -42,8 +40,6 @@ class OrderItem extends Component {
 const mapStateToProps = (state, { orderItem }) => {
   const { products } = state;
   const product = products.find(_product => _product.id === orderItem.productId);
-  console.log('product: ', product);
-  console.log('state: ', state);
   return {
     product,
   };
