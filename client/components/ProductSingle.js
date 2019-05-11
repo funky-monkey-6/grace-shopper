@@ -147,12 +147,7 @@ class ProductSingle extends React.Component {
                   <br />
                   <label htmlFor="title">Review Title:</label>
                   <br />
-                  <input
-                    type="text"
-                    name="title"
-                    value={title}
-                    onChange={handleReviewChange}
-                  />
+                  <input type="text" name="title" value={title} onChange={handleReviewChange} />
                   <br />
                   <label htmlFor="comment">Comments:</label>
                   <br />
@@ -165,16 +160,16 @@ class ProductSingle extends React.Component {
                   <br />
                   <button type="submit" className="btn btn-secondary">
                     Submit Review:
-                </button>
+                  </button>
                 </form>
               </div>
             ) : (
-                <Link to="/login">
-                  <button type="submit" className="btn btn-secondary">
-                    Login to add review:
-              </button>
-                </Link>
-              )}
+              <Link to="/login">
+                <button type="submit" className="btn btn-secondary">
+                  Login to add review:
+                </button>
+              </Link>
+            )}
           </div>
           <div className="review-list">
             <h1>
@@ -208,7 +203,7 @@ class ProductSingle extends React.Component {
             })}
           </div>
         </div>
-      </div >
+      </div>
     );
   }
 }
