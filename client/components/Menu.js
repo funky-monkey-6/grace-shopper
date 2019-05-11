@@ -59,6 +59,7 @@ class Menu extends React.Component {
     searchProducts(searchTerm);
   };
 
+  // TODO: filter on categoryId not productId so that menu organization is maintained
   // update filterCategories - array containing select categoryIds
   selectFilter = ({ target }) => {
     let { filterCategories } = this.state;
