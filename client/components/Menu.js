@@ -4,7 +4,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchProducts, fetchCategories, searchProducts, filterProducts } from '../store';
+import {
+  fetchProducts,
+  fetchCategories,
+  searchProducts,
+  filterCategories,
+  filterProducts,
+} from '../store';
 
 const mapStateToProps = state => {
   const { products, categories } = state;
@@ -19,6 +25,7 @@ const mapDispatchToProps = dispatch => {
     fetchProducts: () => dispatch(fetchProducts()),
     fetchCategories: () => dispatch(fetchCategories()),
     searchProducts: searchTerm => dispatch(searchProducts(searchTerm)),
+    filterCategories: categoryIds => dispatch(filterCategories(categoryIds)),
     filterProducts: categoryIds => dispatch(filterProducts(categoryIds)),
   };
 };
@@ -28,7 +35,7 @@ class Menu extends React.Component {
     super();
     this.state = {
       searchTerm: '',
-      filterCategories: [],
+      filterCategoryIds: [],
     };
   }
 
@@ -59,26 +66,27 @@ class Menu extends React.Component {
     searchProducts(searchTerm);
   };
 
-  // update filterCategories - array containing select categoryIds
+  // TODO: filter on categoryId not productId so that menu organization is maintained
+  // update filterCategoryIds - array containing select categoryIds
   selectFilter = ({ target }) => {
-    let { filterCategories } = this.state;
-    if (filterCategories.includes(Number(target.value))) {
-      filterCategories = filterCategories.filter(cat => cat !== Number(target.value));
+    let { filterCategoryIds } = this.state;
+    if (filterCategoryIds.includes(Number(target.value))) {
+      filterCategoryIds = filterCategoryIds.filter(cat => cat !== Number(target.value));
     } else {
-      filterCategories.push(Number(target.value));
+      filterCategoryIds.push(Number(target.value));
     }
-    this.setState({ filterCategories });
+    this.setState({ filterCategoryIds });
   };
 
   // filter products by selected category
   applyFilter = evt => {
     evt.preventDefault();
-    const { filterCategories } = this.state;
+    const { filterCategoryIds } = this.state;
     const { filterProducts, fetchProducts } = this.props;
-    if (filterCategories.length === 0) {
+    if (filterCategoryIds.length === 0) {
       fetchProducts();
     } else {
-      filterProducts(filterCategories);
+      filterProducts(filterCategoryIds);
     }
   };
 
@@ -89,10 +97,11 @@ class Menu extends React.Component {
     document.querySelectorAll('input[type=checkbox]').forEach(el => {
       el.checked = false;
     });
-    this.setState({ filterCategories: [] });
+    this.setState({ filterCategoryIds: [] });
     fetchProducts();
   };
 
+  // TODO: add category headers to menu
   render() {
     const { searchTerm } = this.state;
     const { categories, products } = this.props;
@@ -110,8 +119,10 @@ class Menu extends React.Component {
               value={searchTerm}
               onChange={this.enterSearch}
             />
-            <button type="submit">Search</button>
-            <button type="submit" onClick={this.clearSearch}>
+            <button type="submit" className="btn btn-secondary">
+              Search
+            </button>
+            <button type="submit" onClick={this.clearSearch} className="btn btn-secondary">
               Clear Search
             </button>
           </form>
@@ -119,19 +130,21 @@ class Menu extends React.Component {
           <form onSubmit={this.applyFilter}>
             {categories.map(cat => {
               return (
-                <div key={cat.id}>
-                  <label htmlFor="filterCategories">{cat.name}</label>
+                <div key={cat.id} className="filter-cat">
+                  <label htmlFor="filterCategoryIds">{cat.name}</label>
                   <input
                     type="checkbox"
-                    name="filterCategories"
+                    name="filterCategoryIds"
                     value={cat.id}
                     onChange={this.selectFilter}
                   />
                 </div>
               );
             })}
-            <button type="submit">Apply Filter</button>
-            <button type="reset" onClick={this.clearFilter}>
+            <button type="submit" className="btn btn-secondary">
+              Apply Filter
+            </button>
+            <button type="reset" onClick={this.clearFilter} className="btn btn-secondary">
               Clear Filter
             </button>
           </form>
@@ -140,14 +153,12 @@ class Menu extends React.Component {
           {products.map(prod => {
             return (
               <div key={prod.id} className="menu-item">
-                <ul>
-                  <li>Placeholder for image</li>
-                  <Link to={`/menu/product/${prod.id}`}>
-                    <li>{prod.title}</li>
-                  </Link>
-                  <li>{prod.description}</li>
-                  <li>{prod.price}</li>
-                </ul>
+                <img src="default.jpg" className="menu-img" alt="menu-default" />
+                <Link to={`/menu/product/${prod.id}`}>
+                  <h5>{prod.title}</h5>
+                </Link>
+                <p>{prod.description}</p>
+                <p>${prod.price.toFixed(2)}</p>
               </div>
             );
           })}

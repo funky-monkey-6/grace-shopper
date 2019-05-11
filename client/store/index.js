@@ -3,12 +3,13 @@ import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { checkUser, logOut, addUser, user } from './user';
+import { fetchUsers, users } from './users';
 import { fetchProducts, searchProducts, filterProducts, products } from './products';
 import { fetchProduct, product } from './product';
-import { fetchCategories, categories } from './categories';
+import { fetchCategories, filterCategories, categories } from './categories';
 import { fetchOrder, addOrderThunk, updateOrderThunk, order } from './order';
 import { fetchOrderItems, deleteOrderItemThunk, addOrderItemThunk, orderItems } from './orderItems';
-import { fetchProductReviews, reviews } from './reviews';
+import { fetchProductReviews, reviews, addProductReview } from './reviews';
 
 //THUNK CREATORS
 
@@ -16,11 +17,13 @@ export {
   checkUser,
   logOut,
   addUser,
+  fetchUsers,
   fetchProducts,
   searchProducts,
   filterProducts,
   fetchProduct,
   fetchCategories,
+  filterCategories,
   fetchOrder,
   addOrderThunk,
   updateOrderThunk,
@@ -28,10 +31,12 @@ export {
   deleteOrderItemThunk,
   addOrderItemThunk,
   fetchProductReviews,
+  addProductReview,
 };
 
 const reducer = combineReducers({
   user,
+  users,
   products,
   product,
   categories,

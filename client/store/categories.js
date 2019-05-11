@@ -22,6 +22,16 @@ export const fetchCategories = () => {
   };
 };
 
+export const filterCategories = categoryIds => {
+  return dispatch => {
+    return axios
+      .get('api/categories')
+      .then(res => res.data)
+      .then(allCategories => allCategories.filter(cat => categoryIds.includes(cat.id)))
+      .then(categories => dispatch(setCategories(categories)));
+  };
+};
+
 //REDUCER
 
 export const categories = (state = [], action) => {
