@@ -15,20 +15,20 @@ router.delete('/logout', (req, res) => {
 //   res.send(req.session.userId);
 // });
 
-// const userNotFound = next => {
-//     const err = new Error('User not found')
-//     err.tatus = 404
-//     next(err)
-// }
+const userNotFound = next => {
+  const err = new Error('User not found')
+  err.tatus = 404
+  next(err)
+}
 
-// router.get('/me', (req, res, next) => {
-//     if (!req.session.userId) {
-//         userNotFound(next)
-//     }
-//     User.findById(req.session.userId)
-//         .then(user => user ? res.json(user) : userNotFound(next))
-//         .catch(next)
-// })
+router.get('/user', (req, res, next) => {
+  if (!req.session.userId) {
+    userNotFound(next)
+  }
+  User.findByPk(Number(req.session.userId))
+    .then(user => user ? res.json(user) : userNotFound(next))
+    .catch(next)
+})
 
 router.put('/login', (req, res, next) => {
   User.findOne({
@@ -44,7 +44,7 @@ router.put('/login', (req, res, next) => {
         throw error;
       }
       req.session.userId = user.id;
-      res.json(user);
+      res.send(user);
     })
     .catch(next);
 });
