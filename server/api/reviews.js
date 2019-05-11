@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Review } = require('../db');
+const { Review, User } = require('../db');
 
 // api/reviews: get all reviews
 router.get('/', (req, res, next) => {
@@ -16,6 +16,13 @@ router.get('/:productId', (req, res, next) => {
     },
   })
     .then(reviews => res.send(reviews))
+    .catch(next);
+});
+
+// api/reviews: create review
+router.post('/', (req, res, next) => {
+  Review.create(req.body)
+    .then(review => res.send(review))
     .catch(next);
 });
 
