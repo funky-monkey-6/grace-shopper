@@ -2,7 +2,7 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import { checkUser, logOut, addUser, user } from './user';
+import { checkUser, logOut, addUser, updateUser, user } from './user';
 import { fetchProducts, searchProducts, filterProducts, products } from './products';
 import { fetchProduct, product } from './product';
 import { fetchCategories, categories } from './categories';
@@ -16,6 +16,7 @@ export {
   checkUser,
   logOut,
   addUser,
+  updateUser,
   fetchProducts,
   searchProducts,
   filterProducts,

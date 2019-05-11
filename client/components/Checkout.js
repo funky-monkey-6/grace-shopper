@@ -1,6 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { fetchOrder as fetchOrderThunk, fetchOrderItems, updateOrderThunk } from '../store';
+import {
+  fetchOrder as fetchOrderThunk,
+  fetchOrderItems,
+  updateOrderThunk,
+  updateUser,
+} from '../store';
+import { isLoggedIn } from './helperFunctions';
 
 class Checkout extends Component {
   constructor(props) {
@@ -33,20 +39,31 @@ class Checkout extends Component {
 
   handleChange = ev => {
     ev.preventDefault();
+
+    const {
+      firstName,
+      lastName,
+      shippingAddress,
+      shippingCity,
+      shippingState,
+      shippingZip,
+      sameAddress,
+    } = this.state;
+
     this.setState({ [`${ev.target.name}`]: ev.target.value });
-    console.log(this.state);
+    if (sameAddress) {
+      this.setState({
+        billingFirstName: firstName,
+        billingLastName: lastName,
+        billingAddress: shippingAddress,
+        billingCity: shippingCity,
+        billingState: shippingState,
+        billingZip: shippingZip,
+      });
+    }
   };
 
   handleSubmit = ev => {
-    const { updateOrder, order } = this.props;
-    ev.preventDefault();
-    updateOrder({ ...order, status: 'processing' });
-    this.setState({ submitted: true });
-    // thunk to update user information
-    // thunk to update order to status 'processing'
-  };
-
-  sameAsAboveButtons = () => {
     const {
       firstName,
       lastName,
@@ -61,14 +78,42 @@ class Checkout extends Component {
       billingState,
       billingZip,
     } = this.state;
-    //add sameAsAboveButton logic, if checked billing information is same as shipping
+    const { updateOrder, updateUserThunk, order, user } = this.props;
+    ev.preventDefault();
+    updateOrder({ ...order, status: 'processing' });
+    updateUserThunk({
+      ...user,
+      firstName,
+      lastName,
+      shippingAddress,
+      shippingCity,
+      shippingState,
+      shippingZip: parseInt(shippingZip),
+      billingFirstName,
+      billingLastName,
+      billingAddress,
+      billingCity,
+      billingState,
+      billingZip: parseInt(billingZip),
+    });
+    this.setState({ submitted: true });
+    // thunk to update user information
   };
 
   copyBillingAddress = ev => {
-    const { shippingAddress, shippingCity, shippingState, shippingZip } = this.state;
+    const {
+      firstName,
+      lastName,
+      shippingAddress,
+      shippingCity,
+      shippingState,
+      shippingZip,
+    } = this.state;
 
     if (ev.target.checked) {
       this.setState({
+        billingFirstName: firstName,
+        billingLastName: lastName,
         billingAddress: shippingAddress,
         billingCity: shippingCity,
         billingState: shippingState,
@@ -112,7 +157,7 @@ class Checkout extends Component {
     const findProduct = (_products, orderItem) =>
       _products.find(_product => _product.id === orderItem.productId);
 
-    return (
+    return isLoggedIn(user) && orderItems.length ? (
       <div>
         {!submitted ? (
           <Fragment>
@@ -274,6 +319,7 @@ class Checkout extends Component {
                       onChange={handleChange}
                     />
                   </label>
+                  {/* TODO? add email? credit card info? */}
                   {/* <label>
                 Email:
                 <input
@@ -292,9 +338,11 @@ class Checkout extends Component {
             </div>
           </Fragment>
         ) : (
-          <div>Your order has been submitted!</div>
+          <p>Your order has been submitted!</p>
         )}
       </div>
+    ) : (
+      <div />
     );
   }
 }
@@ -314,6 +362,7 @@ const mapDispatchToProps = dispatch => {
     fetchOrder: id => dispatch(fetchOrderThunk(id)),
     fetchOrderItems: orderId => dispatch(fetchOrderItems(orderId)),
     updateOrder: order => dispatch(updateOrderThunk(order)),
+    updateUserThunk: user => dispatch(updateUser(user)),
   };
 };
 
