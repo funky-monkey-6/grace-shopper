@@ -89,8 +89,11 @@ class Checkout extends Component {
       email,
       phone,
     } = this.state;
+
     const { updateOrder, updateUserThunk, order, user } = this.props;
+
     ev.preventDefault();
+
     updateOrder({
       ...order,
       status: 'processing',
@@ -100,6 +103,7 @@ class Checkout extends Component {
       shippingZip: parseInt(shippingZip),
       date: new Date(),
     });
+
     updateUserThunk({
       ...user,
       firstName,
