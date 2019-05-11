@@ -20,7 +20,7 @@ class Checkout extends Component {
       billingState: '',
       billingZip: 0,
       ccNumber: 0,
-      sameAddressAsAboveStatus: false,
+      sameAddress: false,
     };
   }
 
@@ -33,6 +33,7 @@ class Checkout extends Component {
   handleChange = ev => {
     ev.preventDefault();
     this.setState({ [`${ev.target.name}`]: ev.target.value });
+    console.log(this.state);
   };
 
   handleSubmit = ev => {
@@ -59,6 +60,20 @@ class Checkout extends Component {
     //add sameAsAboveButton logic, if checked billing information is same as shipping
   };
 
+  copyBillingAddress = ev => {
+    const { shippingAddress, shippingCity, shippingState, shippingZip } = this.state;
+
+    if (ev.target.checked) {
+      this.setState({
+        billingAddress: shippingAddress,
+        billingCity: shippingCity,
+        billingState: shippingState,
+        billingZip: shippingZip,
+        sameAddress: true,
+      });
+    } else this.setState({ sameAddress: false });
+  };
+
   render() {
     const { handleChange, handleSubmit } = this;
     const {
@@ -75,7 +90,7 @@ class Checkout extends Component {
       billingState,
       billingZip,
       email,
-      sameAddressAsAboveStatus,
+      sameAddress,
     } = this.state;
 
     // const { order } = this.state.props;
@@ -192,11 +207,7 @@ class Checkout extends Component {
               <h3>Billing Information</h3>
 
               <label>
-                <input
-                  type="checkBox"
-                  name="sameAddressAsAboveStatus"
-                  checked={sameAddressAsAboveStatus}
-                />
+                <input type="checkBox" name="sameAddress" onChange={this.copyBillingAddress} />
                 Billing information same as above
               </label>
               <br />
@@ -205,7 +216,7 @@ class Checkout extends Component {
                 <input
                   type="text"
                   name="billingFirstName"
-                  value={sameAddressAsAboveStatus ? firstName : billingFirstName}
+                  value={sameAddress ? firstName : billingFirstName}
                   onChange={handleChange}
                 />
               </label>
@@ -214,7 +225,7 @@ class Checkout extends Component {
                 <input
                   type="text"
                   name="billingLastName"
-                  value={sameAddressAsAboveStatus ? lastName : billingLastName}
+                  value={sameAddress ? lastName : billingLastName}
                   onChange={handleChange}
                 />
               </label>
@@ -223,7 +234,7 @@ class Checkout extends Component {
                 <input
                   type="text"
                   name="billingAddress"
-                  value={sameAddressAsAboveStatus ? shippingAddress : billingAddress}
+                  value={sameAddress ? shippingAddress : billingAddress}
                   onChange={handleChange}
                 />
               </label>
@@ -232,7 +243,7 @@ class Checkout extends Component {
                 <input
                   type="text"
                   name="billingCity"
-                  value={sameAddressAsAboveStatus ? shippingCity : billingCity}
+                  value={sameAddress ? shippingCity : billingCity}
                   onChange={handleChange}
                 />
               </label>
@@ -241,7 +252,7 @@ class Checkout extends Component {
                 <input
                   type="text"
                   name="billingState"
-                  value={sameAddressAsAboveStatus ? shippingState : billingState}
+                  value={sameAddress ? shippingState : billingState}
                   onChange={handleChange}
                 />
               </label>
@@ -250,7 +261,7 @@ class Checkout extends Component {
                 <input
                   type="text"
                   name="billingZip"
-                  value={sameAddressAsAboveStatus ? shippingZip : billingZip}
+                  value={sameAddress ? shippingZip : billingZip}
                   onChange={handleChange}
                 />
               </label>
@@ -259,7 +270,7 @@ class Checkout extends Component {
                 <input
                   type="text"
                   name="email"
-                  value={sameAddressAsAboveStatus ? email : billingEmail}
+                  value={sameAddress ? email : billingEmail}
                   onChange={handleChange}
                 />
               </label> */}
