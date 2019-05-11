@@ -2,7 +2,6 @@
 /* eslint-disable no-shadow */
 /* eslint-disable react/button-has-type */
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
   fetchProducts,
@@ -152,7 +151,7 @@ class Menu extends React.Component {
         </div>
         <div className="menu-list">
           {products.map(prod => {
-            return <MenuItem product={prod} />;
+            return <MenuItem product={prod} key={prod.id} />;
           })}
         </div>
       </div>

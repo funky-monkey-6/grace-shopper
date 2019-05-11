@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-state */
 /* eslint-disable prettier/prettier */
 /* eslint-disable indent */
 /* eslint-disable react/destructuring-assignment */
@@ -17,14 +18,12 @@ import {
   fetchUsers,
 } from '../store/index';
 import { isCart } from './helperFunctions';
+import ReviewForm from './ReviewForm';
 
 class ProductSingle extends React.Component {
   constructor() {
     super();
     this.state = {
-      rating: 0,
-      title: '',
-      comment: '',
       quantity: 0,
       selectedSize: '',
     };
@@ -68,36 +67,12 @@ class ProductSingle extends React.Component {
     });
   };
 
-  // update rating based on selected stars
-  onStarClick = rating => {
-    this.setState({ rating });
-  };
-
-  // post review to database
-  addReview = evt => {
-    evt.preventDefault();
-    const { rating, comment, title } = this.state;
-    const { addProductReview, product, user } = this.props;
-    addProductReview({
-      rating,
-      comment,
-      title,
-      productId: product.id,
-      userId: user.id,
-    });
-    this.setState({
-      rating: 0,
-      title: '',
-      comment: '',
-    });
-  };
-
   render() {
     const { user, order, product, reviews, users } = this.props;
-    const { rating, title, comment } = this.state;
-    const { addOrderItem, onStarClick, handleChange, addReview } = this;
+    const { quantity } = this.state;
+    const { addOrderItem, handleChange } = this;
     const orderItem = {
-      quantity: 1,
+      quantity: Number(quantity),
       price: product.price,
       orderId: order.id,
       productId: product.id,
@@ -115,48 +90,23 @@ class ProductSingle extends React.Component {
               </div>
               <div className="product-single-pricing">
                 <form>
-                  <select>
-                    <option name="quantity" onChange={handleChange} value="1">
-                      1
-                    </option>
-                    <option name="quantity" onChange={handleChange} value="2">
-                      2
-                    </option>
-                    <option name="quantity" onChange={handleChange} value="3">
-                      3
-                    </option>
-                    <option name="quantity" onChange={handleChange} value="4">
-                      4
-                    </option>
-                    <option name="quantity" onChange={handleChange} value="5">
-                      5
-                    </option>
-                    <option name="quantity" onChange={handleChange} value="6">
-                      6
-                    </option>
-                    <option name="quantity" onChange={handleChange} value="7">
-                      7
-                    </option>
-                    <option name="quantity" onChange={handleChange} value="8">
-                      8
-                    </option>
-                    <option name="quantity" onChange={handleChange} value="9">
-                      9
-                    </option>
-                    <option name="quantity" onChange={handleChange} value="10">
-                      10
-                    </option>
+                  <select name="quantity" onChange={handleChange}>
+                    {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(q => {
+                      return (
+                        <option key={q} value={q}>
+                          {q}
+                        </option>
+                      )
+                    })}
                   </select>
-                  <select>
-                    <option name="selectedSize" onChange={handleChange} value="1">
-                      Small
-                    </option>
-                    <option name="selectedSize" onChange={handleChange} value="2">
-                      Medium
-                    </option>
-                    <option name="selectedSize" onChange={handleChange} value="3">
-                      Large
-                    </option>
+                  <select name="selectedSize" onChange={handleChange} >
+                    {['Small', 'Medium', 'Large'].map(size => {
+                      return (
+                        <option key={size} value={size}>
+                          {size}
+                        </option>
+                      )
+                    })}
                   </select>
                 </form>
                 <p>{product.price ? `$${product.price.toFixed(2)}` : 'NA'}</p>
@@ -175,43 +125,14 @@ class ProductSingle extends React.Component {
         <div className="reviews">
           <div className="review-form">
             {user.id ? (
-              <div>
-                <h1>
-                  <i>Add Review</i>
-                </h1>
-                <StarRatingComponent
-                  name="rating"
-                  starCount={5}
-                  value={rating}
-                  onStarClick={onStarClick}
-                  renderStarIcon={() => (
-                    <span>
-                      <h4>★</h4>
-                    </span>
-                  )}
-                />
-                <form onSubmit={addReview}>
-                  <br />
-                  <label htmlFor="title">Review Title:</label>
-                  <br />
-                  <input type="text" name="title" value={title} onChange={handleChange} />
-                  <br />
-                  <label htmlFor="comment">Comments:</label>
-                  <br />
-                  <textarea type="text" name="comment" value={comment} onChange={handleChange} />
-                  <br />
-                  <button type="submit" className="btn btn-secondary">
-                    Submit Review:
-                  </button>
-                </form>
-              </div>
+              <ReviewForm />
             ) : (
-              <Link to="/login">
-                <button type="submit" className="btn btn-secondary">
-                  Login to add review:
+                <Link to="/login">
+                  <button type="submit" className="btn btn-secondary">
+                    Login to add review:
                 </button>
-              </Link>
-            )}
+                </Link>
+              )}
           </div>
           <div className="review-list">
             <h1>
