@@ -2,6 +2,7 @@
 /* eslint-disable indent */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import {
   fetchOrder as fetchOrderThunk,
@@ -124,7 +125,10 @@ class Order extends Component {
             </tr>
           </tbody>
         </table>
-        <button type="submit">Start Checkout</button>
+
+        <Link to="/checkout">
+          <button type="submit">Start Checkout </button>
+        </Link>
       </div>
     );
   }

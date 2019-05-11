@@ -26,6 +26,7 @@ const App = () => {
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
           <Route path="/bag" component={Order} />
+          <Route path="/checkout" component={Checkout} />
           {/* TODO new paths added, not done with */}
           {/* put user.id (?), category.id, product.id in url */}
 
