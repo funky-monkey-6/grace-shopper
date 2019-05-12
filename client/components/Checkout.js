@@ -207,7 +207,7 @@ class Checkout extends Component {
                           <td>${orderItem.price.toFixed(2)}</td>
                           <td>{orderItem.quantity}</td>
                           <td>
-                            ${orderItem ? orderItem.price.toFixed(2) * orderItem.quantity : 0}
+                            ${orderItem ? (orderItem.price * orderItem.quantity).toFixed(2) : 0}
                           </td>
                         </tr>
                       ))
@@ -358,6 +358,7 @@ class Checkout extends Component {
                   ) : (
                     ''
                   )}
+                  {/* The below may be a placeholder for whatever is implemented for Square or Stripe */}
                   <label>
                     Credit Card Number:
                     <input type="text" name="ccNumber" value={ccNumber} onChange={handleChange} />
