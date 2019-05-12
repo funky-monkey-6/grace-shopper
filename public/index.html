@@ -1,15 +1,24 @@
 <html>
-	<head>
-		<script defer src="/main.js"></script>
-		<link
-			rel="stylesheet"
-			href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-		/>
-		<link rel="stylesheet" href="/style.css" />
-	</head>
-	<body>
-		<div class="container">
-			<div id="root"></div>
-		</div>
-	</body>
+  <head>
+    <script defer src="/main.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/style.css" />
+
+    <!-- link to the SqPaymentForm library -->
+    <script type="text/javascript" src="https://js.squareup.com/v2/paymentform"></script>
+
+    <!-- link to the local SqPaymentForm initialization -->
+    <script type="text/javascript" src="/square/sqpaymentform.js"></script>
+
+    <!-- link to the custom styles for SqPaymentForm -->
+    <link rel="stylesheet" type="text/css" href="/square/sqpaymentform.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div id="root"></div>
+    </div>
+  </body>
 </html>
