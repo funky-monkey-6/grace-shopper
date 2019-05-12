@@ -25,7 +25,7 @@ class ProductSingle extends React.Component {
     super();
     this.state = {
       quantity: 0,
-      variantId: 0
+      variantId: 0,
     };
   }
 
@@ -101,7 +101,7 @@ class ProductSingle extends React.Component {
               </div>
               <div className="product-single-pricing">
                 <form>
-                  {variants.length > 1 ?
+                  {variants.length > 1 ? (
                     <select name="variantId" onChange={handleChange}>
                       {variants.map(variant => {
                         return (
@@ -110,7 +110,8 @@ class ProductSingle extends React.Component {
                           </option>
                         );
                       })}
-                    </select> : null}
+                    </select>
+                  ) : null}
                   <select name="quantity" onChange={handleChange}>
                     {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(q => {
                       return (
