@@ -61,7 +61,7 @@ const syncAndSeed = () => {
         Promise.all(updateProdCatId(products, seedProducts, categories)),
         Promise.all(updateVariantProdId(productVariants, products)),
       ]);
-    })
+    });
   // .catch(err => console.log(err));
 };
 

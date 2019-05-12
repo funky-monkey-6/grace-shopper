@@ -25,7 +25,7 @@ class ProductSingle extends React.Component {
     super();
     this.state = {
       quantity: 0,
-      selectedSize: '',
+      variantId: 0
     };
   }
 
@@ -68,6 +68,7 @@ class ProductSingle extends React.Component {
   };
 
   render() {
+    console.log(this.state);
     const { user, order, product, reviews, users } = this.props;
     const { quantity } = this.state;
     const { addOrderItem, handleChange } = this;
@@ -77,7 +78,17 @@ class ProductSingle extends React.Component {
       orderId: order.id,
       productId: product.id,
     };
-    if (!product) return null;
+
+    if (!product.id) return null;
+
+    const variants = product.productvariants;
+    let price = 0;
+    if (variants.length === 1 || this.state.variantId === 0) {
+      price = variants[0].price;
+    } else {
+      price = variants.find(variant => variant.id === Number(this.state.variantId)).price;
+    }
+
     return (
       <div>
         <div className="product-single-container">
@@ -90,6 +101,16 @@ class ProductSingle extends React.Component {
               </div>
               <div className="product-single-pricing">
                 <form>
+                  {variants.length > 1 ?
+                    <select name="variantId" onChange={handleChange}>
+                      {variants.map(variant => {
+                        return (
+                          <option key={variant.id} value={variant.id}>
+                            {variant.variationName}
+                          </option>
+                        );
+                      })}
+                    </select> : null}
                   <select name="quantity" onChange={handleChange}>
                     {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(q => {
                       return (
@@ -99,17 +120,8 @@ class ProductSingle extends React.Component {
                       );
                     })}
                   </select>
-                  <select name="selectedSize" onChange={handleChange}>
-                    {['Small', 'Medium', 'Large'].map(size => {
-                      return (
-                        <option key={size} value={size}>
-                          {size}
-                        </option>
-                      );
-                    })}
-                  </select>
                 </form>
-                <p>{product.price ? `$${product.price.toFixed(2)}` : 'NA'}</p>
+                <p>{price.toFixed(2)}</p>
                 {/* userId, order, orderItem */}
                 <button
                   type="submit"
@@ -127,12 +139,12 @@ class ProductSingle extends React.Component {
             {user.id ? (
               <ReviewForm />
             ) : (
-              <Link to="/login">
-                <button type="submit" className="btn btn-secondary">
-                  Login to add review:
+                <Link to="/login">
+                  <button type="submit" className="btn btn-secondary">
+                    Login to add review:
                 </button>
-              </Link>
-            )}
+                </Link>
+              )}
           </div>
           <div className="review-list">
             <h1>
