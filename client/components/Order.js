@@ -128,13 +128,13 @@ class Order extends Component {
                   </div>
                 </div>
               ) : (
-                ''
-              )}
+                  ''
+                )}
             </Fragment>
           </div>
         ) : (
-          <div>Your bag is empty.</div>
-        )}
+            <div>Your bag is empty.</div>
+          )}
       </div>
     );
   }
