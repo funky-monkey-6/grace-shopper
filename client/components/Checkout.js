@@ -115,7 +115,7 @@ class Checkout extends Component {
       billingState,
       billingZip,
       email,
-      phone: parseInt(phone),
+      phone,
       ccNumber,
       ccv,
       ccExpDate: new Date(ccExpDateYear, ccExpDateMonth, 0, 0, 0, 0, 0),
@@ -316,7 +316,7 @@ class Checkout extends Component {
                     Phone number:
                     <input type="text" name="phone" value={phone} onChange={handleChange} />
                   </label>
-
+                  {/* The below may be a placeholder for whatever is implemented for Square or Stripe */}
                   <label>
                     Credit Card Number:
                     <input type="text" name="ccNumber" value={ccNumber} onChange={handleChange} />
@@ -414,7 +414,6 @@ class Checkout extends Component {
                   ) : (
                     ''
                   )}
-                  {/* The below may be a placeholder for whatever is implemented for Square or Stripe */}
                 </div>
 
                 <button className="btn btn-primary" type="submit" onClick={handleSubmit}>

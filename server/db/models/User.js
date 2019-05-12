@@ -38,7 +38,7 @@ module.exports = conn.define('user', {
     },
   },
   phone: {
-    type: Sequelize.BIGINT,
+    type: Sequelize.STRING,
     allowNull: true,
     // validate: {
     //   len: {
