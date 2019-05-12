@@ -21,9 +21,9 @@ class OrderItem extends Component {
     return (
       <tr>
         <td>{title}</td>
-        <td>{price}</td>
+        <td>${price.toFixed(2)}</td>
         <td>{quantity}</td>
-        <td>{itemTotal}</td>
+        <td>${itemTotal.toFixed(2)}</td>
         <td>
           <button
             type="submit"
