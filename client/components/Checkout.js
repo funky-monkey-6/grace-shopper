@@ -204,9 +204,11 @@ class Checkout extends Component {
                     ? orderItems.map(orderItem => (
                         <tr key={orderItem.id}>
                           <td>{findProduct(products, orderItem).title}</td>
-                          <td>${orderItem.price}</td>
+                          <td>${orderItem.price.toFixed(2)}</td>
                           <td>{orderItem.quantity}</td>
-                          <td>${orderItem ? orderItem.price * orderItem.quantity : 0}</td>
+                          <td>
+                            ${orderItem ? orderItem.price.toFixed(2) * orderItem.quantity : 0}
+                          </td>
                         </tr>
                       ))
                     : ''}
@@ -219,11 +221,11 @@ class Checkout extends Component {
                 <br />
                 Order Type: <span>{order.type}</span>
                 <br />
-                Subtotal: <span>${order.subtotal}</span>
+                Subtotal: <span>${order.subtotal.toFixed(2)}</span>
                 <br />
-                Shipping: <span>${order.shipping}</span>
+                Shipping: <span>${order.shipping.toFixed(2)}</span>
                 <br />
-                <strong>Total: ${order.total}</strong>
+                <strong>Total: ${order.total.toFixed(2)}</strong>
               </div>
             </div>
             <br />
