@@ -72,13 +72,13 @@ class Nav extends Component {
               <NavLink to="/admin/products" className="nav-item" activeClassName="active">
                 Products
               </NavLink>
-              <NavLink to="/admin/categories" className="nav-item">
+              <NavLink to="/admin/categories" className="nav-item" activeClassName="active">
                 Categories
               </NavLink>
-              <NavLink to="/admin/orders" className="nav-item">
+              <NavLink to="/admin/orders" className="nav-item" activeClassName="active">
                 Orders
               </NavLink>
-              <NavLink to="/admin/users" className="nav-item">
+              <NavLink to="/admin/users" className="nav-item" activeClassName="active">
                 Users
               </NavLink>
             </div>
