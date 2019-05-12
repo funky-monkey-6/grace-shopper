@@ -72,7 +72,7 @@ class MostPopular extends React.Component {
   render() {
     const { orderItems } = this.state;
     const { filterPopular } = this;
-
+    console.log(orderItems);
     return (
       <div>
         <br />

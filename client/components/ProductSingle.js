@@ -78,17 +78,16 @@ class ProductSingle extends React.Component {
 
     let price = 0;
     let inventory = 0;
-    let productVariantId = 0;
+    let productvariantId = 0;
     if (variants.length === 1 || this.state.variantId === 0) {
       price = variants[0].price;
       inventory = variants[0].inventory;
-      productVariantId = variants[0].id;
-    }
-    else {
+      productvariantId = variants[0].id;
+    } else {
       const selectedVariant = variants.find(variant => variant.id === Number(this.state.variantId));
       price = selectedVariant.price;
       inventory = selectedVariant.inventory;
-      productVariantId = selectedVariant.id;
+      productvariantId = selectedVariant.id;
     }
 
     const inventoryArr = [];
@@ -100,7 +99,7 @@ class ProductSingle extends React.Component {
       quantity: Number(quantity),
       price,
       orderId: order.id,
-      productVariantId,
+      productvariantId,
     };
 
     return (
