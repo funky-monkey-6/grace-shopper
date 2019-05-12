@@ -140,12 +140,12 @@ class ProductSingle extends React.Component {
             {user.id ? (
               <ReviewForm />
             ) : (
-                <Link to="/login">
-                  <button type="submit" className="btn btn-secondary">
-                    Login to add review:
+              <Link to="/login">
+                <button type="submit" className="btn btn-secondary">
+                  Login to add review:
                 </button>
-                </Link>
-              )}
+              </Link>
+            )}
           </div>
           <div className="review-list">
             <h1>
