@@ -85,46 +85,50 @@ class Order extends Component {
                 <td />
               </tr>
             )}
-            <tr>
-              <td />
-              <td />
-              <td>
-                {/* TODO drop down - [delivery, pickup] */}
-                Order Type:
-                <br />
-                Subtotal:
-                <br />
-                Shipping:
-                <br />
-                Total:
-              </td>
-              <td>
-                <select
-                  name="type"
-                  value={type}
-                  selected="pickup"
-                  onChange={onChange}
-                  className="form-control"
-                >
-                  <option key={1} value="pickup">
-                    Pickup
-                  </option>
-                  <option key={2} value="delivery">
-                    Delivery
-                  </option>
-                </select>
-                {type}
-                <br />
-                {subtotal}
-                <br />
-                {shipping}
-                <br />
-                {total}
-              </td>
-              <td />
-            </tr>
           </tbody>
         </table>
+        <br />
+        <div className="container">
+          <div className="row justify-content-end">
+            <div className="col-md-2">
+              <span>Order Type:</span>
+            </div>
+            <div className="col-md-2">
+              <select
+                name="type"
+                value={type}
+                selected="pickup"
+                onChange={onChange}
+                className="form-control"
+              >
+                <option key={1} value="pickup">
+                  Pickup
+                </option>
+                <option key={2} value="delivery">
+                  Delivery
+                </option>
+              </select>
+            </div>
+          </div>
+
+          {/* <br /> */}
+
+          <div className="row justify-content-end">
+            <div className="col-md-2">Subtotal:</div>
+            <div className="col-md-2">${subtotal.toFixed(2)}</div>
+          </div>
+
+          <div className="row justify-content-end">
+            <div className="col-md-2">Shipping:</div>
+            <div className="col-md-2">${shipping.toFixed(2)}</div>
+          </div>
+
+          <div className="row justify-content-end">
+            <div className="col-md-2">Total:</div>
+            <div className="col-md-2">${total.toFixed(2)}</div>
+          </div>
+        </div>
+
         {orderItems.length ? (
           <Link to="/checkout">
             <button type="submit">Start Checkout </button>
