@@ -1,6 +1,8 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import { fetchOrder, setOrder } from './order';
 import { setOrderItems } from './orderItems';
+import { setSessionThunk } from './session';
 
 //ACTION TYPES
 
@@ -21,6 +23,8 @@ export const checkUser = enteredUser => async dispatch => {
     const user = response.data;
     dispatch(setUser(user));
     dispatch(fetchOrder(user.id));
+    const session = Cookies.get('session');
+    dispatch(setSessionThunk(session));
   } catch (error) {
     throw new Error(error);
   }
@@ -32,6 +36,8 @@ export const logOut = () => async dispatch => {
     dispatch(setUser({}));
     dispatch(setOrder({}));
     dispatch(setOrderItems([]));
+    Cookies.remove('session');
+    dispatch(setSessionThunk(''));
   } catch (error) {
     throw new Error(error);
   }
