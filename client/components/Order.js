@@ -76,19 +76,18 @@ class Order extends Component {
                 );
               })
             ) : (
-              <tr>
-                <td>Your bag is empty.</td>
-                <td />
-                <td />
-                <td />
-                <td />
-              </tr>
-            )}
+                <tr>
+                  <td>Your bag is empty.</td>
+                  <td />
+                  <td />
+                  <td />
+                  <td />
+                </tr>
+              )}
             <tr>
               <td />
               <td />
               <td>
-                {/* TODO drop down - [delivery, pickup] */}
                 Order Type:
                 <br />
                 Subtotal:
