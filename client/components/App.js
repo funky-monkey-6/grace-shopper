@@ -9,6 +9,8 @@ import Nav from './Nav';
 import Signup from './Signup';
 import Home from './Home';
 import Order from './Order';
+import Checkout from './Checkout';
+import AdminProducts from './AdminProducts';
 import { setSessionThunk } from '../store';
 
 class App extends Component {
@@ -37,6 +39,10 @@ class App extends Component {
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/bag" component={Order} />
+            <Route path="/checkout" component={Checkout} />
+            <Route path="/admin/products" component={AdminProducts} />
+            {/* <Route path="/admin/categories" component={AdminCategories} />
+          <Route path="/admin/users" component={AdminUsers} /> */}
             {/* TODO new paths added, not done with */}
             {/* put user.id (?), category.id, product.id in url */}
 
@@ -44,7 +50,6 @@ class App extends Component {
             <Route path="/user/account" component={Account} />
             <Route path="/admin/orders" component={Orders} />
             <Route path="/admin/product" component={Product} />
-            <Route path="/admin/products" component={Products} />
             <Route path="/admin/categories" component={Categories} />
             <Route path="/admin/user" component={User} />
             <Route path="/admin/users" component={Users} /> */}
