@@ -100,7 +100,7 @@ class Checkout extends Component {
       shippingAddress,
       shippingCity,
       shippingState,
-      shippingZip: parseInt(shippingZip),
+      shippingZip,
       date: new Date(),
     });
 
@@ -113,11 +113,11 @@ class Checkout extends Component {
       billingAddress,
       billingCity,
       billingState,
-      billingZip: parseInt(billingZip),
+      billingZip,
       email,
       phone: parseInt(phone),
-      ccNumber: parseInt(ccNumber),
-      ccv: parseInt(ccv),
+      ccNumber,
+      ccv,
       ccExpDate: new Date(ccExpDateYear, ccExpDateMonth, 0, 0, 0, 0, 0),
     });
     this.setState({ submitted: true });

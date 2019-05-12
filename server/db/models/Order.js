@@ -48,7 +48,7 @@ module.exports = conn.define('order', {
     // },
   },
   shippingZip: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     // validate: {
     //   len: {
     //     args: [5],

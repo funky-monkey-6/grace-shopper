@@ -70,7 +70,7 @@ module.exports = conn.define('user', {
     // },
   },
   billingZip: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     // validate: {
     //   len: {
     //     args: [5],
@@ -79,10 +79,10 @@ module.exports = conn.define('user', {
     // },
   },
   ccNumber: {
-    type: Sequelize.BIGINT,
+    type: Sequelize.STRING,
   },
   ccv: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
   },
   ccExpDate: {
     type: Sequelize.DATE,
