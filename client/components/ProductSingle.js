@@ -68,16 +68,9 @@ class ProductSingle extends React.Component {
   };
 
   render() {
-    console.log(this.state);
     const { user, order, product, reviews, users } = this.props;
     const { quantity } = this.state;
     const { addOrderItem, handleChange } = this;
-    const orderItem = {
-      quantity: Number(quantity),
-      price: product.price,
-      orderId: order.id,
-      productId: product.id,
-    };
 
     if (!product.id) return null;
 
@@ -88,6 +81,13 @@ class ProductSingle extends React.Component {
     } else {
       price = variants.find(variant => variant.id === Number(this.state.variantId)).price;
     }
+
+    const orderItem = {
+      quantity: Number(quantity),
+      price: product.price,
+      orderId: order.id,
+      productId: product.id,
+    };
 
     return (
       <div>
@@ -122,7 +122,8 @@ class ProductSingle extends React.Component {
                     })}
                   </select>
                 </form>
-                <p>{price.toFixed(2)}</p>
+                <p>Price: {price.toFixed(2)}</p>
+                <p>Total: {(price * this.state.quantity).toFixed(2)}</p>
                 {/* userId, order, orderItem */}
                 <button
                   type="submit"
@@ -140,12 +141,12 @@ class ProductSingle extends React.Component {
             {user.id ? (
               <ReviewForm />
             ) : (
-              <Link to="/login">
-                <button type="submit" className="btn btn-secondary">
-                  Login to add review:
+                <Link to="/login">
+                  <button type="submit" className="btn btn-secondary">
+                    Login to add review:
                 </button>
-              </Link>
-            )}
+                </Link>
+              )}
           </div>
           <div className="review-list">
             <h1>
