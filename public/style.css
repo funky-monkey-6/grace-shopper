@@ -3,6 +3,10 @@
   font-size: 2rem;
 }
 
+body {
+  background-color: #FCF0EF;
+}
+
 .header-bar {
   background-color: #FEFFFF;
   color: #DE5948;
@@ -11,9 +15,18 @@
   padding-top: 10px;
 }
 
+#site-name {
+  text-align: center;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
 .nav-lovin-today {
-  color: #FEFFFF;
-  background-color: #DE5948;
+  background-color: #DD8B82;
+}
+
+.nav-item {
+  color: white;
 }
 
 .logo-img {
@@ -26,12 +39,14 @@
   display: flex;
   height: 100%;
   flex-wrap: wrap;
+  background-color: white;
 }
 
 .menu-filter {
   border: 1px solid grey;
   width: 25%;
   padding: 3%;
+  background-color: white;
 }
 
 .menu-list {
@@ -39,6 +54,7 @@
   flex-wrap: wrap;
   width: 75%;
   border: 1px solid grey;
+  background-color: white;
 }
 
 .menu-list-category {
@@ -81,7 +97,7 @@
 }
 
 .review-form {
-  background-color: rosybrown;
+  background-color:  #F2C1BB;
   width: 40%;
   padding: 2%;
 }
@@ -95,7 +111,7 @@
 }
 
 .review-list {
-  background-color: rosybrown;
+  background-color: #F2C1BB;
   width: 60%;
   padding: 2%;
 }
@@ -105,7 +121,7 @@
 }
 
 .product-single-container {
-  background-color: rosybrown;
+  background-color:  #F2C1BB;
 }
 
 .product-single {
@@ -133,3 +149,23 @@
 .filter-cat {
   display: flex;
 }
+
+.btn-secondary {
+  background-color: #D06151;
+  border: 1px solid #D06151;
+  height: 40px;
+  color: white;
+}
+
+.search-icon {
+  height: 20px;
+}
+
+.flex-container {
+  display: flex;
+}
+
+.product-title {
+  color: #D06151;
+}
+

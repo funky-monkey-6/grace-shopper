@@ -113,18 +113,20 @@ class Menu extends React.Component {
             <label htmlFor="searchItems">
               <h4>Search Products:</h4>
             </label>
-            <input
-              type="search"
-              name="searchItems"
-              value={searchTerm}
-              onChange={this.enterSearch}
-            />
-            <button type="submit" className="btn btn-secondary">
-              Search
-            </button>
-            <button type="submit" onClick={this.clearSearch} className="btn btn-secondary">
-              Clear Search
-            </button>
+            <div className="btn-container">
+              <input
+                type="search"
+                name="searchItems"
+                value={searchTerm}
+                onChange={this.enterSearch}
+              />
+              <button type="submit" className="btn btn-secondary">
+                <img src="search.png" alt="searchicon" className="search-icon" />
+              </button>
+              <button type="submit" onClick={this.clearSearch} className="btn btn-secondary">
+                Clear
+              </button>
+            </div>
           </form>
           <h4>Filter by Category:</h4>
           <form onSubmit={this.applyFilter}>

@@ -16,7 +16,7 @@ const App = () => {
           <Link to="/">
             <img src="logo.png" alt="logo" className="logo-img" />
           </Link>
-          <div id="site-name" className="flex-container header-bar">
+          <div id="site-name" className="flex-container">
             Lovin Today
           </div>
         </div>

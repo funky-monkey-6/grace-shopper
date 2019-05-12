@@ -9,7 +9,7 @@ const MenuItem = props => {
     <div className="menu-item">
       <img src="default.jpg" className="menu-img" alt="menu-default" />
       <Link to={`/menu/product/${product.id}`}>
-        <h5>{product.title}</h5>
+        <h5 className="product-title">{product.title}</h5>
       </Link>
       <p>{product.description}</p>
       <p>
