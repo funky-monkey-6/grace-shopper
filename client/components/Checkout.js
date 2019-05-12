@@ -125,22 +125,22 @@ class Checkout extends Component {
 
   copyBillingAddress = ev => {
     const {
-      firstName,
-      lastName,
-      shippingAddress,
-      shippingCity,
-      shippingState,
-      shippingZip,
+      billingFirstName,
+      billingLastName,
+      billingAddress,
+      billingCity,
+      billingState,
+      billingZip,
     } = this.state;
 
     if (ev.target.checked) {
       this.setState({
-        billingFirstName: firstName,
-        billingLastName: lastName,
-        billingAddress: shippingAddress,
-        billingCity: shippingCity,
-        billingState: shippingState,
-        billingZip: shippingZip,
+        firstName: billingFirstName,
+        lastName: billingLastName,
+        shippingAddress: billingAddress,
+        shippingCity: billingCity,
+        shippingState: billingState,
+        shippingZip: billingZip,
         sameAddress: true,
       });
     } else this.setState({ sameAddress: false });
@@ -249,25 +249,35 @@ class Checkout extends Component {
             <br />
             <br />
             <div>
-              <h4>Enter checkout information below:</h4>
+              <h4>Complete your order:</h4>
               <br />
-              <h5>Delivery Information</h5>
+              <h5>Billing Information</h5>
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
                   <label>
                     First Name:
-                    <input type="text" name="firstName" value={firstName} onChange={handleChange} />
+                    <input
+                      type="text"
+                      name="billingFirstName"
+                      value={billingFirstName}
+                      onChange={handleChange}
+                    />
                   </label>
                   <label>
                     Last Name:
-                    <input type="text" name="lastName" value={lastName} onChange={handleChange} />
+                    <input
+                      type="text"
+                      name="billingLastName"
+                      value={billingLastName}
+                      onChange={handleChange}
+                    />
                   </label>
                   <label>
                     Address:
                     <input
                       type="text"
-                      name="shippingAddress"
-                      value={shippingAddress}
+                      name="billingAddress"
+                      value={billingAddress}
                       onChange={handleChange}
                     />
                   </label>
@@ -275,8 +285,8 @@ class Checkout extends Component {
                     City:
                     <input
                       type="text"
-                      name="shippingCity"
-                      value={shippingCity}
+                      name="billingCity"
+                      value={billingCity}
                       onChange={handleChange}
                     />
                   </label>
@@ -284,8 +294,8 @@ class Checkout extends Component {
                     State:
                     <input
                       type="text"
-                      name="shippingState"
-                      value={shippingState}
+                      name="billingState"
+                      value={billingState}
                       onChange={handleChange}
                     />
                   </label>
@@ -293,8 +303,8 @@ class Checkout extends Component {
                     Zip Code:
                     <input
                       type="text"
-                      name="shippingZip"
-                      value={shippingZip}
+                      name="billingZip"
+                      value={billingZip}
                       onChange={handleChange}
                     />
                   </label>
@@ -306,78 +316,7 @@ class Checkout extends Component {
                     Phone number:
                     <input type="text" name="phone" value={phone} onChange={handleChange} />
                   </label>
-                </div>
-                <br />
-                <br />
-                <div>
-                  <h5>Billing Information</h5>
 
-                  <label>
-                    <input type="checkBox" name="sameAddress" onChange={this.copyBillingAddress} />
-                    Billing address is same as above
-                  </label>
-                  <br />
-                  {!sameAddress ? (
-                    <Fragment>
-                      <label>
-                        First Name:
-                        <input
-                          type="text"
-                          name="billingFirstName"
-                          value={sameAddress ? firstName : billingFirstName}
-                          onChange={handleChange}
-                        />
-                      </label>
-                      <label>
-                        Last Name:
-                        <input
-                          type="text"
-                          name="billingLastName"
-                          value={sameAddress ? lastName : billingLastName}
-                          onChange={handleChange}
-                        />
-                      </label>
-                      <label>
-                        Address:
-                        <input
-                          type="text"
-                          name="billingAddress"
-                          value={sameAddress ? shippingAddress : billingAddress}
-                          onChange={handleChange}
-                        />
-                      </label>
-                      <label>
-                        City:
-                        <input
-                          type="text"
-                          name="billingCity"
-                          value={sameAddress ? shippingCity : billingCity}
-                          onChange={handleChange}
-                        />
-                      </label>
-                      <label>
-                        State:
-                        <input
-                          type="text"
-                          name="billingState"
-                          value={sameAddress ? shippingState : billingState}
-                          onChange={handleChange}
-                        />
-                      </label>
-                      <label>
-                        Zip Code:
-                        <input
-                          type="text"
-                          name="billingZip"
-                          value={sameAddress ? shippingZip : billingZip}
-                          onChange={handleChange}
-                        />
-                      </label>
-                    </Fragment>
-                  ) : (
-                    ''
-                  )}
-                  {/* The below may be a placeholder for whatever is implemented for Square or Stripe */}
                   <label>
                     Credit Card Number:
                     <input type="text" name="ccNumber" value={ccNumber} onChange={handleChange} />
@@ -405,8 +344,80 @@ class Checkout extends Component {
                     />
                   </label>
                 </div>
+                <br />
+                <br />
+                <div>
+                  <h5>Shipping Information</h5>
 
-                <button type="submit" onClick={handleSubmit}>
+                  <label>
+                    <input type="checkBox" name="sameAddress" onChange={this.copyBillingAddress} />
+                    Shipping address is same as above
+                  </label>
+                  <br />
+                  {!sameAddress ? (
+                    <Fragment>
+                      <label>
+                        First Name:
+                        <input
+                          type="text"
+                          name="firstName"
+                          value={sameAddress ? billingFirstName : firstName}
+                          onChange={handleChange}
+                        />
+                      </label>
+                      <label>
+                        Last Name:
+                        <input
+                          type="text"
+                          name="lastName"
+                          value={sameAddress ? billingLastName : lastName}
+                          onChange={handleChange}
+                        />
+                      </label>
+                      <label>
+                        Address:
+                        <input
+                          type="text"
+                          name="shippingAddress"
+                          value={sameAddress ? billingAddress : shippingAddress}
+                          onChange={handleChange}
+                        />
+                      </label>
+                      <label>
+                        City:
+                        <input
+                          type="text"
+                          name="shippingCity"
+                          value={sameAddress ? billingCity : shippingCity}
+                          onChange={handleChange}
+                        />
+                      </label>
+                      <label>
+                        State:
+                        <input
+                          type="text"
+                          name="shippingState"
+                          value={sameAddress ? billingState : shippingState}
+                          onChange={handleChange}
+                        />
+                      </label>
+                      <label>
+                        Zip Code:
+                        <input
+                          type="text"
+                          name="shippingZip"
+                          value={sameAddress ? billingZip : shippingZip}
+                          onChange={handleChange}
+                        />
+                      </label>
+                    </Fragment>
+                  ) : (
+                    ''
+                  )}
+                  {/* The below may be a placeholder for whatever is implemented for Square or Stripe */}
+                </div>
+
+                <button className="btn btn-primary" type="submit" onClick={handleSubmit}>
                   Checkout
                 </button>
               </form>
