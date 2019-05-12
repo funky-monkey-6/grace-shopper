@@ -6,6 +6,7 @@ router.delete('/logout', (req, res) => {
   req.session.destroy(() => res.sendStatus(204).end());
 });
 
+// TODO Erin need this ???
 // router.get('/', (req, res, next) => {
 //   if (!req.session.userId) {
 //     const error = new Error('not logged in');
