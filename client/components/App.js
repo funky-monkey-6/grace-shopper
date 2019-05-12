@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import Menu from './Menu';
 import Login from './Login';
 import ProductSingle from './ProductSingle';
@@ -12,8 +12,13 @@ const App = () => {
   return (
     <Router>
       <header id="main-header">
-        <div id="site-name" className="flex-container">
-          Lovin Today
+        <div className="header-bar">
+          <Link to="/">
+            <img src="logo.png" alt="logo" className="logo-img" />
+          </Link>
+          <div id="site-name" className="flex-container header-bar">
+            Lovin Today
+          </div>
         </div>
         <Route render={location => <Nav location={location} />} />
       </header>

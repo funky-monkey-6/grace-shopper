@@ -3,6 +3,24 @@
   font-size: 2rem;
 }
 
+.header-bar {
+  background-color: #FEFFFF;
+  color: #DE5948;
+  display: flex;
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+.nav-lovin-today {
+  color: #FEFFFF;
+  background-color: #DE5948;
+}
+
+.logo-img {
+  height: 40px;
+  width: 40px;
+}
+
 /* Menu styling */
 .menu-page {
   display: flex;
