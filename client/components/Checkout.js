@@ -216,23 +216,42 @@ class Checkout extends Component {
               </table>
             </div>
             <br />
-            <div className="d-flex flex-row">
-              <div>
-                <br />
-                Order Type: <span>{order.type}</span>
-                <br />
-                Subtotal: <span>${order.subtotal.toFixed(2)}</span>
-                <br />
-                Shipping: <span>${order.shipping.toFixed(2)}</span>
-                <br />
-                <strong>Total: ${order.total.toFixed(2)}</strong>
+
+            <div className="row justify-content-end">
+              <div className="col-3 text-right">Order Type:</div>
+              <div className="col-3">{order.type}</div>
+            </div>
+
+            <div className="row justify-content-end">
+              <div className="col-3 text-right">Subtotal:</div>
+              <div className="col-3">${order.subtotal.toFixed(2)}</div>
+            </div>
+
+            <div className="row justify-content-end">
+              <div className="col-3 text-right">Shipping:</div>
+              <div className="col-3">${order.shipping.toFixed(2)}</div>
+            </div>
+
+            <br />
+
+            <div className="row justify-content-end">
+              <div className="col-3 text-right">
+                <h5>
+                  <strong>Total:</strong>
+                </h5>
+              </div>
+              <div className="col-3">
+                <h5>
+                  <strong>${order.total.toFixed(2)}</strong>
+                </h5>
               </div>
             </div>
             <br />
             <br />
             <div>
               <h4>Enter checkout information below:</h4>
-              <h3>Delivery Information</h3>
+              <br />
+              <h5>Delivery Information</h5>
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
                   <label>
@@ -291,7 +310,7 @@ class Checkout extends Component {
                 <br />
                 <br />
                 <div>
-                  <h3>Billing Information</h3>
+                  <h5>Billing Information</h5>
 
                   <label>
                     <input type="checkBox" name="sameAddress" onChange={this.copyBillingAddress} />

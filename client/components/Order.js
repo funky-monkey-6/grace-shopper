@@ -80,8 +80,8 @@ class Order extends Component {
             <br />
 
             <div className="row justify-content-end">
-              <div className="col-3">
-                <span>Order Type:</span>
+              <div className="col-3 text-right">
+                <span className="align-bottom">Order Type:</span>
               </div>
               <div className="col-3">
                 <select
@@ -102,17 +102,17 @@ class Order extends Component {
             </div>
 
             <div className="row justify-content-end">
-              <div className="col-3">Subtotal:</div>
+              <div className="col-3 text-right">Subtotal:</div>
               <div className="col-3">${subtotal.toFixed(2)}</div>
             </div>
 
             <div className="row justify-content-end">
-              <div className="col-3">Shipping:</div>
+              <div className="col-3 text-right">Shipping:</div>
               <div className="col-3">${shipping.toFixed(2)}</div>
             </div>
 
             <div className="row justify-content-end">
-              <div className="col-3">Total:</div>
+              <div className="col-3 text-right">Total:</div>
               <div className="col-3">${total.toFixed(2)}</div>
             </div>
 
