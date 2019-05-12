@@ -55,12 +55,6 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    user: state.user,
-  };
-};
-
 const mapDispatchToProps = dispatch => {
   return {
     setSessionThunk: session => dispatch(setSessionThunk(session)),
@@ -68,6 +62,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps,
 )(App);

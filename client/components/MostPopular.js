@@ -24,7 +24,6 @@ class MostPopular extends React.Component {
     super();
     this.state = {
       orderItems: [],
-      mostPopular: [],
     };
   }
 
@@ -34,8 +33,7 @@ class MostPopular extends React.Component {
     axios
       .get('api/orderItems')
       .then(res => res.data)
-      .then(orderItems => this.setState({ orderItems }))
-      .then(() => this.setState({ mostPopular: this.filterPopular(this.state.orderItems) }));
+      .then(orderItems => this.setState({ orderItems }));
   }
 
   filterPopular = orderItems => {
@@ -72,24 +70,23 @@ class MostPopular extends React.Component {
   };
 
   render() {
-    const { mostPopular } = this.state;
+    const { orderItems } = this.state;
+    const { filterPopular } = this;
 
     return (
       <div>
+        <br />
         <h4>Popular menu items</h4>
         <div className="menu-list">
-          {mostPopular.map(prod => {
-            const { id, title, description, price } = prod;
+          {filterPopular(orderItems).map(prod => {
             return (
-              <div key={id} className="menu-item">
-                <ul>
-                  <li>Placeholder for image</li>
-                  <Link to={`/menu/${id}`}>
-                    <li>{title}</li>
-                  </Link>
-                  <li>{description}</li>
-                  <li>{price}</li>
-                </ul>
+              <div key={prod.id} className="menu-item">
+                <img src="default.jpg" className="menu-img" alt="menu-default" />
+                <Link to={`/menu/product/${prod.id}`}>
+                  <h5>{prod.title}</h5>
+                </Link>
+                <p>{prod.description}</p>
+                <p>${prod.price.toFixed(2)}</p>
               </div>
             );
           })}

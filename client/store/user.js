@@ -53,6 +53,16 @@ export const addUser = enteredUser => async dispatch => {
   }
 };
 
+export const updateUser = user => async dispatch => {
+  try {
+    const response = await axios.put(`/api/users/${user.id}`, user);
+    const updatedUser = response.data;
+    return dispatch(setUser(updatedUser));
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 // TODO Erin - keep or delete ?
 export const getUser = () => async dispatch => {
   try {
