@@ -4,7 +4,7 @@ module.exports = [
   {
     productName: 'Arugula Bi Bim Bap',
     variationName: 'Regular',
-    inventory: 10,
+    inventory: 5,
     price: 9.5,
   },
   {
@@ -16,7 +16,7 @@ module.exports = [
   {
     productName: 'Chicken Mushroom Bi Bim Bap',
     variationName: 'Regular',
-    inventory: 10,
+    inventory: 20,
     price: 14.0,
   },
   {

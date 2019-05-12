@@ -75,11 +75,21 @@ class ProductSingle extends React.Component {
     if (!product.id) return null;
 
     const variants = product.productvariants;
+
     let price = 0;
+    let inventory = 0;
     if (variants.length === 1 || this.state.variantId === 0) {
       price = variants[0].price;
+      inventory = variants[0].inventory;
     } else {
-      price = variants.find(variant => variant.id === Number(this.state.variantId)).price;
+      const selectedVariant = variants.find(variant => variant.id === Number(this.state.variantId));
+      price = selectedVariant.price;
+      inventory = selectedVariant.inventory;
+    }
+
+    const inventoryArr = [];
+    for (let i = 0; i <= Math.min(inventory, 10); i++) {
+      inventoryArr.push(i);
     }
 
     const orderItem = {
@@ -94,7 +104,7 @@ class ProductSingle extends React.Component {
         <div className="product-single-container">
           <div className="product-single flex-container">
             <div className="product-single-img-container">
-              <img src="default.jpg" className="product-single-img" alt="default" />
+              <img src={`/product-images/${product.images}`} className="product-single-img" alt="menu-default" />
             </div>
             <div className="product-single-details">
               <div className="product-single-info">
@@ -115,7 +125,7 @@ class ProductSingle extends React.Component {
                     </select>
                   ) : null}
                   <select name="quantity" onChange={handleChange}>
-                    {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(q => {
+                    {inventoryArr.map(q => {
                       return (
                         <option key={q} value={q}>
                           {q}

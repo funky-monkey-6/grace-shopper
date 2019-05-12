@@ -25,6 +25,6 @@ module.exports = conn.define('product', {
   },
   images: {
     type: Sequelize.STRING,
-    defaultValue: 'image.png',
+    defaultValue: 'default.jpg',
   },
 });

@@ -3,34 +3,43 @@
 module.exports = [
   {
     title: 'Arugula Bi Bim Bap',
-    description: '',
+    description:
+      'Arugula, Mashed Avocado, Gluten Free Organic Brown Rice, Chili Paste, Sesame Oil, Fried Eggs, Carrots, and Spinach.',
     category: 'Bibimbap',
+    images: 'arugula_bi_bim_bap.jpeg',
   },
   {
     title: 'Bi Bim Bap',
     description:
-      'Gluten Free  Brown Rice, carrot, Boston Lettuce, Soybean paste, sesame oil, coconut oil fried egg',
+      'Mashed Avocado, Gluten Free Organic Brown Rice, Chili Paste, Sesame Oil, Fried Eggs, Carrots, and Spinach.',
     category: 'Bibimbap',
+    images: 'bi_bim_bap.jpeg',
   },
   {
     title: 'Chicken Mushroom Bi Bim Bap',
     description: '',
     category: 'Bibimbap',
+    images: 'mushroom_bi_bim_bap.jpeg',
   },
   {
     title: 'Grilled Tofu Mushroom Bi Bim Bap',
     description: '',
     category: 'Bibimbap',
+    images: 'mushroom_bi_bim_bap.jpeg',
   },
   {
     title: 'Kimchi Bi Bim Bap',
-    description: '',
+    description:
+      'Kimchi, Mashed Avocado, Gluten Free Organic Brown Rice, Chili Paste, Sesame Oil, Fried Eggs, Carrots, and Spinach.',
     category: 'Bibimbap',
+    images: 'kimchi_bi_bim_bap.jpeg',
   },
   {
     title: 'Mushroom Bi Bim Bap',
-    description: '',
+    description:
+      'Portobello Mushroom, Mashed Avocado, Gluten Free Organic Brown Rice, Chili Paste, Sesame Oil, Fried Eggs, Carrots, and Spinach.',
     category: 'Bibimbap',
+    images: 'mushroom_bi_bim_bap.jpeg',
   },
   {
     title: 'Roll with Butter',
@@ -69,7 +78,7 @@ module.exports = [
   },
   {
     title: 'Dumpling Tray',
-    description: '',
+    description: 'Cabbage, Onion, Green Onion, Ginger, Cilantro',
     category: 'Catering',
   },
   {
@@ -79,7 +88,8 @@ module.exports = [
   },
   {
     title: 'Kimchi Coconut Oil Fried Rice',
-    description: '',
+    description:
+      'Kimchi, Celery, Carrot, Green Chili, Onion, Himalayan Salt, Coconut Oil, Gluten Free Organic Brown Rice, and Eggs.',
     category: 'Coconut Oil Fried Rice',
   },
   {
@@ -89,7 +99,8 @@ module.exports = [
   },
   {
     title: 'Pineapple Coconut Oil Fried Rice',
-    description: '',
+    description:
+      'Pineapple, Celery, Carrot, Green Chili, Onion, Himalayan Salt, Coconut Oil, Gluten Free Organic Brown Rice, and Eggs.',
     category: 'Coconut Oil Fried Rice',
   },
   {
@@ -114,68 +125,80 @@ module.exports = [
   },
   {
     title: 'ABC',
-    description: '',
+    description: 'Fuji Apple, Beet and Carrot.',
     category: 'Fresh Juice',
+    images: 'abc.jpeg',
   },
   {
     title: "Doc's Prescription",
-    description: 'Celery Apple Ginger Lemon',
+    description: 'Celery, Ginger, Lemon, Fuji Apple.',
     category: 'Fresh Juice',
+    images: 'doc_prescription.jpeg',
   },
   {
     title: 'Hulk Blood',
-    description: 'Kale Apple Ginger Lemon',
+    description: 'Kale, Ginger, Lemon, Fuji Apple.',
     category: 'Fresh Juice',
+    images: 'hulk_blood.jpeg',
   },
-  {
-    title: 'Jealousy',
-    description: '',
-    category: 'Fresh Juice',
-  },
+  // {
+  //   title: 'Jealousy',
+  //   description: '',
+  //   category: 'Fresh Juice',
+  // },
   {
     title: 'Lemon Ginger Zinger',
-    description: 'Carrot Apple Ginger Lemon',
+    description: 'Carrot, Ginger, Fuji Apple, Lemon.',
     category: 'Fresh Juice',
+    images: 'lemon_ginger_zinger.jpeg',
   },
   {
     title: 'Pina Colada',
-    description: 'Pineapple Coconut Water',
+    description: 'Pineapple, Coconut Water.',
     category: 'Fresh Juice',
+    images: 'pina_colada.jpeg',
   },
   {
     title: 'Pink Panther',
-    description: 'Watermelon Strawberry Apple Orange',
+    description: 'Watermelon, Strawberries, Fuji Apple, Orange.',
     category: 'Fresh Juice',
+    images: 'pink_panther.jpeg',
   },
   {
     title: 'Rejuvenation',
-    description: 'Cucumber Celery Apple Ginger',
+    description: 'Cucumber, Celery, Fuji Apple, Lemon.',
     category: 'Fresh Juice',
+    images: 'rejuvenation.jpeg',
   },
   {
     title: 'Sun Kissed',
-    description: 'Pineapple Apple Ginger',
+    description: 'Pineapple, Ginger, Fuji Apple.',
     category: 'Fresh Juice',
+    images: 'sun_kissed.jpeg',
   },
   {
     title: 'Tropical Breeze',
-    description: 'Pineapple Apple Orange',
+    description: 'Pineapple, Orange, Fuji Apple.',
     category: 'Fresh Juice',
+    images: 'tropical_breeze.jpeg',
   },
   {
     title: 'Virus Kryptonite',
-    description: 'Orange Lemon Grapefruit',
+    description: 'Orange, Lemon, Grapefruit.',
     category: 'Fresh Juice',
+    images: 'virus_kryptonite.jpeg',
   },
   {
     title: 'Wonder Woman',
     description: 'Pomegranate Orange',
     category: 'Fresh Juice',
+    images: 'wonder_woman.jpeg',
   },
   {
     title: 'Avocado Chorizo Sandwich',
-    description: '',
+    description: 'Avocado, arugula, vegan chorizo, peanut butter, Brioche, chipotle sauce.',
     category: 'Healthy Plates',
+    images: 'chorizo_sandwich.jpeg',
   },
   {
     title: 'Mumbai Veggie Patties',
@@ -189,18 +212,21 @@ module.exports = [
   },
   {
     title: 'Samosa',
-    description: '2pcs',
+    description:
+      'Potato Samosa, chickpeas, yogurt, cilantro chutney, tamarind chutney, turmeric, cumin, Jalapeno,Onions. (2pcs)',
     category: 'Healthy Plates',
   },
   {
     title: 'Spicy Avocado Egg Sandwich',
-    description: '',
+    description: 'Avocado, Eggs, Chipotle Sauce, Green Chili, Brioche Bun.',
     category: 'Healthy Plates',
+    images: 'spicy_avocado_egg_sandwich.jpeg',
   },
   {
     title: 'Spicy Chorizo Egg Sandwich',
     description: '',
     category: 'Healthy Plates',
+    images: 'chorizo_sandwich.jpeg',
   },
   {
     title: 'Veggie Momos',
@@ -294,53 +320,67 @@ module.exports = [
   },
   {
     title: 'Autumn Bowl',
-    description: '',
+    description:
+      'Base: Roasted Pumpkin (Choice of Milk) Toppings: Almond, Cashew, Chia Seed, Oats, Cinnamon Powder, & Honey.',
     category: 'Incredibowls',
+    images: 'autumn_bowl.jpeg',
   },
   {
     title: 'Berry-licious',
-    description: '',
+    description:
+      'Base: Organic Acai Juice, strawberry, blueberry, & Raspberry. (Choice of Milk) Toppings: Strawberry, Blueberry, Banana, Honey, Chia Seed, and Granola',
     category: 'Incredibowls',
+    images: 'berrylicious.jpeg',
   },
   {
     title: 'Hulk Bowl',
-    description: '',
+    description:
+      'Base: Kale, Mango, Banana, Agave, and Ginger. (Choice of Milk) Toppings: Pineapple, Dried Figs, Chia Seeds, Coconut chips, and Granola',
     category: 'Incredibowls',
+    images: 'hulk_bowl.jpeg',
   },
   {
     title: 'Princess',
-    description: '',
+    description:
+      'Base: Strawberry, Banana, & Agave (Choice of Milk) Toppings: Raspberry, Coconut Chips, Chia Seeds, and Granola',
     category: 'Incredibowls',
+    images: 'princess.jpeg',
   },
   {
     title: '1 Day',
     description: '3 juices',
     category: 'Juice Cleanse',
+    images: 'juice.jpeg',
   },
   {
     title: '1 day + shots',
     description: '3 juices and 2 shots',
     category: 'Juice Cleanse',
+    images: 'juice.jpeg',
   },
   {
     title: '3 days',
     description: '9 juices',
     category: 'Juice Cleanse',
+    images: 'juice.jpeg',
   },
   {
     title: '3 days + shots',
     description: '9 juices + 6 shots',
     category: 'Juice Cleanse',
+    images: 'juice.jpeg',
   },
   {
     title: '5 days',
     description: '15 juices',
     category: 'Juice Cleanse',
+    images: 'juice.jpeg',
   },
   {
     title: '5 days + shots',
     description: '15 juices + 10 shots',
     category: 'Juice Cleanse',
+    images: 'juice.jpeg',
   },
   {
     title: 'Cliff Bar',
@@ -389,53 +429,60 @@ module.exports = [
   },
   {
     title: 'Tofu Chorizo Salad',
-    description: '',
+    description: 'Grilled Tofu, Vegan Chorizo, Arugula, Spinach, Sesame Oil,Carrot,Celery,Onion, Mixed Nuts, Lemon Juice, Salt & Pepper',
     category: 'Salad',
   },
   {
     title: 'Berry Excited',
-    description: 'Strawberry Blueberry Raspberry',
+    description: 'Strawberries, Blackberry, Blueberry, Raspberry, Coconut Water.',
     category: 'Smoothies',
+    images: 'berry_excited.jpeg',
   },
   {
     title: 'Chunky Monkey',
-    description: '',
+    description: 'Organic Pea Protein, Peanut Butter, Banana, Nutella, Almond Milk.',
     category: 'Smoothies',
   },
   {
     title: "Einstein's Brain",
-    description: 'Spinach Banana PeanutButter Walnut',
+    description: 'Spinach, Walnut, Banana, Almond Milk.',
     category: 'Smoothies',
+    images: 'einstein_brain.jpeg',
   },
   {
     title: 'Green Breakfast',
-    description: 'Kale Apple Banana PeanutButter',
+    description: 'Kale, Fuji Apple, Banana, Peanut Butter, Almond Milk.',
     category: 'Smoothies',
+    images: 'green_breakfast.jpeg',
   },
   {
     title: 'Hercules',
-    description: '',
+    description: 'Organic Pea Protein, Chia Seeds, Almonds, Broccoli, Banana, Agave, Almond Milk.',
     category: 'Smoothies',
+    images: 'hercules.jpeg',
   },
   {
-    title: "Kale'EM",
-    description: 'Kale Spinach Apple Romain Lettuce Celery Pear Ginger Banana Parsley Cilantro',
+    title: "Kale'em with Greenness",
+    description: 'Kale, Celery, Spinach, Banana, Fuji Apple, Ginger, Coconut Water.',
     category: 'Smoothies',
+    images: 'kale_em.jpeg',
   },
   {
     title: 'Nutz 4 Pumpkin',
-    description: 'Pumpkin Almond Cashew',
+    description: 'Roasted Pumpkin, Cashews, Almonds, Almond Milk.',
     category: 'Smoothies',
+    images: 'nutz4pumpkin.jpeg',
   },
   {
     title: 'Osaka',
-    description: '',
+    description: 'Best quality Macha, Avocado, Agave, Almond Milk',
     category: 'Smoothies',
   },
   {
     title: 'St.Mango',
-    description: 'Mango Banana Yogurt',
+    description: 'Mango, Banana, Greek Yogurt, Almond Milk.',
     category: 'Smoothies',
+    images: 'st_mango.jpeg',
   },
   {
     title: 'Butternut Squash Soup',
@@ -454,32 +501,40 @@ module.exports = [
   },
   {
     title: 'Emily',
-    description: '',
+    description:
+      'Ground Beef (Vegan), Onion, Green Chili, Vegetable Oil, Vegan Spicy Chipotle Sauce, Vegan Cheese, Portobello Mushroom, Avocado, Gluten Free Spinach Tortilla.',
     category: 'Vegan Tacos',
+    images: 'emily.jpeg',
   },
   {
     title: 'Jacob',
-    description: '',
+    description:
+      'Fried Egg, Avocado, Vegan Chipotle Sauce, Vegetable Oil, Gluten Free Spinach Tortilla.',
     category: 'Vegan Tacos',
   },
   {
     title: 'Joe',
-    description: '',
+    description:
+      'Sweet Potato, Yam, Carrot, Celery, Onion, Jalapeño, Vegan Cheese, Spicy Chipotle Sauce, Vegetable Oil, Gluten Free Spinach Tortilla.',
     category: 'Vegan Tacos',
   },
   {
     title: 'Lauren',
     description: '',
     category: 'Vegan Tacos',
+    images: 'lauren.jpeg',
   },
   {
     title: 'Maria',
-    description: '',
+    description:
+      'Ground Beef (Vegan), Onion, Green Chili, Vegetable Oil, Vegan Spicy Chipotle Sauce, Vegan Cheese, Avocado, Gluten Free Spinach Tortilla.',
     category: 'Vegan Tacos',
+    images: 'maria.jpeg',
   },
   {
     title: 'Sofia',
-    description: '',
+    description:
+      'Chorizo, Carrot, Celery, Onion, Vegan Cheese, Vegetable Oil, Gochujang Red Chili Sauce, Gluten Free Spinach Tortilla.',
     category: 'Vegan Tacos',
   },
 ];

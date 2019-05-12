@@ -7,7 +7,7 @@ const MenuItem = props => {
   const variantPrices = product.productvariants.map(variant => variant.price);
   return (
     <div className="menu-item">
-      <img src="default.jpg" className="menu-img" alt="menu-default" />
+      <img src={`/product-images/${product.images}`} className="menu-img" alt="menu-default" />
       <Link to={`/menu/product/${product.id}`}>
         <h5 className="product-title">{product.title}</h5>
       </Link>
