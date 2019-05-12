@@ -12,10 +12,9 @@ import Order from './Order';
 import { setSessionThunk } from '../store';
 
 class App extends Component {
-
   componentDidMount() {
     // grab session cookie and put on state
-    const session = Cookies.get('session')
+    const session = Cookies.get('session');
     if (session) {
       this.props.setSessionThunk(session);
     }

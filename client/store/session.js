@@ -7,25 +7,25 @@ const SET_SESSION = 'SET_SESSION';
 //ACTION CREATORS
 
 const setSession = session => ({
-	type: SET_SESSION,
-	session,
+  type: SET_SESSION,
+  session,
 });
 
 //THUNK CREATORS
 
 export const setSessionThunk = session => {
-	return dispatch => {
-		dispatch(setSession(session));
-	};
+  return dispatch => {
+    dispatch(setSession(session));
+  };
 };
 
 //REDUCER
 
 export const session = (state = '', action) => {
-	switch (action.type) {
-		case SET_SESSION:
-			return action.session;
-		default:
-			return state;
-	}
+  switch (action.type) {
+    case SET_SESSION:
+      return action.session;
+    default:
+      return state;
+  }
 };
