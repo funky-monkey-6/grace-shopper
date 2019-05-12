@@ -104,7 +104,11 @@ class ProductSingle extends React.Component {
         <div className="product-single-container">
           <div className="product-single flex-container">
             <div className="product-single-img-container">
-              <img src={`/product-images/${product.images}`} className="product-single-img" alt="menu-default" />
+              <img
+                src={`/product-images/${product.images}`}
+                className="product-single-img"
+                alt="menu-default"
+              />
             </div>
             <div className="product-single-details">
               <div className="product-single-info">
@@ -153,12 +157,12 @@ class ProductSingle extends React.Component {
             {user.id ? (
               <ReviewForm />
             ) : (
-                <Link to="/login">
-                  <button type="submit" className="btn btn-secondary">
-                    Login to add review:
+              <Link to="/login">
+                <button type="submit" className="btn btn-secondary">
+                  Login to add review:
                 </button>
-                </Link>
-              )}
+              </Link>
+            )}
           </div>
           <div className="review-list">
             <h1>

@@ -429,7 +429,8 @@ module.exports = [
   },
   {
     title: 'Tofu Chorizo Salad',
-    description: 'Grilled Tofu, Vegan Chorizo, Arugula, Spinach, Sesame Oil,Carrot,Celery,Onion, Mixed Nuts, Lemon Juice, Salt & Pepper',
+    description:
+      'Grilled Tofu, Vegan Chorizo, Arugula, Spinach, Sesame Oil,Carrot,Celery,Onion, Mixed Nuts, Lemon Juice, Salt & Pepper',
     category: 'Salad',
   },
   {
