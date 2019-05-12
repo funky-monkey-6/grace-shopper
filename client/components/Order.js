@@ -75,14 +75,14 @@ class Order extends Component {
                   );
                 })
               ) : (
-                <tr>
-                  <td>Your bag is empty.</td>
-                  <td />
-                  <td />
-                  <td />
-                  <td />
-                </tr>
-              )}
+                  <tr>
+                    <td>Your bag is empty.</td>
+                    <td />
+                    <td />
+                    <td />
+                    <td />
+                  </tr>
+                )}
             </tbody>
           </table>
 
@@ -137,8 +137,8 @@ class Order extends Component {
                 </div>
               </div>
             ) : (
-              ''
-            )}
+                ''
+              )}
           </Fragment>
         </div>
       </div>
