@@ -10,6 +10,10 @@ class Signup extends Component {
       lastName: '',
       email: '',
       password: '',
+      shippingAddress: '',
+      shippingCity: '',
+      shippingState: '',
+      shippingZip: '',
     };
   }
 
@@ -28,7 +32,16 @@ class Signup extends Component {
 
   render() {
     const { handleChange, handleSubmit } = this;
-    const { firstName, lastName, email, password } = this.state;
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      shippingAddress,
+      shippingCity,
+      shippingState,
+      shippingZip,
+    } = this.state;
 
     return (
       <div>
@@ -53,6 +66,45 @@ class Signup extends Component {
             <label>
               Password:
               <input type="password" name="password" value={password} onChange={handleChange} />
+            </label>
+          </div>
+          <div className="form-group">
+            <label>
+              Address:
+              <input
+                type="shippingAddress"
+                name="shippingAddress"
+                value={shippingAddress}
+                onChange={handleChange}
+              />
+            </label>
+            <br />
+            <label>
+              City:
+              <input
+                type="shippingCity"
+                name="shippingCity"
+                value={shippingCity}
+                onChange={handleChange}
+              />
+            </label>
+            <label>
+              State:
+              <input
+                type="shippingState"
+                name="shippingState"
+                value={shippingState}
+                onChange={handleChange}
+              />
+            </label>
+            <label>
+              Zip Code:
+              <input
+                type="shippingZip"
+                name="shippingZip"
+                value={shippingZip}
+                onChange={handleChange}
+              />
             </label>
           </div>
           <input type="submit" value="Login" />

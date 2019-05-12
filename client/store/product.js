@@ -3,7 +3,6 @@ import axios from 'axios';
 //ACTION TYPES
 
 const SET_PRODUCT = 'SET_PRODUCT';
-
 //ACTION CREATORS
 
 const setProduct = product => ({
@@ -20,6 +19,14 @@ export const fetchProduct = id => {
       .then(res => res.data)
       .then(product => dispatch(setProduct(product)));
   };
+};
+
+export const deleteProduct = async id => {
+  try {
+    await axios.delete(`api/products/${id}`);
+  } catch (error) {
+    throw new Error(error);
+  }
 };
 
 //REDUCER

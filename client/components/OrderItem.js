@@ -12,8 +12,10 @@ class OrderItem extends Component {
   render() {
     const { orderItem, product, userId, orderId } = this.props;
     const { price, quantity } = orderItem;
+    console.log(orderItem);
+    console.log(product);
     if (!orderItem.price) {
-      orderItem.price = product.price;
+      orderItem.price = product.productvariant[0].price;
     }
 
     const title = product ? product.title : '';
@@ -21,9 +23,9 @@ class OrderItem extends Component {
     return (
       <tr>
         <td>{title}</td>
-        <td>{price}</td>
+        <td>${price.toFixed(2)}</td>
         <td>{quantity}</td>
-        <td>{itemTotal}</td>
+        <td>${itemTotal.toFixed(2)}</td>
         <td>
           <button
             type="submit"
