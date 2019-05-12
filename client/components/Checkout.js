@@ -45,12 +45,12 @@ class Checkout extends Component {
     ev.preventDefault();
 
     const {
-      firstName,
-      lastName,
-      shippingAddress,
-      shippingCity,
-      shippingState,
-      shippingZip,
+      billingFirstName,
+      billingLastName,
+      billingAddress,
+      billingCity,
+      billingState,
+      billingZip,
       sameAddress,
     } = this.state;
 
@@ -58,12 +58,12 @@ class Checkout extends Component {
 
     if (sameAddress) {
       this.setState({
-        billingFirstName: firstName,
-        billingLastName: lastName,
-        billingAddress: shippingAddress,
-        billingCity: shippingCity,
-        billingState: shippingState,
-        billingZip: shippingZip,
+        firstName: billingFirstName,
+        lastName: billingLastName,
+        shippingAddress: billingAddress,
+        shippingCity: billingCity,
+        shippingState: billingState,
+        shippingZip: billingZip,
       });
     }
   };
@@ -346,75 +346,73 @@ class Checkout extends Component {
                 </div>
                 <br />
                 <br />
-                <div>
-                  <h5>Shipping Information</h5>
+                <label>
+                  <input type="checkBox" name="sameAddress" onChange={this.copyBillingAddress} />
+                  Shipping address is same as above
+                </label>
+                <br />
+                {!sameAddress ? (
+                  <div>
+                    <h5>Shipping Information</h5>
 
-                  <label>
-                    <input type="checkBox" name="sameAddress" onChange={this.copyBillingAddress} />
-                    Shipping address is same as above
-                  </label>
-                  <br />
-                  {!sameAddress ? (
-                    <Fragment>
-                      <label>
-                        First Name:
-                        <input
-                          type="text"
-                          name="firstName"
-                          value={sameAddress ? billingFirstName : firstName}
-                          onChange={handleChange}
-                        />
-                      </label>
-                      <label>
-                        Last Name:
-                        <input
-                          type="text"
-                          name="lastName"
-                          value={sameAddress ? billingLastName : lastName}
-                          onChange={handleChange}
-                        />
-                      </label>
-                      <label>
-                        Address:
-                        <input
-                          type="text"
-                          name="shippingAddress"
-                          value={sameAddress ? billingAddress : shippingAddress}
-                          onChange={handleChange}
-                        />
-                      </label>
-                      <label>
-                        City:
-                        <input
-                          type="text"
-                          name="shippingCity"
-                          value={sameAddress ? billingCity : shippingCity}
-                          onChange={handleChange}
-                        />
-                      </label>
-                      <label>
-                        State:
-                        <input
-                          type="text"
-                          name="shippingState"
-                          value={sameAddress ? billingState : shippingState}
-                          onChange={handleChange}
-                        />
-                      </label>
-                      <label>
-                        Zip Code:
-                        <input
-                          type="text"
-                          name="shippingZip"
-                          value={sameAddress ? billingZip : shippingZip}
-                          onChange={handleChange}
-                        />
-                      </label>
-                    </Fragment>
-                  ) : (
-                    ''
-                  )}
-                </div>
+                    <label>
+                      First Name:
+                      <input
+                        type="text"
+                        name="firstName"
+                        value={sameAddress ? billingFirstName : firstName}
+                        onChange={handleChange}
+                      />
+                    </label>
+                    <label>
+                      Last Name:
+                      <input
+                        type="text"
+                        name="lastName"
+                        value={sameAddress ? billingLastName : lastName}
+                        onChange={handleChange}
+                      />
+                    </label>
+                    <label>
+                      Address:
+                      <input
+                        type="text"
+                        name="shippingAddress"
+                        value={sameAddress ? billingAddress : shippingAddress}
+                        onChange={handleChange}
+                      />
+                    </label>
+                    <label>
+                      City:
+                      <input
+                        type="text"
+                        name="shippingCity"
+                        value={sameAddress ? billingCity : shippingCity}
+                        onChange={handleChange}
+                      />
+                    </label>
+                    <label>
+                      State:
+                      <input
+                        type="text"
+                        name="shippingState"
+                        value={sameAddress ? billingState : shippingState}
+                        onChange={handleChange}
+                      />
+                    </label>
+                    <label>
+                      Zip Code:
+                      <input
+                        type="text"
+                        name="shippingZip"
+                        value={sameAddress ? billingZip : shippingZip}
+                        onChange={handleChange}
+                      />
+                    </label>
+                  </div>
+                ) : (
+                  ''
+                )}
 
                 <button className="btn btn-primary" type="submit" onClick={handleSubmit}>
                   Checkout
