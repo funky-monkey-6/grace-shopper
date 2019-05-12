@@ -9,35 +9,19 @@ import Nav from './Nav';
 import Signup from './Signup';
 import Home from './Home';
 import Order from './Order';
-import { getUser } from '../store';
+import { setSessionThunk } from '../store';
 
 class App extends Component {
-  // componentDidUpdate(prevProps) {
-  //   const cookie = Cookies.get('userId')
-  //   console.log(cookie)
-  //   if (prevProps.user.id !== this.props.user.id) {
-  //     const { getUser } = this.props;
-  //     getUser();
-  //     console.log(this.props.state.user)
-  //   }
-  // }
 
   componentDidMount() {
-    // const cookie = Cookies.get('userId')
-    // console.log({ cookie })
-    // const { getUser } = this.props;
-    // getUser();
-    // console.log(this.props.state.user)
+    // grab session cookie and put on state
+    const session = Cookies.get('session')
+    if (session) {
+      this.props.setSessionThunk(session);
+    }
   }
 
   render() {
-    // const cookie = Cookies.get('userId')
-    // able to set cookies here, but not sure how to read session cookie
-    const cookie = Cookies.set('name', 'value');
-    console.log({ cookie });
-    const getCookie = Cookies.get();
-    console.log('getCookie: ', getCookie);
-
     return (
       <Router>
         <header id="main-header">
@@ -74,14 +58,13 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    state,
     user: state.user,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    getUser: () => dispatch(getUser()),
+    setSessionThunk: session => dispatch(setSessionThunk(session)),
   };
 };
 
