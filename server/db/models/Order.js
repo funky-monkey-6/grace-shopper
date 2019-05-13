@@ -60,7 +60,7 @@ const Order = conn.define('order', {
   // payment info
 });
 
-Order.findOrCreateCart = function(userId) {
+Order.findOrCreateCart = function (userId) {
   return this.findAll({
     where: {
       userId,
@@ -68,12 +68,13 @@ Order.findOrCreateCart = function(userId) {
     include: [
       {
         model: OrderItem,
+        include: [{ model: ProductVariant, }],
       },
     ],
   }).then(async orders => {
     let cart = orders.find(order => order.status === 'cart');
     if (cart) {
-      return orders;
+      return cart;
     }
     cart = await this.create({
       userId,
@@ -83,7 +84,7 @@ Order.findOrCreateCart = function(userId) {
       //
     });
     cart = await this.findByPk(cart.id, {
-      include: [conn.OrderItem],
+      include: [OrderItem],
     });
     return cart;
   });
