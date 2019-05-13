@@ -42,6 +42,7 @@ router.get('/:userId/orders', (req, res, next) => {
     where: {
       userId: req.params.userId,
     },
+    include: [{ model: OrderItem, include: [{ model: ProductVariant }] }],
   })
     .then(orders => res.send(orders))
     .catch(next);
