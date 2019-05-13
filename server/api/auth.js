@@ -18,7 +18,7 @@ router.delete('/logout', (req, res) => {
 
 const userNotFound = next => {
   const err = new Error('User not found');
-  err.tatus = 404;
+  err.status = 404;
   next(err);
 };
 
