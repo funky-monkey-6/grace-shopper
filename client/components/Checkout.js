@@ -183,7 +183,7 @@ class Checkout extends Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {order
+                  {order.orderItems.length
                     ? order.orderitems.map(orderitem => (
                         <tr key={orderitem.id}>
                           <td>{orderitem.productvariant.productName}</td>
