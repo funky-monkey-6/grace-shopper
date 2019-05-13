@@ -1,12 +1,7 @@
 /* eslint-disable indent */
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import {
-  fetchOrder as fetchOrderThunk,
-  fetchOrderItems,
-  updateOrderThunk,
-  updateUser,
-} from '../store';
+import { fetchOrder as fetchOrderThunk, updateOrderThunk, updateUser } from '../store';
 import { isLoggedIn } from './helperFunctions';
 
 class Checkout extends Component {
@@ -36,9 +31,8 @@ class Checkout extends Component {
   }
 
   componentDidMount = () => {
-    const { fetchOrder, user, order } = this.props;
+    const { fetchOrder, user } = this.props;
     fetchOrder(user.id);
-    fetchOrderItems(order.id);
   };
 
   handleChange = ev => {
@@ -171,20 +165,9 @@ class Checkout extends Component {
       submitted,
     } = this.state;
 
-    const { orderItems, order, products, user } = this.props;
+    const { order, user } = this.props;
 
-    // TODO save values in db for subtotal, shipping, total
-    order.subtotal = 0;
-    if (orderItems) {
-      order.subtotal = orderItems.reduce((total, item) => total + item.price * item.quantity, 0);
-    }
-    order.shipping = order.type === 'delivery' ? 5 : 0;
-    order.total = order.subtotal + order.shipping;
-
-    const findProduct = (_products, orderItem) =>
-      _products.find(_product => _product.id === orderItem.productId);
-
-    return isLoggedIn(user) && orderItems.length ? (
+    return isLoggedIn(user) && order.orderitems ? (
       <div>
         {!submitted ? (
           <Fragment>
@@ -200,15 +183,13 @@ class Checkout extends Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {orderItems.length
-                    ? orderItems.map(orderItem => (
-                        <tr key={orderItem.id}>
-                          <td>{findProduct(products, orderItem).title}</td>
-                          <td>${orderItem.price.toFixed(2)}</td>
-                          <td>{orderItem.quantity}</td>
-                          <td>
-                            ${orderItem ? (orderItem.price * orderItem.quantity).toFixed(2) : 0}
-                          </td>
+                  {order
+                    ? order.orderitems.map(orderitem => (
+                        <tr key={orderitem.id}>
+                          <td>{orderitem.productvariant.productName}</td>
+                          <td>${orderitem.price.toFixed(2)}</td>
+                          <td>{orderitem.quantity}</td>
+                          <td>${(orderitem.price * orderitem.quantity).toFixed(2)}</td>
                         </tr>
                       ))
                     : ''}
@@ -443,7 +424,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchOrder: id => dispatch(fetchOrderThunk(id)),
-    fetchOrderItems: orderId => dispatch(fetchOrderItems(orderId)),
     updateOrder: order => dispatch(updateOrderThunk(order)),
     updateUserThunk: user => dispatch(updateUser(user)),
   };
