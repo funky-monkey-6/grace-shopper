@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Order, OrderItem, Product, ProductVariant } = require('../db');
+const { User, Order, OrderItem, ProductVariant } = require('../db');
 
 // get all users
 router.get('/', (req, res, next) => {
