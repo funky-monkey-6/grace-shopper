@@ -61,7 +61,8 @@ const Order = conn.define('order', {
   // payment info
 });
 
-Order.findOrCreateCart = function(userId) {
+// get cart for specific user (if exists), otherwise create empty cart
+Order.findOrCreateCart = function (userId) {
   return this.findAll({
     where: {
       userId,
@@ -80,13 +81,14 @@ Order.findOrCreateCart = function(userId) {
     cart = await this.create({
       userId,
     });
-    const orderItem = await OrderItem.create({
-      orderId: cart.id,
-      //
-    });
-    cart = await this.findByPk(cart.id, {
-      include: [OrderItem],
-    });
+    // TODO use this code to add an orderItem to cart just created ?
+    // const orderItem = await OrderItem.create({
+    //   orderId: cart.id,
+    //   //
+    // });
+    // cart = await this.findByPk(cart.id, {
+    //   include: [OrderItem],
+    // });
     return cart;
   });
 };

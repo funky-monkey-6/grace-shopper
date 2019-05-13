@@ -24,6 +24,7 @@ router.put('/:userId', (req, res, next) => {
     .catch(next);
 });
 
+// TODO experimenting - delete before deploy
 // for logged-in user - get cart (if exists), otherwise create
 router.get('/cart', (req, res, next) => {
   console.log('session id:', req.session.userId);
@@ -85,48 +86,9 @@ router.get('/cart', (req, res, next) => {
   );
 });
 
-// get cart for specific user (if exists), otherwise create
-
 // get cart for specific user (if exists)
 router.get('/:userId/cart', (req, res, next) => {
-  // for testing - remove
-  req.session.userId = 1;
   Order.findOrCreateCart(Number(req.params.userId))
-
-    // Order.findAll({
-    //   where: {
-    //     userId: req.params.userId,
-    //   },
-    //   include: [
-    //     {
-    //       model: OrderItem,
-    //     },
-    //   ],
-    // })
-    //   .then(async orders => {
-    //     let cart = orders.find(order => order.status === 'cart');
-    //     if (cart) {
-    //       return orders;
-    //     }
-    //     cart = await Order.create({
-    //       userId: req.params.userId,
-    //       status: 'cart',
-    //     });
-    //     cart = await Order.findByPk(cart.id, {
-    //       include: [
-    //         {
-    //           model: OrderItem,
-    //         },
-    //       ],
-    //     });
-    //     return cart;
-    //   })
-    //   // Order.findOne({
-    //   //   where: {
-    //   //     userId: req.params.userId,
-    //   //     status: 'cart',
-    //   //   },
-    //   // })
     .then(cart => res.send(cart))
     .catch(next);
 });
