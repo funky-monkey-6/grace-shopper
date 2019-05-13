@@ -1,6 +1,7 @@
 const conn = require('../conn');
 const { Sequelize } = conn;
 const OrderItem = require('./OrderItem');
+const ProductVariant = require('./ProductVariant');
 
 // TODO - plan how to configure Order model to handle guest session (authenticated vs non-authenticated)
 
@@ -68,7 +69,7 @@ Order.findOrCreateCart = function (userId) {
     include: [
       {
         model: OrderItem,
-        include: [{ model: ProductVariant, }],
+        include: [{ model: ProductVariant }],
       },
     ],
   }).then(async orders => {

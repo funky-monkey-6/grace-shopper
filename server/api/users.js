@@ -28,8 +28,8 @@ router.put('/:userId', (req, res, next) => {
 router.get('/cart', (req, res, next) => {
   console.log('session id:', req.session.userId);
 
-  // for testing - remove 
-  req.session.userId = 1
+  // for testing - remove
+  req.session.userId = 1;
   return (
     Order.findOrCreate({
       where: {
@@ -39,7 +39,7 @@ router.get('/cart', (req, res, next) => {
       include: [
         {
           model: OrderItem,
-          include: [{ model: ProductVariant, }]
+          include: [{ model: ProductVariant }],
         },
       ],
     })
@@ -87,11 +87,10 @@ router.get('/cart', (req, res, next) => {
 
 // get cart for specific user (if exists), otherwise create
 
-
 // get cart for specific user (if exists)
 router.get('/:userId/cart', (req, res, next) => {
-  // for testing - remove 
-  req.session.userId = 1
+  // for testing - remove
+  req.session.userId = 1;
   Order.findOrCreateCart(Number(req.params.userId))
 
     // Order.findAll({
