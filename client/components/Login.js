@@ -11,6 +11,10 @@ class Login extends Component {
     };
   }
 
+  componentDidMount() {
+    document.getElementById('email').focus()
+  }
+
   handleChange = ev => {
     ev.preventDefault();
     this.setState({ [`${ev.target.name}`]: ev.target.value });
@@ -41,7 +45,7 @@ class Login extends Component {
             <div className="form-group">
               <label>
                 Email:
-                <input type="text" name="email" value={email} onChange={handleChange} />
+                <input id="email" type="text" name="email" value={email} onChange={handleChange} />
               </label>
             </div>
 
