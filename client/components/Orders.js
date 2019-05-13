@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { fetchOrders } from '../store/orders';
+import { fetchUserOrders } from '../store/orders';
 import { isLoggedIn } from './helperFunctions';
 
 class Orders extends Component {
@@ -12,7 +12,7 @@ class Orders extends Component {
   }
 
   render() {
-    console.log(this.props.orders);
+    console.log('orders: ', this.props.orders);
     const { orders } = this.props;
     return (
       <div>
@@ -41,7 +41,9 @@ class Orders extends Component {
                   <td>{order.status}</td>
                   <td>{new Date(order.date).toLocaleString()}</td>
                   <td>
-                    <Link to={`/user/orders/${order.id}`}>Details</Link>
+                    <Link exact to={`/user/orders/${order.id}`}>
+                      Details
+                    </Link>
                   </td>
                 </tr>
               );
@@ -63,7 +65,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchOrdersThunk: userId => dispatch(fetchOrders(userId)),
+    fetchOrdersThunk: userId => dispatch(fetchUserOrders(userId)),
   };
 };
 

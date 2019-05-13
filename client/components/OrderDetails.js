@@ -14,8 +14,8 @@ class OrderDetails extends Component {
     const orderId = +this.props.match.params.orderId;
     const order = orders.find(_order => _order.id === orderId);
     const orderItems = order ? order.orderitems : [];
-    console.log('heres the thing: ', orderItems);
-    console.log('lets look at products, now: ', products);
+    console.log('heres the thing: ', order);
+    // console.log('lets look at products, now: ', products);
 
     // put in link route...
     // products.productvariants.find(
@@ -34,7 +34,7 @@ class OrderDetails extends Component {
             </tr>
           </thead>
           <tbody>
-            {orderItems.map(orderItem => (
+            {/* {orderItems.map(orderItem => (
               <tr key={orderItem.id}>
                 <td>
                   <Link to={`/menu/${1}`}>
@@ -45,7 +45,7 @@ class OrderDetails extends Component {
                 <td>{orderItem.quantity}</td>
                 <td>${orderItem.quantity * orderItem.price}</td>
               </tr>
-            ))}
+            ))} */}
           </tbody>
         </table>
       </div>
