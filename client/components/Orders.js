@@ -19,12 +19,12 @@ class Orders extends Component {
           <thead>
             <tr>
               <th>Order Number</th>
+              <th>Date</th>
               <th>Type</th>
               <th>Subtotal</th>
               <th>Shipping</th>
               <th>Total</th>
               <th>Status</th>
-              <th>Date</th>
               <th />
             </tr>
           </thead>
@@ -33,15 +33,16 @@ class Orders extends Component {
               return (
                 <tr key={order.id}>
                   <td>{order.id}</td>
+                  <td>{new Date(order.date).toLocaleString()}</td>
                   <td>{order.type}</td>
                   <td>${order.subtotal}</td>
                   <td>${order.shipping}</td>
                   <td>${order.total}</td>
                   <td>{order.status}</td>
-                  <td>{new Date(order.date).toLocaleString()}</td>
+
                   <td>
                     <Link exact to={`/user/orders/${order.id}`}>
-                      Details
+                      Order Details
                     </Link>
                   </td>
                 </tr>
