@@ -5,17 +5,8 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { checkUser, logOut, addUser, user, updateUser } from './user';
 import { fetchUsers, users } from './users';
 import { fetchProducts, searchProducts, filterProducts, products } from './products';
-<<<<<<< HEAD
-<<<<<<< HEAD
-import { fetchProduct, product } from './product';
-=======
 import { fetchProduct, deleteProduct, product } from './product';
->>>>>>> 37eff9f3abf67676ce96e9b8b0d87f0399f905f4
 import { fetchCategories, filterCategories, categories } from './categories';
-=======
-import { fetchProduct, deleteProduct, product, updateProduct } from './product';
-import { fetchCategories, categories, addCategory } from './categories';
->>>>>>> adminCategories
 import { fetchOrder, addOrderThunk, updateOrderThunk, order } from './order';
 import { fetchOrderItems, deleteOrderItemThunk, addOrderItemThunk, orderItems } from './orderItems';
 import { fetchProductReviews, reviews, addProductReview } from './reviews';
@@ -42,13 +33,9 @@ export {
   deleteOrderItemThunk,
   addOrderItemThunk,
   fetchProductReviews,
-<<<<<<< HEAD
   addProductReview,
   fetchProductVariants,
-=======
-  addCategory,
-  updateProduct,
->>>>>>> adminCategories
+  deleteProduct,
 };
 
 const reducer = combineReducers({
