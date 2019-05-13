@@ -15,6 +15,14 @@ router.post('/adduser/', (req, res, next) => {
     .catch(next);
 });
 
+//update user information
+router.put('/:userId', (req, res, next) => {
+  User.findByPk(req.params.userId)
+    .then(user => user.update(req.body))
+    .then(user => res.send(user))
+    .catch(next);
+});
+
 // get cart for specific user (if exists)
 router.get('/:userId/cart', (req, res, next) => {
   Order.findOne({

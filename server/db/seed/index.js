@@ -4,6 +4,7 @@ const { seedOrderItems } = require('./seedOrders');
 const seedProducts = require('./seedProducts');
 const seedReviews = require('./seedReviews');
 const seedUsers = require('./seedUsers');
+const seedProductVariants = require('./seedProductVariants');
 
 module.exports = {
   seedCategories,
@@ -12,4 +13,5 @@ module.exports = {
   seedProducts,
   seedReviews,
   seedUsers,
+  seedProductVariants,
 };

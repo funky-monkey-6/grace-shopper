@@ -32,6 +32,30 @@ module.exports = conn.define('order', {
   date: {
     type: Sequelize.DATE,
   },
+  shippingAddress: {
+    type: Sequelize.STRING,
+  },
+  shippingCity: {
+    type: Sequelize.STRING,
+  },
+  shippingState: {
+    type: Sequelize.STRING,
+    // validate: {
+    //   len: {
+    //     args: [2, 2],
+    //     msg: 'Please enter a valid state',
+    //   },
+    // },
+  },
+  shippingZip: {
+    type: Sequelize.STRING,
+    // validate: {
+    //   len: {
+    //     args: [5],
+    //     msg: 'Zip code must be at least 5 digits',
+    //   },
+    // },
+  },
   // will probably want to include shipping address
   // payment info
 });
