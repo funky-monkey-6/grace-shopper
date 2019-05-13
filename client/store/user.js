@@ -25,7 +25,7 @@ export const checkUser = enteredUser => async dispatch => {
     dispatch(setUser(user));
 
     Cookies.set('cui', user.id); // set currentUserId
-    Cookies.set('isa', !!isAdmin(user)) // set currentIsAdmin - yes = 1
+    Cookies.set('isa', !!isAdmin(user)); // set currentIsAdmin - yes = 1
 
     // 'session' key set on cookie by server, now grab and set to state
     const session = Cookies.get('session');
@@ -72,12 +72,13 @@ export const updateUser = user => async dispatch => {
   }
 };
 
-export const getCurrentUser = user => {
+export const getCurrentUser = () => {
   return dispatch => {
-    return axios.get('/api/auth/user')
+    return axios
+      .get('/api/auth/user')
       .then(resp => resp.data)
       .then(user => dispatch(setUser(user)));
-  }
+  };
 };
 
 //REDUCER

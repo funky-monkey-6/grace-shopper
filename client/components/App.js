@@ -1,3 +1,4 @@
+// eslint-disable no-shadow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
@@ -24,7 +25,7 @@ class App extends Component {
       setSessionThunk(session);
     }
     if (currentUserId !== undefined) {
-      console.log('getting current user...')
+      console.log('getting current user...');
       getCurrentUser();
     }
   }
@@ -70,7 +71,7 @@ class App extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     setSessionThunk: session => dispatch(setSessionThunk(session)),
-    getCurrentUser: () => dispatch(getCurrentUser())
+    getCurrentUser: () => dispatch(getCurrentUser()),
   };
 };
 
