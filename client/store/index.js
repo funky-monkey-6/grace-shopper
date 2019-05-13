@@ -14,6 +14,7 @@ import {
   setLocalCartToStateThunk,
   order,
 } from './order';
+import { orders, fetchUserOrders } from './orders';
 import { fetchOrderItems, deleteOrderItemThunk, addOrderItemThunk, orderItems } from './orderItems';
 import { fetchProductReviews, reviews, addProductReview } from './reviews';
 import { setSessionThunk, session } from './session';
@@ -38,6 +39,7 @@ export {
   addOrderThunk,
   updateOrderThunk,
   fetchOrderItems,
+  fetchUserOrders,
   deleteOrderItemThunk,
   addOrderItemThunk,
   setLocalCartToStateThunk,
@@ -57,6 +59,7 @@ const reducer = combineReducers({
   product,
   categories,
   order,
+  orders,
   orderItems,
   reviews,
   session,
