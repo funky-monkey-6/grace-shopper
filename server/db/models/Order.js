@@ -62,7 +62,7 @@ const Order = conn.define('order', {
 });
 
 // get cart for specific user (if exists), otherwise create empty cart
-Order.findOrCreateCart = function (userId) {
+Order.findOrCreateCart = function(userId) {
   return this.findAll({
     where: {
       userId,

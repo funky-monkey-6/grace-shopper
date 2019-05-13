@@ -52,8 +52,8 @@ class Nav extends Component {
                 </NavLink>
               </Fragment>
             ) : (
-                ''
-              )}
+              ''
+            )}
             {/* end isLoggedIn */}
 
             {buttonStatus}
@@ -83,8 +83,8 @@ class Nav extends Component {
             </div>
           </nav>
         ) : (
-            ''
-          )}
+          ''
+        )}
       </Fragment>
     );
   }

@@ -25,7 +25,7 @@ class App extends Component {
     // because it appears that server does not remove session cookie when session is over
     // want to do because if user does not log out, then user cookies remain
     const sameSession = session === this.props.session;
-    console.log({ sameSession })
+    console.log({ sameSession });
 
     const { setSessionThunk, getCurrentUser } = this.props;
     if (session) {
