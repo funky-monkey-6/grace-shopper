@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 //ACTION TYPES
 
@@ -12,6 +13,26 @@ export const setOrder = order => ({
 });
 
 //THUNK CREATORS
+
+// export const fetchOrder = userId => {
+//   return dispatch => {
+//     return axios
+//       .get(`/api/users/${userId}/cart`)
+//       .then(response => {
+//         const dbCart = response.data;
+//         const localCart = JSON.parse(Cookies.get('cart'));
+//         if (dbCart) {
+//           // compare dbCart to localCart
+
+//           return dispatch(setOrder(dbCart));
+//         }
+//         return dispatch(setOrder({}));
+//       })
+//       .catch(err => {
+//         throw new Error(err);
+//       });
+//   };
+// };
 
 export const fetchOrder = userId => {
   return dispatch => {
@@ -63,6 +84,12 @@ export const updateOrderThunk = order => {
       .catch(err => {
         throw new Error(err);
       });
+  };
+};
+
+export const setLocalCartToStateThunk = order => {
+  return dispatch => {
+    return dispatch(setOrder(order));
   };
 };
 

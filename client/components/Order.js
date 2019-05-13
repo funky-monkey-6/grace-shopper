@@ -3,12 +3,15 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 import {
   fetchOrder as fetchOrderThunk,
   fetchOrderItems as fetchOrderItemsThunk,
   updateOrderThunk,
   fetchProducts,
+  setLocalCartToStateThunk,
+  // setLocalCartItemsToStateThunk,
 } from '../store';
 import OrderItem from './OrderItem';
 import { isLoggedIn, isCart } from './helperFunctions';
@@ -27,6 +30,38 @@ class Order extends Component {
     // }
   }
 
+  componentDidMount() {
+    const { order, fetchOrder, fetchOrderItems, user, setLocalCartToStateThunk } = this.props;
+
+    fetchProducts();
+
+    if (isLoggedIn(user)) {
+      fetchOrder(user.id);
+    } else {
+      const localCart = Cookies.get('cart');
+      console.log(localCart);
+      if (localCart !== null) {
+        console.log({ localCart });
+
+        // setLocalCartToStateThunk(localCart);
+      }
+    }
+  }
+  // else {
+  //   const localCart = JSON.parse(localStorage.getItem('cart'));
+  //   console.log(localCart);
+  //   if (localCart !== null) {
+  //     console.log(JSON.parse(localCart));
+  //     // const localCartItems = JSON.parse(localStorage.getItem('cartItems'));
+
+  //     setLocalCartToStateThunk(localCart);
+  //     // setLocalCartItemsToStateThunk(localCartItems);
+  //   }
+
+  //   console.log(localStorage);
+  // }
+
+
   onChange = ev => {
     this.props.updateOrderThunk({
       ...this.props.order,
@@ -38,7 +73,6 @@ class Order extends Component {
     const { onChange } = this;
     const { order, user, history } = this.props;
     const { orderitems } = order;
-    console.log({ orderitems })
     // TODO save values in db for subtotal, shipping, total
     order.subtotal = 0;
     if (orderitems) {
@@ -55,9 +89,6 @@ class Order extends Component {
         isOrderitems = order.orderitems.length !== 0;
       }
     }
-
-    console.log('orderitems? ', isOrderitems)
-
 
     return (
       <div>
@@ -173,6 +204,8 @@ const mapDispatchToProps = dispatch => {
     // fetchOrderItems: orderId => dispatch(fetchOrderItemsThunk(orderId)),
     updateOrderThunk: order => dispatch(updateOrderThunk(order)),
     fetchProducts: () => dispatch(fetchProducts()),
+    setLocalCartToState: order => dispatch(setLocalCartToStateThunk(order)),
+    // setLocalCartItemsToState: orderItems => dispatch(setLocalCartItemsToStateThunk(orderItems)),
   };
 };
 
