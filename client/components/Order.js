@@ -16,6 +16,7 @@ import { isLoggedIn, isCart } from './helperFunctions';
 class Order extends Component {
   componentDidMount() {
     const { order, fetchOrder, fetchOrderItems, user } = this.props;
+    console.log('isLoggedIn: ', isLoggedIn(user))
     if (isLoggedIn(user)) {
       fetchOrder(user.id);
     }
@@ -75,14 +76,14 @@ class Order extends Component {
                   );
                 })
               ) : (
-                <tr>
-                  <td>Your bag is empty.</td>
-                  <td />
-                  <td />
-                  <td />
-                  <td />
-                </tr>
-              )}
+                  <tr>
+                    <td>Your bag is empty.</td>
+                    <td />
+                    <td />
+                    <td />
+                    <td />
+                  </tr>
+                )}
             </tbody>
           </table>
 
@@ -137,8 +138,8 @@ class Order extends Component {
                 </div>
               </div>
             ) : (
-              ''
-            )}
+                ''
+              )}
           </Fragment>
         </div>
       </div>
