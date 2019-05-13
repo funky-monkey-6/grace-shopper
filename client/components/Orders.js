@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-
 import { fetchUserOrders } from '../store/orders';
 import { isLoggedIn } from './helperFunctions';
 
@@ -12,10 +11,10 @@ class Orders extends Component {
   }
 
   render() {
-    console.log('orders: ', this.props.orders);
     const { orders } = this.props;
     return (
       <div>
+        <h2>Order History</h2>
         <table className="table table-striped table-condensed">
           <thead>
             <tr>
