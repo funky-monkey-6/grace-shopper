@@ -11,14 +11,21 @@ import Home from './Home';
 import Order from './Order';
 import Checkout from './Checkout';
 import AdminProducts from './AdminProducts';
-import { setSessionThunk } from '../store';
+import { setSessionThunk, getCurrentUser } from '../store';
 
 class App extends Component {
   componentDidMount() {
     // grab session cookie and put on state
     const session = Cookies.get('session');
+    const currentUserId = Cookies.get('cui');
+
+    const { setSessionThunk, getCurrentUser } = this.props;
     if (session) {
-      this.props.setSessionThunk(session);
+      setSessionThunk(session);
+    }
+    if (currentUserId !== undefined) {
+      console.log('getting current user...')
+      getCurrentUser();
     }
   }
 
@@ -63,6 +70,7 @@ class App extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     setSessionThunk: session => dispatch(setSessionThunk(session)),
+    getCurrentUser: () => dispatch(getCurrentUser())
   };
 };
 
