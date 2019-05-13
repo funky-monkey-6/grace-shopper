@@ -10,6 +10,8 @@ import Nav from './Nav';
 import Signup from './Signup';
 import Home from './Home';
 import Order from './Order';
+import Orders from './Orders';
+import OrderDetails from './OrderDetails';
 import Checkout from './Checkout';
 import AdminProducts from './AdminProducts';
 import AdminCategories from './AdminCategories';
@@ -55,8 +57,9 @@ class App extends Component {
             {/* TODO new paths added, not done with */}
             {/* put user.id (?), category.id, product.id in url */}
 
-            {/* <Route path="/user/orders" component={Orders} />
-            <Route path="/user/account" component={Account} />
+            <Route path="/user/orders" component={Orders} />
+            <Route path="/user/orders/:orderId" component={OrderDetails} />
+            {/*<Route path="/user/account" component={Account} />
             <Route path="/admin/orders" component={Orders} />
             <Route path="/admin/product" component={Product} />
             <Route path="/admin/categories" component={Categories} />
