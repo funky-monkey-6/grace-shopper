@@ -2,7 +2,6 @@
 /* eslint-disable no-shadow */
 /* eslint-disable react/button-has-type */
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
   fetchProducts,
@@ -11,6 +10,7 @@ import {
   filterCategories,
   filterProducts,
 } from '../store';
+import MenuItem from './MenuItem';
 
 const mapStateToProps = state => {
   const { products, categories } = state;
@@ -113,18 +113,20 @@ class Menu extends React.Component {
             <label htmlFor="searchItems">
               <h4>Search Products:</h4>
             </label>
-            <input
-              type="search"
-              name="searchItems"
-              value={searchTerm}
-              onChange={this.enterSearch}
-            />
-            <button type="submit" className="btn btn-secondary">
-              Search
-            </button>
-            <button type="submit" onClick={this.clearSearch} className="btn btn-secondary">
-              Clear Search
-            </button>
+            <div className="btn-container">
+              <input
+                type="search"
+                name="searchItems"
+                value={searchTerm}
+                onChange={this.enterSearch}
+              />
+              <button type="submit" className="btn btn-secondary">
+                <img src="search.png" alt="searchicon" className="search-icon" />
+              </button>
+              <button type="submit" onClick={this.clearSearch} className="btn btn-secondary">
+                Clear
+              </button>
+            </div>
           </form>
           <h4>Filter by Category:</h4>
           <form onSubmit={this.applyFilter}>
@@ -151,16 +153,7 @@ class Menu extends React.Component {
         </div>
         <div className="menu-list">
           {products.map(prod => {
-            return (
-              <div key={prod.id} className="menu-item">
-                <img src="default.jpg" className="menu-img" alt="menu-default" />
-                <Link to={`/menu/product/${prod.id}`}>
-                  <h5>{prod.title}</h5>
-                </Link>
-                <p>{prod.description}</p>
-                <p>${prod.price.toFixed(2)}</p>
-              </div>
-            );
+            return <MenuItem product={prod} key={prod.id} />;
           })}
         </div>
       </div>

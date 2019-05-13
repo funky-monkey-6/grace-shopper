@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 const router = require('express').Router();
-const { User, Order, OrderItem, Product } = require('../db');
+const { User, Order, OrderItem, Product, ProductVariant } = require('../db');
 
 // get all users
 router.get('/', (req, res, next) => {
@@ -16,9 +16,20 @@ router.post('/adduser/', (req, res, next) => {
     .catch(next);
 });
 
-// get cart for specific user (if exists), otherwise create
+//update user information
+router.put('/:userId', (req, res, next) => {
+  User.findByPk(req.params.userId)
+    .then(user => user.update(req.body))
+    .then(user => res.send(user))
+    .catch(next);
+});
+
+// for logged-in user - get cart (if exists), otherwise create
 router.get('/cart', (req, res, next) => {
   console.log('session id:', req.session.userId);
+
+  // for testing - remove 
+  req.session.userId = 1
   return (
     Order.findOrCreate({
       where: {
@@ -28,33 +39,34 @@ router.get('/cart', (req, res, next) => {
       include: [
         {
           model: OrderItem,
+          include: [{ model: ProductVariant, }]
         },
       ],
     })
-      .then(async ([order, created]) => {
-        console.log({ created });
+      // .then(async ([order, created]) => {
+      //   console.log({ created });
 
-        // if (created) {
-        const newItem = await OrderItem.create({ where: { orderId: order.id } });
-        order.orderItems = newItem;
-        // res.send(order)
-        // }
-        // console.log(order.orderItems)
-        return order;
-        // return order.findAll({
-        //   where: {
-        //     orderId: order.id
-        //   },
-        //   include: [{
-        //     model: OrderItem,
-        //   }]
-        // })
-      })
-      .then(async order => {
-        const _order = await Order.findByPk(order.id);
-        const _orderWithIncl = await OrderItem.findAll({ where: { orderId: order.id } });
-        return _orderWithIncl;
-      })
+      //   // if (created) {
+      //   const newItem = await OrderItem.create({ where: { orderId: order.id } });
+      //   order.orderItems = newItem;
+      //   // res.send(order)
+      //   // }
+      //   // console.log(order.orderItems)
+      //   return order;
+      //   // return order.findAll({
+      //   //   where: {
+      //   //     orderId: order.id
+      //   //   },
+      //   //   include: [{
+      //   //     model: OrderItem,
+      //   //   }]
+      //   // })
+      // })
+      // .then(async order => {
+      //   const _order = await Order.findByPk(order.id);
+      //   const _orderWithIncl = await OrderItem.findAll({ where: { orderId: order.id } });
+      //   return _orderWithIncl;
+      // })
       .then(order => res.send(order))
 
       //.then(orderWithIncl => {
@@ -74,7 +86,12 @@ router.get('/cart', (req, res, next) => {
 });
 
 // get cart for specific user (if exists), otherwise create
+
+
+// get cart for specific user (if exists)
 router.get('/:userId/cart', (req, res, next) => {
+  // for testing - remove 
+  req.session.userId = 1
   Order.findOrCreateCart(Number(req.params.userId))
 
     // Order.findAll({

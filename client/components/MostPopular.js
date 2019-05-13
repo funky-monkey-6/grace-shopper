@@ -3,8 +3,8 @@
 import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { fetchProducts } from '../store';
+import MenuItem from './MenuItem';
 
 const mapStateToProps = state => {
   const { products } = state;
@@ -24,7 +24,6 @@ class MostPopular extends React.Component {
     super();
     this.state = {
       orderItems: [],
-      mostPopular: [],
     };
   }
 
@@ -34,8 +33,7 @@ class MostPopular extends React.Component {
     axios
       .get('api/orderItems')
       .then(res => res.data)
-      .then(orderItems => this.setState({ orderItems }))
-      .then(() => this.setState({ mostPopular: this.filterPopular(this.state.orderItems) }));
+      .then(orderItems => this.setState({ orderItems }));
   }
 
   filterPopular = orderItems => {
@@ -72,26 +70,16 @@ class MostPopular extends React.Component {
   };
 
   render() {
-    const { mostPopular } = this.state;
-
+    const { orderItems } = this.state;
+    const { filterPopular } = this;
+    console.log(orderItems);
     return (
       <div>
+        <br />
         <h4>Popular menu items</h4>
         <div className="menu-list">
-          {mostPopular.map(prod => {
-            const { id, title, description, price } = prod;
-            return (
-              <div key={id} className="menu-item">
-                <ul>
-                  <li>Placeholder for image</li>
-                  <Link to={`/menu/${id}`}>
-                    <li>{title}</li>
-                  </Link>
-                  <li>{description}</li>
-                  <li>{price}</li>
-                </ul>
-              </div>
-            );
+          {filterPopular(orderItems).map(prod => {
+            return <MenuItem product={prod} key={prod.id} />;
           })}
         </div>
       </div>

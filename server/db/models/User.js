@@ -37,5 +37,54 @@ module.exports = conn.define('user', {
       },
     },
   },
-  // address ?
+  phone: {
+    type: Sequelize.STRING,
+    allowNull: true,
+    // validate: {
+    //   len: {
+    //     args: [10, 10],
+    //     msg: 'Invalid phone number',
+    //   },
+    // },
+  },
+
+  billingFirstName: {
+    type: Sequelize.STRING,
+  },
+  billingLastName: {
+    type: Sequelize.STRING,
+  },
+  billingAddress: {
+    type: Sequelize.STRING,
+  },
+  billingCity: {
+    type: Sequelize.STRING,
+  },
+  billingState: {
+    type: Sequelize.STRING,
+    // validate: {
+    //   len: {
+    //     args: [2],
+    //     msg: 'Please enter a valid state',
+    //   },
+    // },
+  },
+  billingZip: {
+    type: Sequelize.STRING,
+    // validate: {
+    //   len: {
+    //     args: [5],
+    //     msg: 'Zip code must be at least 5 digits',
+    //   },
+    // },
+  },
+  ccNumber: {
+    type: Sequelize.STRING,
+  },
+  ccv: {
+    type: Sequelize.STRING,
+  },
+  ccExpDate: {
+    type: Sequelize.DATE,
+  },
 });

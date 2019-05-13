@@ -3,17 +3,50 @@
   font-size: 2rem;
 }
 
+body {
+  background-color: #FEFFFF;
+}
+
+.header-bar {
+  background-color: #FEFFFF;
+  color: #DE5948;
+  display: flex;
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+#site-name {
+  text-align: center;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.nav-lovin-today {
+  background-color: #DD8B82;
+}
+
+.nav-item {
+  color: white;
+}
+
+.logo-img {
+  height: 40px;
+  width: 40px;
+}
+
 /* Menu styling */
 .menu-page {
   display: flex;
   height: 100%;
   flex-wrap: wrap;
+  background-color: white;
 }
 
 .menu-filter {
   border: 1px solid grey;
   width: 25%;
   padding: 3%;
+  background-color: white;
 }
 
 .menu-list {
@@ -21,6 +54,7 @@
   flex-wrap: wrap;
   width: 75%;
   border: 1px solid grey;
+  background-color: white;
 }
 
 .menu-list-category {
@@ -60,10 +94,12 @@
 
 .reviews {
   display: flex;
+  width: 80%;
+  margin-left: 10%;
 }
 
 .review-form {
-  background-color: rosybrown;
+  background-color:  #FCF0EF;
   width: 40%;
   padding: 2%;
 }
@@ -77,27 +113,24 @@
 }
 
 .review-list {
-  background-color: rosybrown;
+  background-color: #FCF0EF;
   width: 60%;
   padding: 2%;
 }
 
-.product-single-img {
-  width: 100%;
-}
-
 .product-single-container {
-  background-color: rosybrown;
+  background-color:  #FCF0EF;
+  width: 80%;
+  margin-left: 10%;
 }
 
 .product-single {
-  width: 80%;
-  margin-left: 10%;
   margin-right: 10%;
 }
 
 .product-single-details {
-  display: flex;
+  margin-top: 2%;
+  width: 40%;
 }
 
 .product-single-pricing {
@@ -114,4 +147,34 @@
 
 .filter-cat {
   display: flex;
+}
+
+.btn-secondary {
+  background-color: #D06151;
+  border: 1px solid #D06151;
+  height: 40px;
+  color: white;
+}
+
+.search-icon {
+  height: 20px;
+}
+
+.flex-container {
+  display: flex;
+}
+
+.product-title {
+  color: #D06151;
+}
+
+.product-single-img-container {
+  width: 60%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+.product-single-img {
+  width: 80%;
+  padding-left: 10%;
 }

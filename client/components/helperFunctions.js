@@ -7,3 +7,7 @@ export function isLoggedIn(user) {
 export function isCart(order) {
   return order.status === 'cart';
 }
+
+export function isAdmin(user) {
+  return user.userType === 'admin';
+}
