@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-state */
 /* eslint-disable prettier/prettier */
 /* eslint-disable indent */
 /* eslint-disable react/destructuring-assignment */
@@ -17,14 +18,14 @@ import {
   fetchUsers,
 } from '../store/index';
 import { isCart } from './helperFunctions';
+import ReviewForm from './ReviewForm';
 
 class ProductSingle extends React.Component {
   constructor() {
     super();
     this.state = {
-      rating: 0,
-      title: '',
-      comment: '',
+      quantity: 0,
+      variantId: 0,
     };
   }
 
@@ -60,59 +61,88 @@ class ProductSingle extends React.Component {
   };
 
   // update comment/title on state as user enters review
-  handleReviewChange = ({ target }) => {
+  handleChange = ({ target }) => {
     this.setState({
       [target.name]: target.value,
     });
   };
 
-  // update rating based on selected stars
-  onStarClick = rating => {
-    this.setState({ rating });
-  };
-
-  // post review to database
-  addReview = evt => {
-    evt.preventDefault();
-    const { rating, comment, title } = this.state;
-    const { addProductReview, product, user } = this.props;
-    addProductReview({
-      rating,
-      comment,
-      title,
-      productId: product.id,
-      userId: user.id,
-    });
-    this.setState({
-      rating: 0,
-      title: '',
-      comment: '',
-    });
-  };
-
   render() {
     const { user, order, product, reviews, users } = this.props;
-    const { rating, title, comment } = this.state;
-    const { addOrderItem, onStarClick, handleReviewChange, addReview } = this;
+    const { quantity } = this.state;
+    const { addOrderItem, handleChange } = this;
+
+    if (!product.id) return null;
+
+    const variants = product.productvariants;
+
+    let price = 0;
+    let inventory = 0;
+    let productvariantId = 0;
+    if (variants.length === 1 || this.state.variantId === 0) {
+      price = variants[0].price;
+      inventory = variants[0].inventory;
+      productvariantId = variants[0].id;
+    } else {
+      const selectedVariant = variants.find(variant => variant.id === Number(this.state.variantId));
+      price = selectedVariant.price;
+      inventory = selectedVariant.inventory;
+      productvariantId = selectedVariant.id;
+    }
+
+    const inventoryArr = [];
+    for (let i = 0; i <= Math.min(inventory, 10); i++) {
+      inventoryArr.push(i);
+    }
+
     const orderItem = {
-      quantity: 1,
-      price: product.price,
+      quantity: Number(quantity),
+      price,
       orderId: order.id,
-      productId: product.id,
+      productvariantId,
     };
-    if (!product) return null;
+
     return (
       <div>
         <div className="product-single-container">
-          <div className="product-single">
-            <img src="default.jpg" className="product-single-img" alt="default" />
+          <div className="product-single flex-container">
+            <div className="product-single-img-container">
+              <img
+                src={`/product-images/${product.images}`}
+                className="product-single-img"
+                alt="menu-default"
+              />
+            </div>
             <div className="product-single-details">
               <div className="product-single-info">
                 <h1>{product.title}</h1>
                 <p>{product.description}</p>
               </div>
               <div className="product-single-pricing">
-                <p>{product.price ? `$${product.price.toFixed(2)}` : 'NA'}</p>
+                <form>
+                  {variants.length > 1 ? (
+                    <select name="variantId" onChange={handleChange}>
+                      {variants.map(variant => {
+                        return (
+                          <option key={variant.id} value={variant.id}>
+                            {variant.variationName}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  ) : null}
+                  <select name="quantity" onChange={handleChange}>
+                    {inventoryArr.map(q => {
+                      return (
+                        <option key={q} value={q}>
+                          {q}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </form>
+                <p>Price: {price.toFixed(2)}</p>
+                <p>Total: {(price * this.state.quantity).toFixed(2)}</p>
                 {/* userId, order, orderItem */}
                 <button
                   type="submit"
@@ -128,41 +158,7 @@ class ProductSingle extends React.Component {
         <div className="reviews">
           <div className="review-form">
             {user.id ? (
-              <div>
-                <h1>
-                  <i>Add Review</i>
-                </h1>
-                <StarRatingComponent
-                  name="rating"
-                  starCount={5}
-                  value={rating}
-                  onStarClick={onStarClick}
-                  renderStarIcon={() => (
-                    <span>
-                      <h4>★</h4>
-                    </span>
-                  )}
-                />
-                <form onSubmit={addReview}>
-                  <br />
-                  <label htmlFor="title">Review Title:</label>
-                  <br />
-                  <input type="text" name="title" value={title} onChange={handleReviewChange} />
-                  <br />
-                  <label htmlFor="comment">Comments:</label>
-                  <br />
-                  <textarea
-                    type="text"
-                    name="comment"
-                    value={comment}
-                    onChange={handleReviewChange}
-                  />
-                  <br />
-                  <button type="submit" className="btn btn-secondary">
-                    Submit Review:
-                  </button>
-                </form>
-              </div>
+              <ReviewForm />
             ) : (
               <Link to="/login">
                 <button type="submit" className="btn btn-secondary">

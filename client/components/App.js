@@ -1,7 +1,7 @@
 /* eslint-disable no-shadow */
 import React, { Component } from 'react';
+import { HashRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import Menu from './Menu';
 import Login from './Login';
@@ -49,8 +49,8 @@ class App extends Component {
             <Route path="/bag" component={Order} />
             <Route path="/checkout" component={Checkout} />
             <Route path="/admin/products" component={AdminProducts} />
-            {/* <Route path="/admin/categories" component={AdminCategories} />
-          <Route path="/admin/users" component={AdminUsers} /> */}
+            <Route path="/admin/categories" component={AdminCategories} />
+            {/* <Route path="/admin/users" component={AdminUsers} /> */}
             {/* TODO new paths added, not done with */}
             {/* put user.id (?), category.id, product.id in url */}
 

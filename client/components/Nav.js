@@ -32,7 +32,7 @@ class Nav extends Component {
     }
     return (
       <Fragment>
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <nav className="navbar navbar-expand-lg nav-lovin-today">
           <div className="nav-menu">
             <Link to="/" className="nav-item">
               Home
