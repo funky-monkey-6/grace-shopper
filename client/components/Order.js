@@ -17,21 +17,21 @@ import OrderItem from './OrderItem';
 import { isLoggedIn, isCart } from './helperFunctions';
 
 class Order extends Component {
-  componentDidMount() {
-    const { order, fetchOrder, fetchOrderItems, user } = this.props;
-    console.log('isLoggedIn: ', isLoggedIn(user));
-    if (isLoggedIn(user)) {
-      fetchOrder(user.id);
-    }
+  // componentDidMount() {
+  //   const { order, fetchOrder, fetchOrderItems, user } = this.props;
+  //   console.log('isLoggedIn: ', isLoggedIn(user));
+  //   if (isLoggedIn(user)) {
+  //     fetchOrder(user.id);
+  //   }
 
-    fetchProducts();
-    // if (isCart(order)) {
-    //   fetchOrderItems(order.id);
-    // }
-  }
+  //   fetchProducts();
+  //   // if (isCart(order)) {
+  //   //   fetchOrderItems(order.id);
+  //   // }
+  // }
 
   componentDidMount() {
-    const { order, fetchOrder, fetchOrderItems, user, setLocalCartToStateThunk } = this.props;
+    const { order, fetchOrder, fetchOrderItems, user, setLocalCartToState } = this.props;
 
     fetchProducts();
 
@@ -60,7 +60,6 @@ class Order extends Component {
 
   //   console.log(localStorage);
   // }
-
 
   onChange = ev => {
     this.props.updateOrderThunk({

@@ -7,7 +7,7 @@ import { fetchUsers, users } from './users';
 import { fetchProducts, searchProducts, filterProducts, products } from './products';
 import { fetchProduct, deleteProduct, product, updateProduct } from './product';
 import { fetchCategories, filterCategories, addCategory, categories } from './categories';
-import { fetchOrder, addOrderThunk, updateOrderThunk, order } from './order';
+import { fetchOrder, addOrderThunk, updateOrderThunk, setLocalCartToStateThunk, order } from './order';
 import { fetchOrderItems, deleteOrderItemThunk, addOrderItemThunk, orderItems } from './orderItems';
 import { fetchProductReviews, reviews, addProductReview } from './reviews';
 import { setSessionThunk, session } from './session';
@@ -34,6 +34,7 @@ export {
   fetchOrderItems,
   deleteOrderItemThunk,
   addOrderItemThunk,
+  setLocalCartToStateThunk,
   fetchProductReviews,
   addProductReview,
   setSessionThunk,
