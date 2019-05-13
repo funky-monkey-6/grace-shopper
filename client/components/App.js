@@ -12,7 +12,7 @@ import Home from './Home';
 import Order from './Order';
 import Checkout from './Checkout';
 import AdminProducts from './AdminProducts';
-import AdminCategories from './AdminCategories'
+import AdminCategories from './AdminCategories';
 import { setSessionThunk, getCurrentUser } from '../store';
 
 class App extends Component {
