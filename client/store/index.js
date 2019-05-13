@@ -10,11 +10,8 @@ import { fetchCategories, filterCategories, addCategory, categories } from './ca
 import { fetchOrder, addOrderThunk, updateOrderThunk, order } from './order';
 import { fetchOrderItems, deleteOrderItemThunk, addOrderItemThunk, orderItems } from './orderItems';
 import { fetchProductReviews, reviews, addProductReview } from './reviews';
-<<<<<<< HEAD
 import { setSessionThunk, session } from './session';
-=======
 import { fetchProductVariants, productVariants } from './productVariants';
->>>>>>> dev
 
 //THUNK CREATORS
 
@@ -39,14 +36,11 @@ export {
   addOrderItemThunk,
   fetchProductReviews,
   addProductReview,
-<<<<<<< HEAD
   setSessionThunk,
-=======
   fetchProductVariants,
   deleteProduct,
   addCategory,
   updateProduct,
->>>>>>> dev
 };
 
 const reducer = combineReducers({
@@ -58,11 +52,8 @@ const reducer = combineReducers({
   order,
   orderItems,
   reviews,
-<<<<<<< HEAD
   session,
-=======
   productVariants,
->>>>>>> dev
 });
 
 export const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunkMiddleware)));
