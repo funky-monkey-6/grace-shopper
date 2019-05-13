@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 class OrderDetails extends Component {
   render() {
     const { orders } = this.props;
-    const orderId = +this.props.match.params.orderId;
+    const orderId = Number(this.props.match.params.orderId);
     const order = orders.find(_order => _order.id === orderId);
     const orderItems = order ? order.orderitems : [];
 
