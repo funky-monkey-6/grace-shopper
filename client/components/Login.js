@@ -12,7 +12,7 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    document.getElementById('email').focus()
+    document.getElementById('email').focus();
   }
 
   handleChange = ev => {

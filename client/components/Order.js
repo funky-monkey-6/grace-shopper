@@ -22,9 +22,9 @@ class Order extends Component {
     }
 
     fetchProducts();
-    if (isCart(order)) {
-      fetchOrderItems(order.id);
-    }
+    // if (isCart(order)) {
+    //   fetchOrderItems(order.id);
+    // }
   }
 
   onChange = ev => {
@@ -36,17 +36,28 @@ class Order extends Component {
 
   render() {
     const { onChange } = this;
-    const { orderItems, order, user, history } = this.props;
-
+    const { order, user, history } = this.props;
+    const { orderitems } = order;
+    console.log({ orderitems })
     // TODO save values in db for subtotal, shipping, total
     order.subtotal = 0;
-    if (orderItems) {
-      order.subtotal = orderItems.reduce((total, item) => total + item.price * item.quantity, 0);
+    if (orderitems) {
+      order.subtotal = orderitems.reduce((total, item) => total + item.price * item.quantity, 0);
     }
     order.shipping = order.type === 'delivery' ? 5 : 0;
     order.total = order.subtotal + order.shipping;
 
     const { subtotal, shipping, total, type } = order;
+
+    let isOrderitems;
+    if (order) {
+      if (order.orderitems) {
+        isOrderitems = order.orderitems.length !== 0;
+      }
+    }
+
+    console.log('orderitems? ', isOrderitems)
+
 
     return (
       <div>
@@ -64,7 +75,7 @@ class Order extends Component {
             </thead>
             <tbody>
               {isCart(order) && isLoggedIn(user) ? (
-                orderItems.map(orderItem => {
+                orderitems.map(orderItem => {
                   return (
                     <OrderItem
                       key={orderItem.id}
@@ -76,14 +87,14 @@ class Order extends Component {
                   );
                 })
               ) : (
-                <tr>
-                  <td>Your bag is empty.</td>
-                  <td />
-                  <td />
-                  <td />
-                  <td />
-                </tr>
-              )}
+                  <tr>
+                    <td>Your bag is empty.</td>
+                    <td />
+                    <td />
+                    <td />
+                    <td />
+                  </tr>
+                )}
             </tbody>
           </table>
 
@@ -129,7 +140,7 @@ class Order extends Component {
           <br />
 
           <Fragment>
-            {orderItems.length ? (
+            {isOrderitems ? (
               <div className="row justify-content-end">
                 <div className="col-3">
                   <Link to="/checkout">
@@ -138,8 +149,8 @@ class Order extends Component {
                 </div>
               </div>
             ) : (
-              ''
-            )}
+                ''
+              )}
           </Fragment>
         </div>
       </div>
@@ -159,7 +170,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchOrder: userId => dispatch(fetchOrderThunk(userId)),
-    fetchOrderItems: orderId => dispatch(fetchOrderItemsThunk(orderId)),
+    // fetchOrderItems: orderId => dispatch(fetchOrderItemsThunk(orderId)),
     updateOrderThunk: order => dispatch(updateOrderThunk(order)),
     fetchProducts: () => dispatch(fetchProducts()),
   };
