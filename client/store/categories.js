@@ -22,6 +22,14 @@ export const fetchCategories = () => {
   };
 };
 
+export const addCategory = async newCategoryName => {
+  try {
+    await axios.post('/api/categories/', newCategoryName);
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 //REDUCER
 
 export const categories = (state = [], action) => {
