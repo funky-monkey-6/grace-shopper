@@ -7,4 +7,11 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
+router.put('/:id', (req, res, next) => {
+  OrderItem.findByPk(req.params.id)
+    .then(item => item.update(req.body))
+    .then(item => res.send(item))
+    .catch(next);
+});
+
 module.exports = router;

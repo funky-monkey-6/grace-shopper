@@ -8,7 +8,13 @@ import { fetchProducts, searchProducts, filterProducts, products } from './produ
 import { fetchProduct, deleteProduct, product } from './product';
 import { fetchCategories, filterCategories, categories } from './categories';
 import { fetchOrder, addOrderThunk, updateOrderThunk, order } from './order';
-import { fetchOrderItems, deleteOrderItemThunk, addOrderItemThunk, orderItems } from './orderItems';
+import {
+  fetchOrderItems,
+  deleteOrderItemThunk,
+  addOrderItemThunk,
+  orderItems,
+  updateOrderItemQuantity,
+} from './orderItems';
 import { fetchProductReviews, reviews, addProductReview } from './reviews';
 import { fetchProductVariants, productVariants } from './productVariants';
 
@@ -36,6 +42,7 @@ export {
   fetchProductReviews,
   addProductReview,
   fetchProductVariants,
+  updateOrderItemQuantity,
 };
 
 const reducer = combineReducers({

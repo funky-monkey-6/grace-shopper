@@ -80,11 +80,13 @@ module.exports = [
     title: 'Dumpling Tray',
     description: 'Cabbage, Onion, Green Onion, Ginger, Cilantro',
     category: 'Catering',
+    images: 'dumpling_tray.jpeg',
   },
   {
     title: 'Salad Tray',
-    description: '',
+    description: 'Assorted Salads',
     category: 'Catering',
+    images: 'salad_tray.jpeg',
   },
   {
     title: 'Kimchi Coconut Oil Fried Rice',
@@ -107,21 +109,25 @@ module.exports = [
     title: 'Hot Coffee',
     description: '',
     category: 'Coffee & Tea',
+    images: 'coffee.jpeg',
   },
   {
     title: 'Hot Tea',
-    description: '',
+    description: 'Assorted Hot Teas',
     category: 'Coffee & Tea',
+    images: 'tea.jpeg',
   },
   {
     title: 'ICE Coffee',
     description: '',
     category: 'Coffee & Tea',
+    images: 'ice_coffee.jpeg',
   },
   {
     title: 'Turmeric Tea',
     description: '',
     category: 'Coffee & Tea',
+    images: 'turmeric_tea.jpeg',
   },
   {
     title: 'ABC',
@@ -204,6 +210,7 @@ module.exports = [
     title: 'Mumbai Veggie Patties',
     description: '',
     category: 'Healthy Plates',
+    images: 'samosas.jpeg',
   },
   {
     title: 'Portobello Kimchi Burger',
@@ -215,6 +222,7 @@ module.exports = [
     description:
       'Potato Samosa, chickpeas, yogurt, cilantro chutney, tamarind chutney, turmeric, cumin, Jalapeno,Onions. (2pcs)',
     category: 'Healthy Plates',
+    images: 'samosas.jpeg',
   },
   {
     title: 'Spicy Avocado Egg Sandwich',
@@ -232,6 +240,7 @@ module.exports = [
     title: 'Veggie Momos',
     description: '(5pcs)',
     category: 'Healthy Plates',
+    images: 'momos.jpeg',
   },
   {
     title: 'Aloe-Ha',
@@ -383,29 +392,34 @@ module.exports = [
     images: 'juice.jpeg',
   },
   {
-    title: 'Cliff Bar',
+    title: 'Clif Bar',
     description: '',
     category: 'Miscellaneous',
+    images: 'clif.jpeg',
   },
   {
     title: 'Coconut Bites',
     description: '',
     category: 'Miscellaneous',
+    images: 'coconut_bites.jpeg',
   },
   {
     title: 'Ferrero Rocher',
     description: 'Chocolate',
     category: 'Miscellaneous',
+    images: 'ferrero_rocher.jpeg',
   },
   {
     title: 'Kind Bar',
     description: '',
     category: 'Miscellaneous',
+    images: 'kind.jpeg',
   },
   {
     title: 'Poland Spring Water',
     description: '',
     category: 'Miscellaneous',
+    images: 'poland_spring.jpeg',
   },
   {
     title: 'Rice Krispies',
@@ -421,6 +435,7 @@ module.exports = [
     title: 'Z Bar',
     description: '',
     category: 'Miscellaneous',
+    images: 'z_bar.jpeg',
   },
   {
     title: 'Delish Quinoa Salad',
@@ -489,16 +504,19 @@ module.exports = [
     title: 'Butternut Squash Soup',
     description: '',
     category: 'Soup',
+    images: 'butternut_squash_soup.jpeg',
   },
   {
     title: 'Lentil Soup',
     description: '',
     category: 'Soup',
+    images: 'lentil_soup.jpeg',
   },
   {
     title: 'Spinach Soup',
     description: '',
     category: 'Soup',
+    images: 'spinach_soup.jpeg',
   },
   {
     title: 'Emily',

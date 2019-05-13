@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable indent */
 /* eslint-disable no-console */
 import React, { Component, Fragment } from 'react';
 import { Link, Redirect, NavLink } from 'react-router-dom';
@@ -40,6 +42,9 @@ class Nav extends Component {
             <Link to="/menu" className="nav-item">
               Menu
             </Link>
+            <Link to="/about" className="nav-item">
+              About
+            </Link>
           </div>
           <div className="nav-login">
             {/* TODO isLoggedIn(user) = true - then show Account and Orders  */}
@@ -53,8 +58,8 @@ class Nav extends Component {
                 </NavLink>
               </Fragment>
             ) : (
-              ''
-            )}
+                ''
+              )}
             {/* end isLoggedIn */}
 
             {buttonStatus}
@@ -84,8 +89,8 @@ class Nav extends Component {
             </div>
           </nav>
         ) : (
-          ''
-        )}
+            ''
+          )}
       </Fragment>
     );
   }
