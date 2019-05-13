@@ -66,7 +66,7 @@ class Nav extends Component {
 
         {/* TODO isAdmin(user) then display: */}
         {isAdmin(user) ? (
-          <nav className="navbar navbar-expand-lg navbar-light bg-light">
+          <nav className="navbar navbar-expand-lg navbar-light bg-dark">
             <div className="nav-admin">
               <span className="nav-item">Admin:</span>
               <NavLink to="/admin/products" className="nav-item" activeClassName="active">
