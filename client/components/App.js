@@ -57,7 +57,7 @@ class App extends Component {
             {/* TODO new paths added, not done with */}
             {/* put user.id (?), category.id, product.id in url */}
             <Route path="/user/orders/:orderId" component={OrderDetails} />
-            <Route path="/user/orders" component={Orders} />
+            <Route exact path="/user/orders" component={Orders} />
 
             {/*<Route path="/user/account" component={Account} />
             <Route path="/admin/orders" component={Orders} />
