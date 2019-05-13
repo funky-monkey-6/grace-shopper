@@ -41,9 +41,7 @@ class Orders extends Component {
                   <td>{order.status}</td>
 
                   <td>
-                    <Link exact to={`/user/orders/${order.id}`}>
-                      Order Details
-                    </Link>
+                    <Link to={`/user/orders/${order.id}`}>Order Details</Link>
                   </td>
                 </tr>
               );
