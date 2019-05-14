@@ -40,15 +40,13 @@ class AdminSingleProductEdit extends React.Component {
   };
 
   handleVariantSelect = ev => {
-    console.log(ev.target.value);
     this.setState({ variantSelectedId: ev.target.value });
-    console.log(this.state.variantSelectedId);
   };
 
   render() {
     const product = this.props.product || [];
     const variants = this.props.product.productVariants || [];
-    console.log(variants);
+    console.log(variants)
     return (
       <div>
         <h2>{product.title}</h2>
@@ -109,7 +107,9 @@ class AdminSingleProductEdit extends React.Component {
             'There are no product variants'
           )}
         {this.state.variantSelectedId ? (
-          <AdminSingleVariantEdit variantId={this.state.variantSelectedId} />
+          <AdminSingleVariantEdit
+            variant={variants.filter(variant => variant.id === (this.state.variantSelectedId * 1))}
+          />
         ) : null}
       </div>
     );

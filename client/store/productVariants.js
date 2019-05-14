@@ -47,12 +47,19 @@ export const updateSingleVariant = async (id, variantUpdate) => {
   }
 };
 
-//REDUCER
+//REDUCERS
 
 export const productVariants = (state = [], action) => {
   switch (action.type) {
     case SET_PRODUCT_VARIANTS:
       return action.productVariants;
+    default:
+      return state;
+  }
+};
+
+export const productVariant = (state = {}, action) => {
+  switch (action.type) {
     case SET_PRODUCT_VARIANT:
       return action.productVariant;
     default:

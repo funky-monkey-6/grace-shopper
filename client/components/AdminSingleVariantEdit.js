@@ -1,20 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchSingleVariant, updateSingleVariant } from '../store/index';
+import { fetchSingleVariant, updateSingleVariant } from '../store';
 
 class AdminSingleVariantEdit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      variationName: '',
+      variationName: null,
       inventory: null,
-      price: '',
+      price: null,
     };
   }
 
   componentDidMount = () => {
-    fetchSingleVariant(this.props.variantId);
-    console.log(this.props);
+    //console.log(this.props.variant);
   };
 
   handleVariantChange = ev => {
@@ -25,16 +24,16 @@ class AdminSingleVariantEdit extends React.Component {
   };
 
   handleVariantSubmit = () => {
-    const { id, variationName, inventory, price } = this.props.productVariant;
-    updateSingleVariant(this.props.variantId, {
+    const { id, variationName, inventory, price } = this.props.variant[0];
+    updateSingleVariant(id, {
       title: this.state.variationName || variationName,
       description: this.state.inventory || inventory,
       images: this.state.price || price,
-    }).then(() => fetchSingleVariant(id));
+    });
   };
 
   render() {
-    const { variationName, inventory, price } = this.props.productVariant || [];
+    const { variationName, inventory, price } = this.props.variant[0];
     return (
       <form onSubmit={this.handleVariantSubmit}>
         <div className="form-group">
@@ -43,7 +42,7 @@ class AdminSingleVariantEdit extends React.Component {
             <input
               type="text"
               name="variationName"
-              value={this.state.variationName ? this.state.variationName : variationName || ''}
+              value={this.state.variationName ? this.state.variationName : variationName}
               onChange={this.handleVariantChange}
             />
           </label>
@@ -54,7 +53,7 @@ class AdminSingleVariantEdit extends React.Component {
             <input
               type="text"
               name="inventory"
-              value={this.state.inventory ? this.state.inventory : inventory || ''}
+              value={this.state.inventory ? this.state.inventory : inventory}
               onChange={this.handleVariantChange}
             />
           </label>
@@ -65,7 +64,7 @@ class AdminSingleVariantEdit extends React.Component {
             <input
               type="text"
               name="price"
-              value={this.state.price ? this.state.price : price || ''}
+              value={this.state.price ? this.state.price : price}
               onChange={this.handleVariantChange}
             />
           </label>

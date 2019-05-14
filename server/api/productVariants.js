@@ -11,14 +11,18 @@ router.get('/', (req, res, next) => {
 
 router.get('/:id', (req, res, next) => {
   ProductVariant.findByPk(req.params.id, { include: [{ model: Product }] })
-    .then(variant => res.send(variant))
+    .then(variant => console.log(variant.data))
+    //.then(variant => res.send(variant))
     .catch(next);
 });
 
 router.put('/:id', (req, res, next) => {
-  ProductVariant.findByPk(req.params.id)
-    .then(variant => variant.update(req.body))
-    .then(variant => res.send(variant))
+  ProductVariant.update(req.body, {
+    where: { id: req.params.id },
+  })
+    // (req.params.id)
+    //   .then(variant => variant.update(req.body))
+    .then(variant => console.log(variant.data))
     .catch(next);
 });
 

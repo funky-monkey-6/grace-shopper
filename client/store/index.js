@@ -21,6 +21,7 @@ import {
   productVariants,
   fetchSingleVariant,
   updateSingleVariant,
+  productVariant,
 } from './productVariants';
 
 //THUNK CREATORS
@@ -52,6 +53,7 @@ export {
   updateSingleProduct,
   fetchSingleVariant,
   updateSingleVariant,
+  productVariant,
 };
 
 const reducer = combineReducers({
