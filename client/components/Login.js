@@ -46,6 +46,7 @@ class Login extends Component {
               <label className="login-input">Email:</label>
               <br />
               <input
+                id="email"
                 className="login-input"
                 type="text"
                 name="email"
