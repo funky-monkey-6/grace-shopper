@@ -22,7 +22,7 @@ class Order extends Component {
     fetchProducts();
     const cookieUserId = Cookies.get('cui');
 
-    if (false) {
+    if (cookieUserId) {
       fetchOrder(cookieUserId);
     } else {
       const cookieCart = Cookies.getJSON('cart');
@@ -36,10 +36,12 @@ class Order extends Component {
   }
 
   onChange = ev => {
+    const currentUserId = Cookies.get('cui');
     this.props.updateOrderThunk({
       ...this.props.order,
       type: ev.target.value,
-    });
+    },
+      currentUserId ? false : true); // isCookieCart
   };
 
   render() {

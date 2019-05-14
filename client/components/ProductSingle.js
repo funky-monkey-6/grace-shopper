@@ -61,19 +61,16 @@ class ProductSingle extends React.Component {
     // OrderItem component (Justine)
     // when change qty - update newOrderItem, then updateOrderThunk
 
-    // let newOrder = {};
     const { fetchOrCreateOrderAddItemThunk, setCookieCartToState } = this.props;
     console.log('setCookieCartToState: ', this.props)
     console.log('addOrderItem: newOrderItem', newOrderItem);
-    // try {
-    if (false) {  // loggedIn = true
+
+    const currentUserId = Cookies.get('cui');
+
+    if (currentUserId) {  // loggedIn = true
       fetchOrCreateOrderAddItemThunk(userId, newOrderItem).catch(err => console.log(err));
     } else {
-      // check state.order
-      // get cookie, check if !empty
-      // if cookie empty, create new order
-      // add newOrderItem to order
-      // guest cart - cookie source or truth (guest db)
+      // guest cart - cookie source of truth (guest db)
       let order = Cookies.getJSON('cart');
       console.log('get cookie order: ', order)
       if (!order) {

@@ -106,17 +106,25 @@ export const addOrderThunk = (userId, order) => {
 };
 
 // TODO change to using dispatch(setOrder()), but not working now
-export const updateOrderThunk = order => {
+export const updateOrderThunk = (order, isCookieCart) => {
   return dispatch => {
-    return axios
-      .put(`/api/users/${order.userId}/orders/${order.id}`, order)
-      .then(resp => {
-        console.log('resp.data: ', resp.data);
-        return dispatch(fetchOrder(order.userId));
-      })
-      .catch(err => {
-        throw new Error(err);
-      });
+    // guest cart
+    if (!isCookieCart) {
+      order.shipping = order.type === 'pickup' ? 0 : 5;
+      order.total = order.shipping + order.subtotal;
+      dispatch(setCookieCartToState(order));
+    } else {
+      // loggedin cart
+      return axios
+        .put(`/api/users/${order.userId}/orders/${order.id}`, order)
+        .then(() => {
+          return dispatch(fetchOrder(order.userId));
+        })
+        .catch(err => {
+          throw new Error(err);
+        });
+    }
+
   };
 };
 
