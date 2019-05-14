@@ -88,14 +88,13 @@ export const updateOrderItemQuantity = (orderItem, order, isCookieCart) => {
       );
       console.log({ changedOrder });
       return order;
-    } else {
-      return axios
-        .put(`/api/orderitems/${orderItem.id}`, orderItem)
-        .then(() => dispatch(fetchOrderItems(orderItem.orderId)))
-        .catch(err => {
-          throw new Error(err);
-        });
     }
+    return axios
+      .put(`/api/orderitems/${orderItem.id}`, orderItem)
+      .then(() => dispatch(fetchOrderItems(orderItem.orderId)))
+      .catch(err => {
+        throw new Error(err);
+      });
   };
 };
 
