@@ -18,6 +18,7 @@ import About from './About';
 import AdminOrders from './AdminOrders';
 import OrderForm from './OrderForm';
 import AdminCategories from './AdminCategories';
+import AdminSingleProductEdit from './AdminSingleProductEdit'
 import { setSessionThunk, getCurrentUser } from '../store';
 
 class App extends Component {
@@ -66,6 +67,7 @@ class App extends Component {
             <Route path="/admin/orders/edit/:orderId" component={OrderForm} />
             <Route path="/user/orders/:orderId" component={OrderDetails} />
             <Route exact path="/user/orders" component={Orders} />
+            <Route exect path="/admin/productEdit/:productId" component={AdminSingleProductEdit} />
             {/* <Route path="/admin/categories" component={AdminCategories} />
             <Route path="/admin/users" component={AdminUsers} /> */}
             {/* TODO new paths added, not done with */}
