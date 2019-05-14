@@ -18,10 +18,10 @@ class OrderItem extends Component {
     const { price, quantity } = orderItem;
 
     if (!orderItem.price) {
-      orderItem.price = product.productvariant[0].price;
+      orderItem.price = product.productVariant[0].price;
     }
 
-    const variant = productVariants.find(prodVar => prodVar.id === orderItem.productvariantId);
+    const variant = productVariants.find(prodVar => prodVar.id === orderItem.productVariantId);
     const title = variant ? variant.productName : '';
     const itemTotal = orderItem ? price * quantity : 0;
     return (

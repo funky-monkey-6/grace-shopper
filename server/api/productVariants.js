@@ -15,4 +15,11 @@ router.get('/:id', (req, res, next) => {
     .catch(next);
 });
 
+router.put('/:id', (req, res, next) => {
+  ProductVariant.findByPk(req.params.id)
+    .then(variant => variant.update(req.body))
+    .then(variant => res.send(variant))
+    .catch(next);
+});
+
 module.exports = router;

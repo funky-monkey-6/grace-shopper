@@ -10,6 +10,7 @@ import Order from './Order';
 import Checkout from './Checkout';
 import AdminProducts from './AdminProducts';
 import AdminCategories from './AdminCategories';
+import AdminSingleProductEdit from './AdminSingleProductEdit';
 
 const App = () => {
   return (
@@ -36,6 +37,7 @@ const App = () => {
           <Route path="/checkout" component={Checkout} />
           <Route path="/admin/products" component={AdminProducts} />
           <Route path="/admin/categories" component={AdminCategories} />
+          <Route path="/admin/productEdit/:productId" component={AdminSingleProductEdit} />
           {/* <Route path="/admin/users" component={AdminUsers} /> */}
           {/* TODO new paths added, not done with */}
           {/* put user.id (?), category.id, product.id in url */}

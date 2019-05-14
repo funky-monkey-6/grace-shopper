@@ -1,7 +1,7 @@
 const conn = require('../conn');
 const { Sequelize } = conn;
 
-module.exports = conn.define('productvariant', {
+module.exports = conn.define('productVariant', {
   // from associations: productId
   variationName: {
     type: Sequelize.STRING,
