@@ -79,10 +79,15 @@ export const addOrderItemThunk = (userId, orderId, orderItem) => {
 export const updateOrderItemQuantity = (orderItem, order, isCookieCart) => {
   return dispatch => {
     // guest cart
-    if (isCookieCart) {  // isCookieCart
-      const changedOrder = order.orderitems.find(item => item.productVariantId === orderItem.productVariantId && item.quantity === orderItem.quantity);
-      console.log({ changedOrder })
-
+    if (isCookieCart) {
+      // isCookieCart
+      const changedOrder = order.orderitems.find(
+        item =>
+          item.productVariantId === orderItem.productVariantId &&
+          item.quantity === orderItem.quantity,
+      );
+      console.log({ changedOrder });
+      return 
     } else {
       return axios
         .put(`/api/orderitems/${orderItem.id}`, orderItem)
