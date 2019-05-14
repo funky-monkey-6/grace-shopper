@@ -1,5 +1,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
+/* eslint-disable import/no-cycle */
+
 import { setOrderItems } from './orderItems';
 
 //ACTION TYPES
@@ -122,17 +124,16 @@ export const updateOrderThunk = (order, isCookieCart) => {
       order.shipping = order.type === 'pickup' ? 0 : 5;
       order.total = order.shipping + order.subtotal;
       return dispatch(setCookieCartToState(order));
-    } else {
-      // loggedin cart
-      return axios
-        .put(`/api/users/${order.userId}/orders/${order.id}`, order)
-        .then(() => {
-          return dispatch(fetchOrder(order.userId));
-        })
-        .catch(err => {
-          throw new Error(err);
-        });
     }
+    // loggedin cart
+    return axios
+      .put(`/api/users/${order.userId}/orders/${order.id}`, order)
+      .then(() => {
+        return dispatch(fetchOrder(order.userId));
+      })
+      .catch(err => {
+        throw new Error(err);
+      });
   };
 };
 
