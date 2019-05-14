@@ -64,7 +64,6 @@ export const fetchOrCreateOrderAddItemThunk = (userId, orderItem) => {
       .post(`/api/users/${userId}/cart/addItem`, orderItem)
       .then(res => res.data)
       .then(order => {
-
         //** TODO do this logic on server (had problems with before but now know how to do)
         // order calculations
         order.subtotal = order.orderitems.reduce(

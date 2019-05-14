@@ -1,7 +1,8 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { fetchOrder } from './order';
-import { setCookieCartToState } from './order';
+// TODO how to fix this ???
+/* eslint-disable import/no-cycle */
+import { fetchOrder, setCookieCartToState } from './order';
 
 //ACTION TYPES
 
@@ -38,15 +39,19 @@ export const deleteOrderItemThunk = (userId, order, orderItem) => {
     // guest cart
     if (!userId) {
       // TODO want to only delete one order item, right now will filter out all with the same productVariantId
-      order.orderitems = order.orderitems.filter(item => item.quantity !== orderItem.quantity && item.productVariantId !== orderItem.productVariantId);
+      order.orderitems = order.orderitems.filter(
+        item =>
+          item.quantity !== orderItem.quantity &&
+          item.productVariantId !== orderItem.productVariantId,
+      );
 
       order.subtotal = order.orderitems.reduce(
         (total, item) => total + Number(item.quantity) * item.price,
         0,
       );
       order.total = order.shipping + order.subtotal;
-      dispatch(setCookieCartToState(order));
       Cookies.set('cart', order);
+      return dispatch(setCookieCartToState(order));
     } else {
       // loggedin cart
       return axios
@@ -57,7 +62,7 @@ export const deleteOrderItemThunk = (userId, order, orderItem) => {
         .catch(err => {
           throw new Error(err);
         });
-    };
+    }
   };
 };
 

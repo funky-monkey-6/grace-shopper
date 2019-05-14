@@ -41,6 +41,7 @@
     "no-await-in-loop": 0,
     "no-continue": 1,
     "no-case-declarations": 0,
+    "no-shadow": 0,
     "class-methods-use-this": 0,
     "quotes": [1, "single"],
     "max-len": [

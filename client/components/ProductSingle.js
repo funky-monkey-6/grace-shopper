@@ -65,7 +65,8 @@ class ProductSingle extends React.Component {
 
     const currentUserId = Cookies.get('cui');
 
-    if (currentUserId) {  // loggedIn = true
+    if (currentUserId) {
+      // loggedIn = true
       fetchOrCreateOrderAddItemThunk(userId, newOrderItem).catch(err => console.log(err));
     } else {
       // guest cart - cookie source of truth (guest db)
@@ -95,8 +96,9 @@ class ProductSingle extends React.Component {
       //   return acc;
       // }, []);
 
-      order.subtotal = order.orderitems.reduce((total, item) =>
-        total + Number(item.quantity) * item.price, 0
+      order.subtotal = order.orderitems.reduce(
+        (total, item) => total + Number(item.quantity) * item.price,
+        0,
       );
       order.total = order.subtotal + order.shipping;
 
@@ -206,12 +208,12 @@ class ProductSingle extends React.Component {
             {user.id ? (
               <ReviewForm />
             ) : (
-                <Link to="/login">
-                  <button type="submit" className="btn btn-secondary">
-                    Login to add review:
+              <Link to="/login">
+                <button type="submit" className="btn btn-secondary">
+                  Login to add review:
                 </button>
-                </Link>
-              )}
+              </Link>
+            )}
           </div>
           <div className="review-list">
             <h1>

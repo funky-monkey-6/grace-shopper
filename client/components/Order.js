@@ -16,18 +16,18 @@ import OrderItem from './OrderItem';
 import { isLoggedIn, isCart } from './helperFunctions';
 
 class Order extends Component {
-
   componentDidMount() {
     const { fetchOrder, setCookieCartToState } = this.props;
     fetchProducts();
     const cookieUserId = Cookies.get('cui');
 
-    if (cookieUserId) { // loggedin cart
+    if (cookieUserId) {
+      // loggedin cart
       fetchOrder(cookieUserId);
-    } else { // guest cart
+    } else {
+      // guest cart
       const cookieCart = Cookies.getJSON('cart');
       if (cookieCart !== null) {
-
         setCookieCartToState(cookieCart);
       }
     }
@@ -35,11 +35,13 @@ class Order extends Component {
 
   onChange = ev => {
     const currentUserId = Cookies.get('cui');
-    this.props.updateOrderThunk({
-      ...this.props.order,
-      type: ev.target.value,
-    },
-      currentUserId ? false : true); // isCookieCart
+    this.props.updateOrderThunk(
+      {
+        ...this.props.order,
+        type: ev.target.value,
+      },
+      currentUserId ? false : true,
+    ); // isCookieCart
   };
 
   render() {
@@ -84,14 +86,14 @@ class Order extends Component {
                   );
                 })
               ) : (
-                  <tr>
-                    <td>Your bag is empty.</td>
-                    <td />
-                    <td />
-                    <td />
-                    <td />
-                  </tr>
-                )}
+                <tr>
+                  <td>Your bag is empty.</td>
+                  <td />
+                  <td />
+                  <td />
+                  <td />
+                </tr>
+              )}
             </tbody>
           </table>
 
@@ -135,8 +137,9 @@ class Order extends Component {
                 <div className="col-3">${total.toFixed(2)}</div>
               </div>
             </Fragment>
-          ) : ''
-          }
+          ) : (
+            ''
+          )}
           <br />
 
           <Fragment>
@@ -149,8 +152,8 @@ class Order extends Component {
                 </div>
               </div>
             ) : (
-                ''
-              )}
+              ''
+            )}
           </Fragment>
         </div>
       </div>
