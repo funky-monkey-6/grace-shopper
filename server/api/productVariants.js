@@ -17,6 +17,7 @@ router.get('/:id', (req, res, next) => {
 });
 
 router.put('/:id', (req, res, next) => {
+  console.log(req.params.id);
   ProductVariant.update(req.body, {
     where: { id: req.params.id },
   })
