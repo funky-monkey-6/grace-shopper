@@ -62,6 +62,7 @@ class OrderItem extends Component {
         <td>
           <button
             type="submit"
+            className="btn btn-secondary"
             onClick={() => this.props.deleteOrderItemThunk(userId, orderId, orderItem.id)}
           >
             X

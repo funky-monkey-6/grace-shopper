@@ -89,11 +89,13 @@ class MostPopular extends React.Component {
     return (
       <div>
         <br />
-        <h4>Popular menu items</h4>
-        <div className="menu-list">
-          {filterPopular(orderItems).map(prod => {
-            return <MenuItem product={prod} key={prod.id} />;
-          })}
+        <div className="popular-items">
+          <h4>Popular menu items</h4>
+          <div className="popular-menu-list">
+            {filterPopular(orderItems).map(prod => {
+              return <MenuItem product={prod} key={prod.id} />;
+            })}
+          </div>
         </div>
       </div>
     );

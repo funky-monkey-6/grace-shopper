@@ -44,70 +44,96 @@ class Signup extends Component {
     } = this.state;
 
     return (
-      <div>
-        <h4>Enter sign-up information below:</h4>
+      <div className="login-div">
+        <h4 className="login-input">Enter Sign Up Information:</h4>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>
-              First Name:
-              <input type="text" name="firstName" value={firstName} onChange={handleChange} />
-            </label>
-            <label>
-              Last Name:
-              <input type="text" name="lastName" value={lastName} onChange={handleChange} />
-            </label>
-            <label>
-              Email:
-              <input type="email" name="email" value={email} onChange={handleChange} />
-            </label>
-          </div>
-
-          <div className="form-group">
-            <label>
-              Password:
-              <input type="password" name="password" value={password} onChange={handleChange} />
-            </label>
-          </div>
-          <div className="form-group">
-            <label>
-              Address:
-              <input
-                type="shippingAddress"
-                name="shippingAddress"
-                value={shippingAddress}
-                onChange={handleChange}
-              />
-            </label>
+            <label className="login-input">First Name:</label>
             <br />
-            <label>
-              City:
-              <input
-                type="shippingCity"
-                name="shippingCity"
-                value={shippingCity}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              State:
-              <input
-                type="shippingState"
-                name="shippingState"
-                value={shippingState}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              Zip Code:
-              <input
-                type="shippingZip"
-                name="shippingZip"
-                value={shippingZip}
-                onChange={handleChange}
-              />
-            </label>
+            <input
+              className="login-input"
+              type="text"
+              name="firstName"
+              value={firstName}
+              onChange={handleChange}
+            />
+            <br />
+            <label className="login-input">Last Name:</label>
+            <br />
+            <input
+              className="login-input"
+              type="text"
+              name="lastName"
+              value={lastName}
+              onChange={handleChange}
+            />
+            <br />
+            <label className="login-input">Email:</label>
+            <br />
+            <input
+              className="login-input"
+              type="email"
+              name="email"
+              value={email}
+              onChange={handleChange}
+            />
           </div>
-          <input type="submit" value="Login" />
+          <div className="form-group">
+            <label className="login-input">Password:</label>
+            <br />
+            <input
+              className="login-input"
+              type="password"
+              name="password"
+              value={password}
+              onChange={handleChange}
+            />
+            <br />
+          </div>
+          <div className="form-group">
+            <label className="login-input">Address:</label>
+            <br />
+            <input
+              className="login-input"
+              type="shippingAddress"
+              name="shippingAddress"
+              value={shippingAddress}
+              onChange={handleChange}
+            />
+            <br />
+            <label className="login-input">City:</label>
+            <br />
+            <input
+              className="login-input"
+              type="shippingCity"
+              name="shippingCity"
+              value={shippingCity}
+              onChange={handleChange}
+            />
+            <label className="login-input">State:</label>
+            <br />
+            <input
+              className="login-input"
+              type="shippingState"
+              name="shippingState"
+              value={shippingState}
+              onChange={handleChange}
+            />
+            <br />
+            <label className="login-input">Zip Code:</label>
+            <br />
+            <input
+              className="login-input"
+              type="shippingZip"
+              name="shippingZip"
+              value={shippingZip}
+              onChange={handleChange}
+            />
+            <br />
+          </div>
+          <div className="login-input btn-signup">
+            <input type="submit" value="Sign Up" className="btn btn-secondary" />
+          </div>
         </form>
       </div>
     );

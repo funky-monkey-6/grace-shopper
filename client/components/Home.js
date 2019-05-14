@@ -5,11 +5,11 @@ import MostPopular from './MostPopular';
 class Home extends React.Component {
   render() {
     return (
-      <div>
+      <div className="home">
         <div className="most-popular">
           <p>Welcome!</p>
+          <MostPopular className="most-popular-container" />
         </div>
-        <MostPopular />
       </div>
     );
   }

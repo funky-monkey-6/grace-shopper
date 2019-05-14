@@ -123,18 +123,18 @@ class Order extends Component {
                 <div className="row justify-content-end">
                   <div className="col-3">
                     <Link to="/checkout">
-                      <button type="submit">Start Checkout </button>
+                      <button type="submit" className="btn btn-secondary">Start Checkout </button>
                     </Link>
                   </div>
                 </div>
               ) : (
-                ''
-              )}
+                  ''
+                )}
             </Fragment>
           </div>
         ) : (
-          <div>Your bag is empty.</div>
-        )}
+            <div>Your bag is empty.</div>
+          )}
       </div>
     );
   }
