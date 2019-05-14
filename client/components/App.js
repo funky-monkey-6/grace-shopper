@@ -10,6 +10,8 @@ import Order from './Order';
 import Checkout from './Checkout';
 import AdminProducts from './AdminProducts';
 import About from './About';
+import AdminOrders from './AdminOrders';
+import OrderForm from './OrderForm';
 
 const App = () => {
   return (
@@ -36,6 +38,8 @@ const App = () => {
           <Route path="/checkout" component={Checkout} />
           <Route path="/admin/products" component={AdminProducts} />
           <Route path="/about" component={About} />
+          <Route exact path="/admin/orders" component={AdminOrders} />
+          <Route path="/admin/orders/edit/:orderId" component={OrderForm} />
           {/* <Route path="/admin/categories" component={AdminCategories} />
           <Route path="/admin/users" component={AdminUsers} /> */}
           {/* TODO new paths added, not done with */}
