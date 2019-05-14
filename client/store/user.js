@@ -43,6 +43,7 @@ export const logOut = () => async dispatch => {
     dispatch(setUser({}));
     Cookies.remove('cui'); // remove currentUserId
     Cookies.remove('isa'); // remove currentIsAdmin
+    Cookies.remove('cart');
     dispatch(setOrder({}));
     dispatch(setOrderItems([]));
     Cookies.remove('session');
