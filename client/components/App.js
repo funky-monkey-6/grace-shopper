@@ -26,18 +26,17 @@ class App extends Component {
     // TODO not working, want to check if session cookie and state are same, if not, then delete user cookies
     // because it appears that server does not remove session cookie when session is over
     // want to do because if user does not log out, then user cookies remain
-    const sameSession = session === this.props.session;
-    console.log({ sameSession });
+    // const sameSession = session === this.props.session;
+    // console.log({ sameSession });
 
     const { setSessionThunk, getCurrentUser } = this.props;
     if (session) {
       setSessionThunk(session);
-
-      if (currentUserId !== undefined) {
-        console.log('getting current user...');
-        // set current user on state
-        getCurrentUser();
-      }
+    }
+    if (currentUserId !== undefined) {
+      console.log('getting current user...');
+      // set current user on state
+      getCurrentUser();
     }
   }
 
@@ -79,13 +78,6 @@ class App extends Component {
     );
   }
 }
-
-const mapStateToProps = state => {
-  const { session } = state;
-  return {
-    session,
-  };
-};
 
 const mapDispatchToProps = dispatch => {
   return {
