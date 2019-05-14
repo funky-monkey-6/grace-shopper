@@ -33,7 +33,7 @@ class Checkout extends Component {
     const sqPaymentScript = document.createElement('script');
     sqPaymentScript.src = 'https://js.squareup.com/v2/paymentform';
     sqPaymentScript.type = 'text/javascript';
-    sqPaymentScript.async = true;
+    sqPaymentScript.defer = true;
     document.getElementsByTagName('head')[0].appendChild(sqPaymentScript);
   };
 
@@ -93,7 +93,6 @@ class Checkout extends Component {
 
     const { orderItems, order, products, user } = this.props;
 
-    // TODO save values in db for subtotal, shipping, total
     order.subtotal = 0;
     if (orderItems) {
       order.subtotal = orderItems.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -211,10 +210,6 @@ class Checkout extends Component {
               Phone number:
               <input type="text" name="phone" value={phone} onChange={handleChange} />
             </label>
-
-            {/* <button className="btn btn-primary" type="submit" onClick={handleSubmit}>
-                  Checkout
-                </button> */}
           </form>
         </div>
         <br />
