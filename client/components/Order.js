@@ -36,12 +36,12 @@ class Order extends Component {
   // }
 
   componentDidMount() {
-    const { order, fetchOrder, fetchOrderItems, user, setLocalCartToState } = this.props;
-
+    const { fetchOrder, setLocalCartToState } = this.props;
     fetchProducts();
+    const cookieUserId = Cookies.get('cui');
 
-    if (isLoggedIn(user)) {
-      fetchOrder(user.id).then(() => fetchOrderItems(order.id));
+    if (cookieUserId) {
+      fetchOrder(cookieUserId);
     } else {
       const localCart = Cookies.get('cart');
       console.log(JSON.parse(localCart));
@@ -76,22 +76,12 @@ class Order extends Component {
   render() {
     const { onChange } = this;
     const { order, user, history } = this.props;
-    const { orderitems } = order;
-
-    // TODO save values in db for subtotal, shipping, total
-    order.subtotal = 0;
-    if (orderitems) {
-      order.subtotal = orderitems.reduce((total, item) => total + item.price * item.quantity, 0);
-    }
-    order.shipping = order.type === 'delivery' ? 5 : 0;
-    order.total = order.subtotal + order.shipping;
-
-    const { subtotal, shipping, total, type } = order;
+    const { orderitems, subtotal, shipping, total, type } = order;
 
     let isOrderitems;
     if (order) {
-      if (order.orderitems) {
-        isOrderitems = order.orderitems.length !== 0;
+      if (orderitems) {
+        isOrderitems = orderitems.length !== 0;
       }
     }
 
@@ -123,14 +113,14 @@ class Order extends Component {
                   );
                 })
               ) : (
-                <tr>
-                  <td>Your bag is empty.</td>
-                  <td />
-                  <td />
-                  <td />
-                  <td />
-                </tr>
-              )}
+                  <tr>
+                    <td>Your bag is empty.</td>
+                    <td />
+                    <td />
+                    <td />
+                    <td />
+                  </tr>
+                )}
             </tbody>
           </table>
 
@@ -157,22 +147,25 @@ class Order extends Component {
               </select>
             </div>
           </div>
+          {isOrderitems ? (
+            <Fragment>
+              <div className="row justify-content-end">
+                <div className="col-3 text-right">Subtotal:</div>
+                <div className="col-3">${subtotal.toFixed(2)}</div>
+              </div>
 
-          <div className="row justify-content-end">
-            <div className="col-3 text-right">Subtotal:</div>
-            <div className="col-3">${subtotal.toFixed(2)}</div>
-          </div>
+              <div className="row justify-content-end">
+                <div className="col-3 text-right">Shipping:</div>
+                <div className="col-3">${shipping.toFixed(2)}</div>
+              </div>
 
-          <div className="row justify-content-end">
-            <div className="col-3 text-right">Shipping:</div>
-            <div className="col-3">${shipping.toFixed(2)}</div>
-          </div>
-
-          <div className="row justify-content-end">
-            <div className="col-3 text-right">Total:</div>
-            <div className="col-3">${total.toFixed(2)}</div>
-          </div>
-
+              <div className="row justify-content-end">
+                <div className="col-3 text-right">Total:</div>
+                <div className="col-3">${total.toFixed(2)}</div>
+              </div>
+            </Fragment>
+          ) : ''
+          }
           <br />
 
           <Fragment>
@@ -185,8 +178,8 @@ class Order extends Component {
                 </div>
               </div>
             ) : (
-              ''
-            )}
+                ''
+              )}
           </Fragment>
         </div>
       </div>

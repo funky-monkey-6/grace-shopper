@@ -40,9 +40,11 @@ export const fetchOrder = userId => {
     return axios
       .get(`/api/users/${userId}/cart`)
       .then(response => {
-        if (response.data) {
-          dispatch(setOrder(response.data));
-          dispatch(setOrderItems(response.data.orderitems));
+        const order = response.data;
+        if (order) {
+          dispatch(setOrder(order));
+          dispatch(setOrderItems(order.orderitems));
+          Cookies.set('cart', JSON.stringify(order));
         } else {
           dispatch(setOrder({}));
           dispatch(setOrderItems({}));

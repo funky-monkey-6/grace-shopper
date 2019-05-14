@@ -60,6 +60,7 @@ router.post('/:userId/cart/addItem', (req, res, next) => {
             status: 'cart',
             type: 'pickup',
             shipping: 0,
+            date: new Date(),
           });
         }
 
@@ -82,6 +83,11 @@ router.post('/:userId/cart/addItem', (req, res, next) => {
             },
           ],
         });
+
+        const getOrderItems = await OrderItem.findAll({ where: { orderId: cart.id } });
+
+        console.log(getOrderItems.map(item => item.getDataValue('price')));
+
         res.send(cart);
       } catch (err) {
         throw new Error(err);

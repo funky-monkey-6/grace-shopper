@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { fetchOrder } from './order';
 
 //ACTION TYPES
 
@@ -35,7 +36,7 @@ export const deleteOrderItemThunk = (userId, orderId, orderItemId) => {
     return axios
       .delete(`/api/users/${userId}/orders/${orderId}/orderItem/${orderItemId}`)
       .then(() => {
-        return dispatch(fetchOrderItems(orderId));
+        return dispatch(fetchOrder(userId));
       })
       .catch(err => {
         throw new Error(err);

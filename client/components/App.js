@@ -15,7 +15,7 @@ import OrderDetails from './OrderDetails';
 import Checkout from './Checkout';
 import AdminProducts from './AdminProducts';
 import AdminCategories from './AdminCategories';
-import { setSessionThunk, getCurrentUser } from '../store';
+import { setSessionThunk, getCurrentUser, fetchOrder } from '../store';
 
 class App extends Component {
   componentDidMount() {
@@ -37,6 +37,7 @@ class App extends Component {
       console.log('getting current user...');
       // set current user on state
       getCurrentUser();
+      fetchOrder(currentUserId);
     }
   }
 
@@ -83,6 +84,7 @@ const mapDispatchToProps = dispatch => {
   return {
     setSessionThunk: session => dispatch(setSessionThunk(session)),
     getCurrentUser: () => dispatch(getCurrentUser()),
+    fetchOrder: userId => dispatch(fetchOrder(userId)),
   };
 };
 
