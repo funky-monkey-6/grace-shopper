@@ -38,7 +38,7 @@ const updateVariantProdId = (variants, prods) => {
 // map product variant price to order item
 const updateOrderItemPrice = (orderItems, variants) => {
   return orderItems.map(item => {
-    const variant = variants.find(prodVariant => prodVariant.id === item.productvariantId);
+    const variant = variants.find(prodVariant => prodVariant.id === item.productVariantId);
     const price = variant.price;
     return item.update({ price });
   });
