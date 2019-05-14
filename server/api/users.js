@@ -42,7 +42,7 @@ router.post('/:userId/cart/addItem', (req, res, next) => {
   return Order.findOne({
     where: {
       userId: req.params.userId,
-      status: 'cart'
+      status: 'cart',
     },
     include: [
       {
@@ -51,7 +51,7 @@ router.post('/:userId/cart/addItem', (req, res, next) => {
       },
     ],
   })
-    .then(async (cart) => {
+    .then(async cart => {
       try {
         // if cart does not exist, create cart
         if (!cart) {
@@ -74,22 +74,21 @@ router.post('/:userId/cart/addItem', (req, res, next) => {
         });
 
         // get cart with orderItems
-        cart = await Order.findByPk(cart.id,
-          {
-            include: [{
+        cart = await Order.findByPk(cart.id, {
+          include: [
+            {
               model: OrderItem,
               include: [{ model: ProductVariant }],
-            }],
-          }
-        );
+            },
+          ],
+        });
         res.send(cart);
       } catch (err) {
         throw new Error(err);
       }
     })
-    .catch(next)
+    .catch(next);
 });
-
 
 // router.post('/:userId/cart/addItem', (req, res, next) => {
 //   console.log('req.body:', req.body);
@@ -151,11 +150,7 @@ router.post('/:userId/cart/addItem', (req, res, next) => {
 //       // console.log('cart w items: ', cart.get())
 //       // calculate subtotal & total
 
-
 //       // update order info
-
-
-
 
 //       // } catch (err) {
 //       //   throw new Error(err);
@@ -169,7 +164,6 @@ router.post('/:userId/cart/addItem', (req, res, next) => {
 //     })
 //     .then(order => res.send(order))
 //     .catch(next)
-
 
 //   // return (
 //   //   Order.findOrCreate({
@@ -209,7 +203,6 @@ router.post('/:userId/cart/addItem', (req, res, next) => {
 //   //   //   return _orderWithIncl;
 //   //   // })
 
-
 //   //   //.then(orderWithIncl => {
 
 //   //   //res.send(orderWithIncl)
@@ -224,7 +217,6 @@ router.post('/:userId/cart/addItem', (req, res, next) => {
 //   //   // .then(cart => res.send(cart))
 //   //   .catch(next)
 // });
-
 
 // get all orders for specific user
 router.get('/:userId/orders', (req, res, next) => {

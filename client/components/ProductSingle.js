@@ -47,13 +47,12 @@ class ProductSingle extends React.Component {
     // };
 
     // fetchOrCreateOrderAddItemThunk(userId, orderItem)
-    // returns cart including new orderItem 
+    // returns cart including new orderItem
     // or  cart with just new orderItem
     // now have order w/ orderItems
-    // updateOrderThunk - 
+    // updateOrderThunk -
     // use orderItems from other thunk
-    // (logic done in thunk) looks at all order items, calculates subtotal & total 
-
+    // (logic done in thunk) looks at all order items, calculates subtotal & total
 
     // Order component - pull info from state
 
@@ -62,11 +61,10 @@ class ProductSingle extends React.Component {
 
     // let newOrder = {};
     const { fetchOrCreateOrderAddItemThunk } = this.props;
-    console.log('addOrderItem: userId, orderItem', userId, orderItem)
+    console.log('addOrderItem: userId, orderItem', userId, orderItem);
     // try {
     if (true) {
-      fetchOrCreateOrderAddItemThunk(userId, orderItem)
-        .catch(err => console.log(err));
+      fetchOrCreateOrderAddItemThunk(userId, orderItem).catch(err => console.log(err));
     }
     // if (!isCart(order)) {
     //   const newOrderObj = {
@@ -188,12 +186,12 @@ class ProductSingle extends React.Component {
             {user.id ? (
               <ReviewForm />
             ) : (
-                <Link to="/login">
-                  <button type="submit" className="btn btn-secondary">
-                    Login to add review:
+              <Link to="/login">
+                <button type="submit" className="btn btn-secondary">
+                  Login to add review:
                 </button>
-                </Link>
-              )}
+              </Link>
+            )}
           </div>
           <div className="review-list">
             <h1>
@@ -248,7 +246,8 @@ const mapDispatchToProps = dispatch => {
     addOrderThunk: (userId, order) => dispatch(addOrderThunk(userId, order)),
     addOrderItemThunk: (userId, orderId, orderItem) =>
       dispatch(addOrderItemThunk(userId, orderId, orderItem)),
-    fetchOrCreateOrderAddItemThunk: (userId, orderItem) => dispatch(fetchOrCreateOrderAddItemThunk(userId, orderItem)),
+    fetchOrCreateOrderAddItemThunk: (userId, orderItem) =>
+      dispatch(fetchOrCreateOrderAddItemThunk(userId, orderItem)),
     fetchProductReviews: id => dispatch(fetchProductReviews(id)),
     fetchProduct: id => dispatch(fetchProduct(id)),
     fetchUsers: () => dispatch(fetchUsers()),

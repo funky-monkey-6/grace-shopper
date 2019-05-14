@@ -41,8 +41,7 @@ class Order extends Component {
     fetchProducts();
 
     if (isLoggedIn(user)) {
-      fetchOrder(user.id)
-        .then(() => fetchOrderItems(order.id));
+      fetchOrder(user.id).then(() => fetchOrderItems(order.id));
     } else {
       const localCart = Cookies.get('cart');
       console.log(JSON.parse(localCart));
@@ -124,14 +123,14 @@ class Order extends Component {
                   );
                 })
               ) : (
-                  <tr>
-                    <td>Your bag is empty.</td>
-                    <td />
-                    <td />
-                    <td />
-                    <td />
-                  </tr>
-                )}
+                <tr>
+                  <td>Your bag is empty.</td>
+                  <td />
+                  <td />
+                  <td />
+                  <td />
+                </tr>
+              )}
             </tbody>
           </table>
 
@@ -186,8 +185,8 @@ class Order extends Component {
                 </div>
               </div>
             ) : (
-                ''
-              )}
+              ''
+            )}
           </Fragment>
         </div>
       </div>
