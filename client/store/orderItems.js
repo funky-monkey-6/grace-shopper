@@ -76,6 +76,17 @@ export const addOrderItemThunk = (userId, orderId, orderItem) => {
   };
 };
 
+export const updateOrderItemQuantity = orderItem => {
+  return dispatch => {
+    return axios
+      .put(`/api/orderitems/${orderItem.id}`, orderItem)
+      .then(() => dispatch(fetchOrderItems(orderItem.orderId)))
+      .catch(err => {
+        throw new Error(err);
+      });
+  };
+};
+
 //REDUCER
 
 export const orderItems = (state = [], action) => {

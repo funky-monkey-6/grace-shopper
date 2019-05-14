@@ -17,9 +17,6 @@ const MenuItem = props => {
           ? `$${variantPrices[0].toFixed(2)}`
           : `$${Math.min(...variantPrices).toFixed(2)}+ (multiple sizes)`}
       </p>
-      <button type="submit" className="btn btn-secondary">
-        Add to Cart
-      </button>
     </div>
   );
 };

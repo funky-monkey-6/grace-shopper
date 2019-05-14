@@ -3,7 +3,7 @@ module.exports = [
     firstName: 'Doug',
     lastName: 'Funny',
     email: 'dougf@gmail.com',
-    userType: 'customer',
+    userType: 'admin',
     password: '1234',
   },
   {

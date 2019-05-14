@@ -86,14 +86,14 @@ class Order extends Component {
                   );
                 })
               ) : (
-                <tr>
-                  <td>Your bag is empty.</td>
-                  <td />
-                  <td />
-                  <td />
-                  <td />
-                </tr>
-              )}
+                  <tr>
+                    <td>Your bag is empty.</td>
+                    <td />
+                    <td />
+                    <td />
+                    <td />
+                  </tr>
+                )}
             </tbody>
           </table>
 
@@ -138,8 +138,8 @@ class Order extends Component {
               </div>
             </Fragment>
           ) : (
-            ''
-          )}
+              ''
+            )}
           <br />
 
           <Fragment>
@@ -147,13 +147,15 @@ class Order extends Component {
               <div className="row justify-content-end">
                 <div className="col-3">
                   <Link to="/checkout">
-                    <button type="submit">Start Checkout </button>
+                    <button type="submit" className="btn btn-secondary">
+                      Start Checkout{' '}
+                    </button>
                   </Link>
                 </div>
               </div>
             ) : (
-              ''
-            )}
+                ''
+              )}
           </Fragment>
         </div>
       </div>
