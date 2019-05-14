@@ -48,8 +48,8 @@ const OrderDetails = props => {
           {orderItems.map(orderItem => (
             <tr key={orderItem.id}>
               <td>
-                <Link to={`/menu/product/${orderItem.productvariant.productId}`}>
-                  {orderItem.productvariant.productName}
+                <Link to={`/menu/product/${orderItem.productVariant.productId}`}>
+                  {orderItem.productVariant.productName}
                 </Link>
               </td>
               <td>${orderItem.price}</td>

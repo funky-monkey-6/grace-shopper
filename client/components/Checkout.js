@@ -185,13 +185,13 @@ class Checkout extends Component {
                 <tbody>
                   {order.orderitems.length
                     ? order.orderitems.map(orderitem => (
-                        <tr key={orderitem.id}>
-                          <td>{orderitem.productvariant.productName}</td>
-                          <td>${orderitem.price.toFixed(2)}</td>
-                          <td>{orderitem.quantity}</td>
-                          <td>${(orderitem.price * orderitem.quantity).toFixed(2)}</td>
-                        </tr>
-                      ))
+                      <tr key={orderitem.id}>
+                        <td>{orderitem.productVariant.productName}</td>
+                        <td>${orderitem.price.toFixed(2)}</td>
+                        <td>{orderitem.quantity}</td>
+                        <td>${(orderitem.price * orderitem.quantity).toFixed(2)}</td>
+                      </tr>
+                    ))
                     : ''}
                 </tbody>
               </table>
@@ -392,8 +392,8 @@ class Checkout extends Component {
                     </label>
                   </div>
                 ) : (
-                  ''
-                )}
+                    ''
+                  )}
 
                 <button className="btn btn-primary" type="submit" onClick={handleSubmit}>
                   Checkout
@@ -402,12 +402,12 @@ class Checkout extends Component {
             </div>
           </Fragment>
         ) : (
-          <p>Your order has been submitted!</p>
-        )}
+            <p>Your order has been submitted!</p>
+          )}
       </div>
     ) : (
-      <div />
-    );
+        <div />
+      );
   }
 }
 

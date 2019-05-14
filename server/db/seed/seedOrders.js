@@ -32,17 +32,17 @@ const seedOrderItems = [
   {
     quantity: 2,
     orderId: 1,
-    productvariantId: 2,
+    productVariantId: 2,
   },
   {
     quantity: 1,
     orderId: 1,
-    productvariantId: 3,
+    productVariantId: 3,
   },
   {
     quantity: 3,
     orderId: 2,
-    productvariantId: 1,
+    productVariantId: 1,
   },
 ];
 
