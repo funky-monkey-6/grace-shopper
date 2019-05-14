@@ -52,17 +52,16 @@ export const deleteOrderItemThunk = (userId, order, orderItem) => {
       order.total = order.shipping + order.subtotal;
       Cookies.set('cart', order);
       return dispatch(setCookieCartToState(order));
-    } else {
-      // loggedin cart
-      return axios
-        .delete(`/api/users/${userId}/orders/${order.id}/orderItem/${orderItem.id}`)
-        .then(() => {
-          return dispatch(fetchOrder(userId));
-        })
-        .catch(err => {
-          throw new Error(err);
-        });
     }
+    // loggedin cart
+    return axios
+      .delete(`/api/users/${userId}/orders/${order.id}/orderItem/${orderItem.id}`)
+      .then(() => {
+        return dispatch(fetchOrder(userId));
+      })
+      .catch(err => {
+        throw new Error(err);
+      });
   };
 };
 

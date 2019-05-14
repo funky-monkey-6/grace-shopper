@@ -107,6 +107,13 @@ export const addOrderThunk = (userId, order) => {
   };
 };
 
+export const setCookieCartToState = order => {
+  return dispatch => {
+    dispatch(setOrder(order));
+    dispatch(setOrderItems(order.orderitems));
+  };
+};
+
 // TODO change to using dispatch(setOrder()), but not working now
 export const updateOrderThunk = (order, isCookieCart) => {
   return dispatch => {
@@ -114,7 +121,7 @@ export const updateOrderThunk = (order, isCookieCart) => {
     if (!isCookieCart) {
       order.shipping = order.type === 'pickup' ? 0 : 5;
       order.total = order.shipping + order.subtotal;
-      dispatch(setCookieCartToState(order));
+      return dispatch(setCookieCartToState(order));
     } else {
       // loggedin cart
       return axios
@@ -126,13 +133,6 @@ export const updateOrderThunk = (order, isCookieCart) => {
           throw new Error(err);
         });
     }
-  };
-};
-
-export const setCookieCartToState = order => {
-  return dispatch => {
-    dispatch(setOrder(order));
-    dispatch(setOrderItems(order.orderitems));
   };
 };
 
