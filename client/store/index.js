@@ -58,7 +58,6 @@ export {
   setSessionThunk,
   fetchProductVariants,
   updateOrderItemQuantity,
-  fetchOrders,
   deleteProduct,
   addCategory,
   updateProduct,
