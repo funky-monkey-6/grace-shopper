@@ -49,9 +49,9 @@ class ReviewForm extends React.Component {
     const { addReview, onStarClick, handleChange } = this;
     return (
       <div>
-        <h1>
-          <i>Add Review</i>
-        </h1>
+        <h2>
+          <i className="review-header">Add Review</i>
+        </h2>
         <StarRatingComponent
           name="rating"
           starCount={5}
@@ -67,11 +67,27 @@ class ReviewForm extends React.Component {
           <br />
           <label htmlFor="title">Review Title:</label>
           <br />
-          <input type="text" name="title" value={title} onChange={handleChange} />
+          <div className="md-form">
+            <input
+              className="form-control menu-search-bar"
+              type="text"
+              name="title"
+              value={title}
+              onChange={handleChange}
+            />
+          </div>
           <br />
           <label htmlFor="comment">Comments:</label>
           <br />
-          <textarea type="text" name="comment" value={comment} onChange={handleChange} />
+          <div>
+            <textarea
+              className="form-control menu-search-bar"
+              type="text"
+              name="comment"
+              value={comment}
+              onChange={handleChange}
+            />
+          </div>
           <br />
           <button type="submit" className="btn btn-secondary">
             Submit Review:

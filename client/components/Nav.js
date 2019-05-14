@@ -58,8 +58,8 @@ class Nav extends Component {
                 </NavLink>
               </Fragment>
             ) : (
-              ''
-            )}
+                ''
+              )}
             {/* end isLoggedIn */}
 
             {buttonStatus}
@@ -71,7 +71,7 @@ class Nav extends Component {
 
         {/* TODO isAdmin(user) then display: */}
         {isAdmin(user) ? (
-          <nav className="navbar navbar-expand-lg navbar-light bg-light">
+          <nav className="navbar navbar-expand-lg nav-lovin-today">
             <div className="nav-admin">
               <span className="nav-item">Admin:</span>
               <NavLink to="/admin/products" className="nav-item" activeClassName="active">
@@ -89,8 +89,8 @@ class Nav extends Component {
             </div>
           </nav>
         ) : (
-          ''
-        )}
+            ''
+          )}
       </Fragment>
     );
   }

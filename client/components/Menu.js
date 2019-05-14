@@ -113,13 +113,16 @@ class Menu extends React.Component {
             <label htmlFor="searchItems">
               <h4>Search Products:</h4>
             </label>
-            <div className="btn-container">
-              <input
-                type="search"
-                name="searchItems"
-                value={searchTerm}
-                onChange={this.enterSearch}
-              />
+            <div className="menu-search">
+              <div className="md-form">
+                <input
+                  className="form-control menu-search-bar"
+                  type="search"
+                  name="searchItems"
+                  value={searchTerm}
+                  onChange={this.enterSearch}
+                />
+              </div>
               <button type="submit" className="btn btn-secondary">
                 <img src="search.png" alt="searchicon" className="search-icon" />
               </button>
@@ -143,12 +146,14 @@ class Menu extends React.Component {
                 </div>
               );
             })}
-            <button type="submit" className="btn btn-secondary">
-              Apply Filter
-            </button>
-            <button type="reset" onClick={this.clearFilter} className="btn btn-secondary">
-              Clear Filter
-            </button>
+            <div className="filter-buttons">
+              <button type="submit" className="btn btn-secondary filter-buttons">
+                Apply Filter
+              </button>
+              <button type="reset" onClick={this.clearFilter} className="btn btn-secondary ">
+                Clear Filter
+              </button>
+            </div>
           </form>
         </div>
         <div className="menu-list">

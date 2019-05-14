@@ -7,7 +7,7 @@ class Home extends React.Component {
     return (
       <div className="home">
         <div className="most-popular">
-          <p>Welcome!</p>
+          <p className="welcome">Welcome!</p>
           <MostPopular className="most-popular-container" />
         </div>
       </div>

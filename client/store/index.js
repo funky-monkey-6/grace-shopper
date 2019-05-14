@@ -17,6 +17,7 @@ import {
 } from './orderItems';
 import { fetchProductReviews, reviews, addProductReview } from './reviews';
 import { fetchProductVariants, productVariants } from './productVariants';
+import { fetchOrders, orders } from './orders';
 
 //THUNK CREATORS
 
@@ -43,6 +44,7 @@ export {
   addProductReview,
   fetchProductVariants,
   updateOrderItemQuantity,
+  fetchOrders,
 };
 
 const reducer = combineReducers({
@@ -55,6 +57,7 @@ const reducer = combineReducers({
   orderItems,
   reviews,
   productVariants,
+  orders,
 });
 
 export const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunkMiddleware)));
