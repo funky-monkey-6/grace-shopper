@@ -16,7 +16,7 @@ import {
   order,
 } from './order';
 import { orders, fetchUserOrders } from './orders';
-import { fetchOrderItems, deleteOrderItemThunk, addOrderItemThunk, orderItems } from './orderItems';
+import { fetchOrderItems, deleteOrderItemThunk, addOrderItemThunk, updateOrderItemQuantity, orderItems } from './orderItems';
 import { fetchProductReviews, reviews, addProductReview } from './reviews';
 import { setSessionThunk, session } from './session';
 import { fetchProductVariants, productVariants } from './productVariants';
