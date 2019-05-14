@@ -54,7 +54,6 @@ class AdminOrders extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   const { orders, users } = state;
   return {
     orders,

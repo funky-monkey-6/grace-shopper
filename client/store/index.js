@@ -2,11 +2,11 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import { checkUser, logOut, addUser, user, updateUser } from './user';
+import { checkUser, logOut, addUser, user, updateUser, getCurrentUser } from './user';
 import { fetchUsers, users } from './users';
 import { fetchProducts, searchProducts, filterProducts, products } from './products';
-import { fetchProduct, deleteProduct, product } from './product';
-import { fetchCategories, filterCategories, categories } from './categories';
+import { fetchProduct, deleteProduct, product, updateProduct } from './product';
+import { fetchCategories, filterCategories, addCategory, categories } from './categories';
 import { fetchOrder, addOrderThunk, updateOrderThunk, order } from './order';
 import {
   fetchOrderItems,
@@ -15,9 +15,10 @@ import {
   orderItems,
   updateOrderItemQuantity,
 } from './orderItems';
+import { orders, fetchUserOrders, fetchOrders } from './orders';
 import { fetchProductReviews, reviews, addProductReview } from './reviews';
+import { setSessionThunk, session } from './session';
 import { fetchProductVariants, productVariants } from './productVariants';
-import { fetchOrders, orders } from './orders';
 
 //THUNK CREATORS
 
@@ -25,26 +26,31 @@ export {
   checkUser,
   logOut,
   addUser,
+  getCurrentUser,
   updateUser,
   fetchUsers,
   fetchProducts,
   searchProducts,
   filterProducts,
   fetchProduct,
-  deleteProduct,
   fetchCategories,
   filterCategories,
   fetchOrder,
   addOrderThunk,
   updateOrderThunk,
   fetchOrderItems,
+  fetchUserOrders,
   deleteOrderItemThunk,
   addOrderItemThunk,
   fetchProductReviews,
   addProductReview,
+  setSessionThunk,
   fetchProductVariants,
   updateOrderItemQuantity,
   fetchOrders,
+  deleteProduct,
+  addCategory,
+  updateProduct,
 };
 
 const reducer = combineReducers({
@@ -54,10 +60,11 @@ const reducer = combineReducers({
   product,
   categories,
   order,
+  orders,
   orderItems,
   reviews,
+  session,
   productVariants,
-  orders,
 });
 
 export const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunkMiddleware)));

@@ -266,4 +266,9 @@
     text-shadow: 2px 2px black;
   }
 
+  .address-order-form {
+    height: 30px;
+    width: 50%;
+  }
+
   

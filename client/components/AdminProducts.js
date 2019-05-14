@@ -31,6 +31,15 @@ class AdminDash extends Component {
     fetchProducts();
   };
 
+  // filter products by search term
+  applySearch = evt => {
+    evt.preventDefault();
+    const { searchTerm } = this.state;
+    // eslint-disable-next-line no-shadow
+    const { searchProducts } = this.props;
+    searchProducts(searchTerm);
+  };
+
   deleteButton = productId => {
     // eslint-disable-next-line no-shadow
     const { fetchProducts } = this.props;

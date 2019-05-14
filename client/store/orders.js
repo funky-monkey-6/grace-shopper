@@ -22,6 +22,15 @@ export const fetchOrders = () => {
   };
 };
 
+export const fetchUserOrders = userId => {
+  return dispatch => {
+    return axios
+      .get(`api/users/${userId}/orders/`)
+      .then(res => res.data)
+      .then(orders => dispatch(setOrders(orders)));
+  };
+};
+
 //REDUCER
 
 export const orders = (state = [], action) => {
