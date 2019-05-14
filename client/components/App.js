@@ -14,6 +14,9 @@ import Orders from './Orders';
 import OrderDetails from './OrderDetails';
 import Checkout from './Checkout';
 import AdminProducts from './AdminProducts';
+import About from './About';
+import AdminOrders from './AdminOrders';
+import OrderForm from './OrderForm';
 import AdminCategories from './AdminCategories';
 import { setSessionThunk, getCurrentUser } from '../store';
 
@@ -37,8 +40,13 @@ class App extends Component {
     return (
       <Router>
         <header id="main-header">
-          <div id="site-name" className="flex-container">
-            Lovin Today
+          <div className="header-bar">
+            <Link to="/">
+              <img src="logo.png" alt="logo" className="logo-img" />
+            </Link>
+            <div id="site-name" className="flex-container">
+              Lovin Today
+            </div>
           </div>
           <Route render={location => <Nav location={location} />} />
         </header>
@@ -53,12 +61,15 @@ class App extends Component {
             <Route path="/checkout" component={Checkout} />
             <Route path="/admin/products" component={AdminProducts} />
             <Route path="/admin/categories" component={AdminCategories} />
-            {/* <Route path="/admin/users" component={AdminUsers} /> */}
-            {/* TODO new paths added, not done with */}
-            {/* put user.id (?), category.id, product.id in url */}
+            <Route path="/about" component={About} />
+            <Route exact path="/admin/orders" component={AdminOrders} />
+            <Route path="/admin/orders/edit/:orderId" component={OrderForm} />
             <Route path="/user/orders/:orderId" component={OrderDetails} />
             <Route exact path="/user/orders" component={Orders} />
-
+            {/* <Route path="/admin/categories" component={AdminCategories} />
+            <Route path="/admin/users" component={AdminUsers} /> */}
+            {/* TODO new paths added, not done with */}
+            {/* put user.id (?), category.id, product.id in url */}
             {/*<Route path="/user/account" component={Account} />
             <Route path="/admin/orders" component={Orders} />
             <Route path="/admin/product" component={Product} />

@@ -7,6 +7,10 @@ const seedOrders = [
     status: 'cart',
     date: Date.now(),
     userId: 1,
+    shippingAddress: '52 Minetta Lane',
+    shippingCity: 'New York',
+    shippingState: 'NY',
+    shippingZip: '10012',
   },
   {
     type: 'pickup',

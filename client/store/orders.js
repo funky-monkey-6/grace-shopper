@@ -6,12 +6,21 @@ const SET_ORDERS = 'SET_ORDERS';
 
 //ACTION CREATORS
 
-const setOrders = orders => ({
+export const setOrders = orders => ({
   type: SET_ORDERS,
   orders,
 });
 
 //THUNK CREATORS
+
+export const fetchOrders = () => {
+  return dispatch => {
+    return axios
+      .get('/api/orders')
+      .then(res => res.data)
+      .then(orders => dispatch(setOrders(orders)));
+  };
+};
 
 export const fetchUserOrders = userId => {
   return dispatch => {

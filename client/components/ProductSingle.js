@@ -103,8 +103,8 @@ class ProductSingle extends React.Component {
     };
 
     return (
-      <div>
-        <div className="product-single-container">
+      <div className="product-single-body">
+        <div>
           <div className="product-single flex-container">
             <div className="product-single-img-container">
               <img
@@ -154,23 +154,13 @@ class ProductSingle extends React.Component {
               </div>
             </div>
           </div>
+          <hr className="divider" />
         </div>
         <div className="reviews">
-          <div className="review-form">
-            {user.id ? (
-              <ReviewForm />
-            ) : (
-              <Link to="/login">
-                <button type="submit" className="btn btn-secondary">
-                  Login to add review:
-                </button>
-              </Link>
-            )}
-          </div>
           <div className="review-list">
-            <h1>
-              <i>Reviews</i>
-            </h1>
+            <h2>
+              <i className="review-header">Reviews</i>
+            </h2>
             {reviews.map(review => {
               const { id, rating, comment, userId } = review;
               const user = users.filter(u => u.id === userId)[0];
@@ -197,6 +187,17 @@ class ProductSingle extends React.Component {
                 </div>
               );
             })}
+          </div>
+          <div className="review-form">
+            {user.id ? (
+              <ReviewForm />
+            ) : (
+                <Link to="/login">
+                  <button type="submit" className="btn btn-secondary">
+                    Login to add review:
+                </button>
+                </Link>
+              )}
           </div>
         </div>
       </div>

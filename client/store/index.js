@@ -8,8 +8,14 @@ import { fetchProducts, searchProducts, filterProducts, products } from './produ
 import { fetchProduct, deleteProduct, product, updateProduct } from './product';
 import { fetchCategories, filterCategories, addCategory, categories } from './categories';
 import { fetchOrder, addOrderThunk, updateOrderThunk, order } from './order';
-import { orders, fetchUserOrders } from './orders';
-import { fetchOrderItems, deleteOrderItemThunk, addOrderItemThunk, orderItems } from './orderItems';
+import {
+  fetchOrderItems,
+  deleteOrderItemThunk,
+  addOrderItemThunk,
+  orderItems,
+  updateOrderItemQuantity,
+} from './orderItems';
+import { orders, fetchUserOrders, fetchOrders } from './orders';
 import { fetchProductReviews, reviews, addProductReview } from './reviews';
 import { setSessionThunk, session } from './session';
 import { fetchProductVariants, productVariants } from './productVariants';
@@ -40,6 +46,8 @@ export {
   addProductReview,
   setSessionThunk,
   fetchProductVariants,
+  updateOrderItemQuantity,
+  fetchOrders,
   deleteProduct,
   addCategory,
   updateProduct,
