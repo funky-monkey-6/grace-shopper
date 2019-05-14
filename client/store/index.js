@@ -23,7 +23,6 @@ import {
 } from './orderItems';
 import { orders, fetchUserOrders, fetchOrders } from './orders';
 import { fetchProductReviews, reviews, addProductReview } from './reviews';
-<<<<<<< HEAD
 import {
   fetchProductVariants,
   productVariants,
@@ -31,10 +30,6 @@ import {
   updateSingleVariant,
   productVariant,
 } from './productVariants';
-=======
-import { setSessionThunk, session } from './session';
-import { fetchProductVariants, productVariants } from './productVariants';
->>>>>>> e0396b5f957345c54804cf30c1c47272356b98e8
 
 //THUNK CREATORS
 

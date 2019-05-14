@@ -18,39 +18,6 @@ import About from './About';
 import AdminOrders from './AdminOrders';
 import OrderForm from './OrderForm';
 import AdminCategories from './AdminCategories';
-<<<<<<< HEAD
-import AdminSingleProductEdit from './AdminSingleProductEdit';
-
-const App = () => {
-  return (
-    <Router>
-      <header id="main-header">
-        <div className="header-bar">
-          <Link to="/">
-            <img src="logo.png" alt="logo" className="logo-img" />
-          </Link>
-          <div id="site-name" className="flex-container">
-            Lovin Today
-          </div>
-        </div>
-        <Route render={location => <Nav location={location} />} />
-      </header>
-      <section id="content" className="container-fluid">
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/menu" component={Menu} />
-          <Route path="/menu/product/:productId" component={ProductSingle} />
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={Signup} />
-          <Route path="/bag" component={Order} />
-          <Route path="/checkout" component={Checkout} />
-          <Route path="/admin/products" component={AdminProducts} />
-          <Route path="/admin/categories" component={AdminCategories} />
-          <Route path="/admin/productEdit/:productId" component={AdminSingleProductEdit} />
-          {/* <Route path="/admin/users" component={AdminUsers} /> */}
-          {/* TODO new paths added, not done with */}
-          {/* put user.id (?), category.id, product.id in url */}
-=======
 import { setSessionThunk, getCurrentUser } from '../store';
 
 class App extends Component {
@@ -68,7 +35,6 @@ class App extends Component {
       getCurrentUser();
     }
   }
->>>>>>> e0396b5f957345c54804cf30c1c47272356b98e8
 
   render() {
     return (
