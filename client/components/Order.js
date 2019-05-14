@@ -1,58 +1,30 @@
-import React, { Component } from 'react';
+/* eslint-disable prettier/prettier */
+/* eslint-disable indent */
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-import { fetchOrder, fetchOrderItems, updateOrderThunk } from '../store';
+import {
+  fetchOrder as fetchOrderThunk,
+  fetchOrderItems as fetchOrderItemsThunk,
+  updateOrderThunk,
+  fetchProducts,
+} from '../store';
 import OrderItem from './OrderItem';
+import { isLoggedIn, isCart } from './helperFunctions';
 
 class Order extends Component {
-  // constructor(props) {
-  //   super(props);
-  // this.state = {
-  // 	type: '',
-  // 	subtotal: 0,
-  // 	shipping: 0,
-  // 	total: 0,
-  // 	status: '',
-  // 	date: '',
-  // 	orderItems: [],
-  // 	userId: null,
-  // }
-  // }
-
-  // componentDidUpdate(prevProps) {
-  // 	if (prevProps !== this.props) {
-
-  // 	}
-  // }
-
   componentDidMount() {
-    // const { fetchOrder, fetchOrderItems, user, order } = this.props;
-    // TODO grab current logged in user - this.props.user.id
-    this.props
-      .fetchOrder(1)
-      .then(() => {
-        if (this.props.order) {
-          this.props.fetchOrderItems(this.props.order.id);
-        }
-      })
-      .catch(err => console.log(err));
-  }
+    const { order, fetchOrder, fetchOrderItems, user } = this.props;
+    if (isLoggedIn(user)) {
+      fetchOrder(user.id);
+    }
 
-  // setLocalState = () => {
-  // 	const { type, subtotal, shipping, total, status, date } = this.props.order;
-  // 	const { orderItems, user, order } = this.props;
-  // 	this.setState({
-  // 		type: order ? type : 'pickup',
-  // 		subtotal: order ? subtotal : 0,
-  // 		shipping: order ? shipping : 0,
-  // 		total: order ? total : 0,
-  // 		status: order ? status : '',
-  // 		date: order ? date : '',
-  // 		orderItems: orderItems ? orderItems : [],
-  // 		userId: user ? user.id : null,
-  // 	}
-  // 		, () => console.log('state from setLocalState: ', this.state))
-  // };
+    fetchProducts();
+    if (isCart(order)) {
+      fetchOrderItems(order.id);
+    }
+  }
 
   onChange = ev => {
     this.props.updateOrderThunk({
@@ -64,84 +36,113 @@ class Order extends Component {
   render() {
     const { onChange } = this;
     const { orderItems, order, user, history } = this.props;
-    console.log('order: ', order);
-    console.log('orderItems: ', orderItems);
 
     // TODO save values in db for subtotal, shipping, total
-    let subtotal = 0;
+    order.subtotal = 0;
     if (orderItems) {
-      subtotal = orderItems.reduce((total, item) => total + item.price * item.quantity, 0);
+      order.subtotal = orderItems.reduce((total, item) => total + item.price * item.quantity, 0);
     }
-    const shipping = order.type === 'delivery' ? 5 : 0;
+    order.shipping = order.type === 'delivery' ? 5 : 0;
+    order.total = order.subtotal + order.shipping;
 
-    const total = subtotal + shipping;
+    const { subtotal, shipping, total, type } = order;
 
     return (
       <div>
-        <h2>Bag</h2>
-        <table className="table table-striped table-condensed">
-          <thead>
-            <tr>
-              <th>Product</th>
-              <th>Price</th>
-              <th>Quantity</th>
-              <th>Item Subtotal</th>
-              <th>Remove</th>
-            </tr>
-          </thead>
-          <tbody>
-            {orderItems.map(orderItem => {
-              return (
-                <OrderItem
-                  key={orderItem.id}
-                  userId={user.id}
-                  orderId={order.id}
-                  orderItem={orderItem}
-                  history={history}
-                />
-              );
-            })}
-            <tr>
-              <td />
-              <td />
-              <td>
-                {/* TODO drop down - [delivery, pickup] */}
-                Order Type:
-                <br />
-                Subtotal:
-                <br />
-                Shipping:
-                <br />
-                Total:
-              </td>
-              <td>
-                <select
-                  name="type"
-                  value={order.type}
-                  selected="pickup"
-                  onChange={onChange}
-                  className="form-control"
-                >
-                  <option key={1} value="pickup">
-                    Pickup
-                  </option>
-                  <option key={2} value="delivery">
-                    Delivery
-                  </option>
-                </select>
-                {order.type}
-                <br />
-                {subtotal}
-                <br />
-                {shipping}
-                <br />
-                {total}
-              </td>
-              <td />
-            </tr>
-          </tbody>
-        </table>
-        <button type="submit">Start Checkout</button>
+        <div>
+          <h2>Bag</h2>
+          <table className="table table-striped table-condensed">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Item Subtotal</th>
+                <th>Remove</th>
+              </tr>
+            </thead>
+            <tbody>
+              {isCart(order) && isLoggedIn(user) ? (
+                orderItems.map(orderItem => {
+                  return (
+                    <OrderItem
+                      key={orderItem.id}
+                      userId={user.id}
+                      orderId={order.id}
+                      orderItem={orderItem}
+                      history={history}
+                    />
+                  );
+                })
+              ) : (
+                  <tr>
+                    <td>Your bag is empty.</td>
+                    <td />
+                    <td />
+                    <td />
+                    <td />
+                  </tr>
+                )}
+            </tbody>
+          </table>
+
+          <br />
+
+          <div className="row justify-content-end">
+            <div className="col-3 text-right">
+              <span className="align-bottom">Order Type:</span>
+            </div>
+            <div className="col-3">
+              <select
+                name="type"
+                value={type}
+                selected="pickup"
+                onChange={onChange}
+                className="form-control"
+              >
+                <option key={1} value="pickup">
+                  Pickup
+                </option>
+                <option key={2} value="delivery">
+                  Delivery
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div className="row justify-content-end">
+            <div className="col-3 text-right">Subtotal:</div>
+            <div className="col-3">${subtotal.toFixed(2)}</div>
+          </div>
+
+          <div className="row justify-content-end">
+            <div className="col-3 text-right">Shipping:</div>
+            <div className="col-3">${shipping.toFixed(2)}</div>
+          </div>
+
+          <div className="row justify-content-end">
+            <div className="col-3 text-right">Total:</div>
+            <div className="col-3">${total.toFixed(2)}</div>
+          </div>
+
+          <br />
+
+          <Fragment>
+            {orderItems.length ? (
+              <div className="row justify-content-end">
+                <div className="col-3">
+                  <Link to="/checkout">
+                    <button type="submit" className="btn btn-secondary">
+                      Start Checkout{' '}
+                    </button>
+                  </Link>
+                </div>
+              </div>
+            ) : (
+                ''
+              )}
+          </Fragment>
+        </div>
       </div>
     );
   }
@@ -158,9 +159,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchOrder: userId => dispatch(fetchOrder(userId)),
-    fetchOrderItems: orderId => dispatch(fetchOrderItems(orderId)),
+    fetchOrder: userId => dispatch(fetchOrderThunk(userId)),
+    fetchOrderItems: orderId => dispatch(fetchOrderItemsThunk(orderId)),
     updateOrderThunk: order => dispatch(updateOrderThunk(order)),
+    fetchProducts: () => dispatch(fetchProducts()),
   };
 };
 

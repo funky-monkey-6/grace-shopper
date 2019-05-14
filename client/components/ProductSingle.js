@@ -1,103 +1,218 @@
+/* eslint-disable react/no-unused-state */
+/* eslint-disable prettier/prettier */
+/* eslint-disable indent */
 /* eslint-disable react/destructuring-assignment */
-import React from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+/* eslint-disable no-shadow */
 
-import { addOrderThunk, addOrderItemThunk } from '../store';
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import StarRatingComponent from 'react-star-rating-component';
+import {
+  fetchProductReviews,
+  addProductReview,
+  fetchProduct,
+  addOrderThunk,
+  addOrderItemThunk,
+  fetchUsers,
+} from '../store/index';
+import { isCart } from './helperFunctions';
+import ReviewForm from './ReviewForm';
 
 class ProductSingle extends React.Component {
   constructor() {
     super();
     this.state = {
-      product: {},
-      reviews: [],
+      quantity: 0,
+      variantId: 0,
     };
   }
 
-  componentDidMount() {
-    // TODO: what's a more efficient way of doing this (that linter likes)?
-    const { match } = this.props;
-    const { params } = match;
-    const { productId } = params;
-
-    axios
-      .get(`api/products/${productId}`)
-      .then(res => res.data)
-      .then(product => this.setState({ product }));
-
-    axios
-      .get(`api/reviews/${productId}`)
-      .then(res => res.data)
-      .then(reviews => this.setState({ reviews }));
-  }
-
-  // if adding item
-  // check state.order.status = cart
-  // if not, addOrderThunk()
-  // addOrderItemThunk()
+  componentDidMount = () => {
+    const { productId } = this.props.match.params;
+    const { fetchProduct, fetchProductReviews, fetchUsers } = this.props;
+    fetchProductReviews(productId);
+    fetchProduct(productId);
+    fetchUsers();
+  };
 
   addOrderItem = async (userId, order, orderItem) => {
-    // const { addOrderThunk, addOrderItemThunk } = this.props;
-    userId = 1; // simulates logged-in user
     let newOrder = {};
     try {
-      if (Object.keys(order).length === 0) {
-        console.log('status is cart');
-        // this.props.addOrderThunk(userId, order);
-        const newOrderData = await axios.post(`/api/users/${userId}/orders`, order);
+      if (!isCart(order)) {
+        const newOrderObj = {
+          type: 'pickup',
+          status: 'cart',
+          subtotal: orderItem.price * orderItem.quantity,
+          shipping: 0,
+          total: orderItem.price * orderItem.quantity,
+        };
+        const newOrderData = await axios.post(`/api/users/${userId}/orders`, newOrderObj);
         newOrder = newOrderData.data;
-        console.log('newOrder: ', newOrder);
       }
-      console.log('adding orderItem');
-      const currOrder = newOrder ? newOrder : this.props.order;
+
+      const currOrder = !isCart(order) ? newOrder : this.props.order;
+      console.log({ currOrder });
       await this.props.addOrderItemThunk(userId, currOrder.id, orderItem);
     } catch (err) {
       console.log(err);
     }
   };
 
+  // update comment/title on state as user enters review
+  handleChange = ({ target }) => {
+    this.setState({
+      [target.name]: target.value,
+    });
+  };
+
   render() {
-    const { product, reviews } = this.state;
-    const { user, order } = this.props;
-    const { addOrderItem } = this;
+    const { user, order, product, reviews, users } = this.props;
+    const { quantity } = this.state;
+    const { addOrderItem, handleChange } = this;
+
+    if (!product.id) return null;
+
+    const variants = product.productvariants;
+
+    let price = 0;
+    let inventory = 0;
+    let productvariantId = 0;
+    if (variants.length === 1 || this.state.variantId === 0) {
+      price = variants[0].price;
+      inventory = variants[0].inventory;
+      productvariantId = variants[0].id;
+    } else {
+      const selectedVariant = variants.find(variant => variant.id === Number(this.state.variantId));
+      price = selectedVariant.price;
+      inventory = selectedVariant.inventory;
+      productvariantId = selectedVariant.id;
+    }
+
+    const inventoryArr = [];
+    for (let i = 0; i <= Math.min(inventory, 10); i++) {
+      inventoryArr.push(i);
+    }
+
     const orderItem = {
-      quantity: 1,
-      price: product.price,
+      quantity: Number(quantity),
+      price,
       orderId: order.id,
-      productId: product.id,
+      productvariantId,
     };
 
     return (
-      <div>
-        <h1>
-          <i>Placeholder for image</i>
-        </h1>
-        <ul>
-          <li>{product.title}</li>
-          <li>{product.description}</li>
-          <li>{product.price}</li>
-        </ul>
-        {/* userId, order, orderItem */}
-        <button type="submit" onClick={() => addOrderItem(user.id, order, orderItem)}>
-          Add to Cart
-        </button>
-        <Link to="/menu">
-          <button type="submit">Return to Main Menu</button>
-        </Link>
-        {reviews.map(review => {
-          return <div key={review.id}>{review.comments}</div>;
-        })}
+      <div className="product-single-body">
+        <div>
+          <div className="product-single flex-container">
+            <div className="product-single-img-container">
+              <img
+                src={`/product-images/${product.images}`}
+                className="product-single-img"
+                alt="menu-default"
+              />
+            </div>
+            <div className="product-single-details">
+              <div className="product-single-info">
+                <h1>{product.title}</h1>
+                <p>{product.description}</p>
+              </div>
+              <div className="product-single-pricing">
+                <form>
+                  {variants.length > 1 ? (
+                    <select name="variantId" onChange={handleChange}>
+                      {variants.map(variant => {
+                        return (
+                          <option key={variant.id} value={variant.id}>
+                            {variant.variationName}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  ) : null}
+                  <select name="quantity" onChange={handleChange}>
+                    {inventoryArr.map(q => {
+                      return (
+                        <option key={q} value={q}>
+                          {q}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </form>
+                <p>Price: {price.toFixed(2)}</p>
+                <p>Total: {(price * this.state.quantity).toFixed(2)}</p>
+                {/* userId, order, orderItem */}
+                <button
+                  type="submit"
+                  onClick={() => addOrderItem(user.id, order, orderItem)}
+                  className="btn btn-secondary"
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+          <hr className="divider" />
+        </div>
+        <div className="reviews">
+          <div className="review-list">
+            <h2>
+              <i className="review-header">Reviews</i>
+            </h2>
+            {reviews.map(review => {
+              const { id, rating, comment, userId } = review;
+              const user = users.filter(u => u.id === userId)[0];
+              return (
+                <div className="review-card" key={id}>
+                  <h5>
+                    <i>{review.title}</i>
+                  </h5>
+                  <p>
+                    <i>{user ? `${user.firstName} ${user.lastName}` : 'Anonymous'}</i>
+                  </p>
+                  <StarRatingComponent
+                    name="rating"
+                    editing={false}
+                    starCount={5}
+                    value={rating}
+                    renderStarIcon={() => (
+                      <span>
+                        <h4>★</h4>
+                      </span>
+                    )}
+                  />
+                  <p>{comment}</p>
+                </div>
+              );
+            })}
+          </div>
+          <div className="review-form">
+            {user.id ? (
+              <ReviewForm />
+            ) : (
+                <Link to="/login">
+                  <button type="submit" className="btn btn-secondary">
+                    Login to add review:
+                </button>
+                </Link>
+              )}
+          </div>
+        </div>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => {
-  const { user, order } = state;
+  const { user, order, product, reviews, users } = state;
   return {
     order,
     user,
+    product,
+    reviews,
+    users,
   };
 };
 
@@ -106,6 +221,10 @@ const mapDispatchToProps = dispatch => {
     addOrderThunk: (userId, order) => dispatch(addOrderThunk(userId, order)),
     addOrderItemThunk: (userId, orderId, orderItem) =>
       dispatch(addOrderItemThunk(userId, orderId, orderItem)),
+    fetchProductReviews: id => dispatch(fetchProductReviews(id)),
+    fetchProduct: id => dispatch(fetchProduct(id)),
+    fetchUsers: () => dispatch(fetchUsers()),
+    addProductReview: review => dispatch(addProductReview(review)),
   };
 };
 

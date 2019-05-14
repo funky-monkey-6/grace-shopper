@@ -3,19 +3,21 @@
 import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { fetchProducts } from '../store';
+import { fetchProducts, fetchProductVariants } from '../store';
+import MenuItem from './MenuItem';
 
 const mapStateToProps = state => {
-  const { products } = state;
+  const { products, productVariants } = state;
   return {
     products,
+    productVariants,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     fetchProducts: () => dispatch(fetchProducts()),
+    fetchProductVariants: () => dispatch(fetchProductVariants()),
   };
 };
 
@@ -24,33 +26,36 @@ class MostPopular extends React.Component {
     super();
     this.state = {
       orderItems: [],
-      mostPopular: [],
     };
   }
 
   componentDidMount() {
-    fetchProducts();
+    this.props.fetchProducts();
+    this.props.fetchProductVariants();
     // TODO change to thunk
     axios
       .get('api/orderItems')
       .then(res => res.data)
-      .then(orderItems => this.setState({ orderItems }))
-      .then(() => this.setState({ mostPopular: this.filterPopular(this.state.orderItems) }));
+      .then(orderItems => this.setState({ orderItems }));
   }
 
   filterPopular = orderItems => {
     const mostPopular = [];
-    const { products } = this.props;
+    const { products, productVariants } = this.props;
+    console.log(orderItems);
 
     // logic to get productIds with highest quantity ordered, from all orderItems:
     orderItems.reduce((sumsByItem, orderItem) => {
-      if (!sumsByItem[orderItem.productId]) {
+      if (!sumsByItem[orderItem.productvariantId]) {
         // eslint-disable-next-line no-param-reassign
-        sumsByItem[orderItem.productId] = { productId: orderItem.productId, quantity: 0 };
-        mostPopular.push(sumsByItem[orderItem.productId]);
+        sumsByItem[orderItem.productvariantId] = {
+          productvariantId: orderItem.productvariantId,
+          quantity: 0,
+        };
+        mostPopular.push(sumsByItem[orderItem.productvariantId]);
       }
       // eslint-disable-next-line no-param-reassign
-      sumsByItem[orderItem.productId].quantity += orderItem.quantity;
+      sumsByItem[orderItem.productvariantId].quantity += orderItem.quantity;
       return sumsByItem;
     }, {});
 
@@ -59,40 +64,38 @@ class MostPopular extends React.Component {
     //adjust the second slice index to change how many productIds are returned:
     const numProductsDisplayed = 4;
 
-    const mostPopularProdIds = mostPopular
+    const mostPopularVariantIds = mostPopular
       .slice(0, numProductsDisplayed)
       .reduce((accum, curVal) => {
-        accum.push(curVal.productId);
+        accum.push(curVal.productvariantId);
         return accum;
       }, []);
 
-    const mostPopularProds = products.filter(product => mostPopularProdIds.includes(product.id));
+    const mostPopularVariants = productVariants.filter(variant =>
+      mostPopularVariantIds.includes(variant.id),
+    );
 
-    return mostPopularProds;
+    const mostPopularProductIds = mostPopularVariants.map(variant => variant.product.id);
+    const mostPopularProducts = mostPopularProductIds.map(productId => {
+      return products.find(prod => prod.id === productId);
+    });
+
+    return mostPopularProducts;
   };
 
   render() {
-    const { mostPopular } = this.state;
-
+    const { orderItems } = this.state;
+    const { filterPopular } = this;
     return (
       <div>
-        <h4>Popular menu items</h4>
-        <div className="menu-list">
-          {mostPopular.map(prod => {
-            const { id, title, description, price } = prod;
-            return (
-              <div key={id} className="menu-item">
-                <ul>
-                  <li>Placeholder for image</li>
-                  <Link to={`/menu/${id}`}>
-                    <li>{title}</li>
-                  </Link>
-                  <li>{description}</li>
-                  <li>{price}</li>
-                </ul>
-              </div>
-            );
-          })}
+        <br />
+        <div className="popular-items">
+          <h4>Popular menu items</h4>
+          <div className="popular-menu-list">
+            {filterPopular(orderItems).map(prod => {
+              return <MenuItem product={prod} key={prod.id} />;
+            })}
+          </div>
         </div>
       </div>
     );

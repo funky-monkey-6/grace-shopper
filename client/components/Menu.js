@@ -1,9 +1,16 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-shadow */
 /* eslint-disable react/button-has-type */
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchProducts, fetchCategories, searchProducts, filterProducts } from '../store';
+import {
+  fetchProducts,
+  fetchCategories,
+  searchProducts,
+  filterCategories,
+  filterProducts,
+} from '../store';
+import MenuItem from './MenuItem';
 
 const mapStateToProps = state => {
   const { products, categories } = state;
@@ -18,6 +25,7 @@ const mapDispatchToProps = dispatch => {
     fetchProducts: () => dispatch(fetchProducts()),
     fetchCategories: () => dispatch(fetchCategories()),
     searchProducts: searchTerm => dispatch(searchProducts(searchTerm)),
+    filterCategories: categoryIds => dispatch(filterCategories(categoryIds)),
     filterProducts: categoryIds => dispatch(filterProducts(categoryIds)),
   };
 };
@@ -27,7 +35,7 @@ class Menu extends React.Component {
     super();
     this.state = {
       searchTerm: '',
-      filterCategories: [],
+      filterCategoryIds: [],
     };
   }
 
@@ -58,33 +66,42 @@ class Menu extends React.Component {
     searchProducts(searchTerm);
   };
 
-  // update filterCategories - array containing select categoryIds
+  // TODO: filter on categoryId not productId so that menu organization is maintained
+  // update filterCategoryIds - array containing select categoryIds
   selectFilter = ({ target }) => {
-    let { filterCategories } = this.state;
-    if (filterCategories.includes(Number(target.value))) {
-      filterCategories = filterCategories.filter(cat => cat !== Number(target.value));
+    let { filterCategoryIds } = this.state;
+    if (filterCategoryIds.includes(Number(target.value))) {
+      filterCategoryIds = filterCategoryIds.filter(cat => cat !== Number(target.value));
     } else {
-      filterCategories.push(Number(target.value));
+      filterCategoryIds.push(Number(target.value));
     }
-    this.setState({ filterCategories });
+    this.setState({ filterCategoryIds });
   };
 
   // filter products by selected category
   applyFilter = evt => {
     evt.preventDefault();
-    const { filterCategories } = this.state;
-    const { filterProducts } = this.props;
-    filterProducts(filterCategories);
+    const { filterCategoryIds } = this.state;
+    const { filterProducts, fetchProducts } = this.props;
+    if (filterCategoryIds.length === 0) {
+      fetchProducts();
+    } else {
+      filterProducts(filterCategoryIds);
+    }
   };
 
-  // TODO: fix the filter logic to undo filtering correctly
+  // clear filter
   clearFilter = evt => {
     evt.preventDefault();
     const { fetchProducts } = this.props;
-    this.setState({ filterCategories: [] });
+    document.querySelectorAll('input[type=checkbox]').forEach(el => {
+      el.checked = false;
+    });
+    this.setState({ filterCategoryIds: [] });
     fetchProducts();
   };
 
+  // TODO: add category headers to menu
   render() {
     const { searchTerm } = this.state;
     const { categories, products } = this.props;
@@ -96,52 +113,52 @@ class Menu extends React.Component {
             <label htmlFor="searchItems">
               <h4>Search Products:</h4>
             </label>
-            <input
-              type="search"
-              name="searchItems"
-              value={searchTerm}
-              onChange={this.enterSearch}
-            />
-            <button type="submit">Search</button>
-            <button type="submit" onClick={this.clearSearch}>
-              Clear Search
-            </button>
+            <div className="menu-search">
+              <div className="md-form">
+                <input
+                  className="form-control menu-search-bar"
+                  type="search"
+                  name="searchItems"
+                  value={searchTerm}
+                  onChange={this.enterSearch}
+                />
+              </div>
+              <button type="submit" className="btn btn-secondary">
+                <img src="search.png" alt="searchicon" className="search-icon" />
+              </button>
+              <button type="submit" onClick={this.clearSearch} className="btn btn-secondary">
+                Clear
+              </button>
+            </div>
           </form>
           <h4>Filter by Category:</h4>
           <form onSubmit={this.applyFilter}>
             {categories.map(cat => {
               return (
-                <div key={cat.id}>
-                  <label htmlFor="filterCategories">{cat.name}</label>
+                <div key={cat.id} className="filter-cat">
+                  <label htmlFor="filterCategoryIds">{cat.name}</label>
                   <input
                     type="checkbox"
-                    name="filterCategories"
+                    name="filterCategoryIds"
                     value={cat.id}
                     onChange={this.selectFilter}
                   />
                 </div>
               );
             })}
-            <button type="submit">Apply Filter</button>
-            <button type="reset" onClick={this.clearFilter}>
-              Clear Filter
-            </button>
+            <div className="filter-buttons">
+              <button type="submit" className="btn btn-secondary filter-buttons">
+                Apply Filter
+              </button>
+              <button type="reset" onClick={this.clearFilter} className="btn btn-secondary ">
+                Clear Filter
+              </button>
+            </div>
           </form>
         </div>
         <div className="menu-list">
           {products.map(prod => {
-            return (
-              <div key={prod.id} className="menu-item">
-                <ul>
-                  <li>Placeholder for image</li>
-                  <Link to={`/menu/${prod.id}`}>
-                    <li>{prod.title}</li>
-                  </Link>
-                  <li>{prod.description}</li>
-                  <li>{prod.price}</li>
-                </ul>
-              </div>
-            );
+            return <MenuItem product={prod} key={prod.id} />;
           })}
         </div>
       </div>
