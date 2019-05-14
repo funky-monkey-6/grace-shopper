@@ -143,7 +143,7 @@ class Order extends Component {
           <br />
 
           <Fragment>
-            {isOrderitems ? (
+            {isOrderitems && this.props.user.id ? (
               <div className="row justify-content-end">
                 <div className="col-3">
                   <Link to="/checkout">
@@ -154,7 +154,15 @@ class Order extends Component {
                 </div>
               </div>
             ) : (
-              ''
+              <div className="row justify-content-end">
+                <div className="col-3">
+                  <Link to="/login">
+                    <button type="submit" className="btn btn-secondary">
+                      Login to complete checkout{' '}
+                    </button>
+                  </Link>
+                </div>
+              </div>
             )}
           </Fragment>
         </div>
