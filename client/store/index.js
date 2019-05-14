@@ -11,7 +11,7 @@ import {
   fetchOrder,
   addOrderThunk,
   updateOrderThunk,
-  setLocalCartToStateThunk,
+  setCookieCartToState,
   fetchOrCreateOrderAddItemThunk,
   order,
 } from './order';
@@ -44,7 +44,7 @@ export {
   fetchUserOrders,
   deleteOrderItemThunk,
   addOrderItemThunk,
-  setLocalCartToStateThunk,
+  setCookieCartToState,
   fetchProductReviews,
   addProductReview,
   setSessionThunk,

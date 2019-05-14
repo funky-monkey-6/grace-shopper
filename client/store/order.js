@@ -44,7 +44,7 @@ export const fetchOrder = userId => {
         if (order) {
           dispatch(setOrder(order));
           dispatch(setOrderItems(order.orderitems));
-          Cookies.set('cart', JSON.stringify(order));
+          Cookies.set('cart', order);
         } else {
           dispatch(setOrder({}));
           dispatch(setOrderItems({}));
@@ -71,7 +71,7 @@ export const fetchOrCreateOrderAddItemThunk = (userId, orderItem) => {
         order.total = order.subtotal + order.shipping;
         console.log('order after calc ', order);
 
-        Cookies.set('cart', JSON.stringify(order));
+        Cookies.set('cart', order);
         dispatch(setOrder(order));
         dispatch(setOrderItems(order.orderitems));
 
@@ -120,9 +120,10 @@ export const updateOrderThunk = order => {
   };
 };
 
-export const setLocalCartToStateThunk = order => {
+export const setCookieCartToState = order => {
   return dispatch => {
-    return dispatch(setOrder(order));
+    dispatch(setOrder(order));
+    dispatch(setOrderItems(order.orderItems));
   };
 };
 

@@ -11,29 +11,12 @@ import {
   updateOrderThunk,
   fetchProducts,
   setLocalCartToStateThunk,
-  // setLocalCartItemsToStateThunk,
+  setCookieCartToState,
 } from '../store';
 import OrderItem from './OrderItem';
 import { isLoggedIn, isCart } from './helperFunctions';
 
 class Order extends Component {
-  // componentDidMount() {
-  //   const { order, fetchOrder, fetchOrderItems, user } = this.props;
-  //   console.log('isLoggedIn: ', isLoggedIn(user));
-  //   if (isLoggedIn(user)) {
-  //     fetchOrder(user.id);
-  //   }
-
-  //   fetchProducts();
-  //   // if (isCart(order)) {
-  //   //   fetchOrderItems(order.id);
-  //   // }
-  // }
-  // componentDidUpdate(prevProps) {
-  //   if (prevProps.orderItems !== this.props.orderItems) {
-  //     this.props.fetchOrderItems(this.props.order.id)
-  //   }
-  // }
 
   componentDidMount() {
     const { fetchOrder, setLocalCartToState } = this.props;
@@ -43,28 +26,14 @@ class Order extends Component {
     if (cookieUserId) {
       fetchOrder(cookieUserId);
     } else {
-      const localCart = Cookies.get('cart');
-      console.log(JSON.parse(localCart));
-      if (localCart !== null) {
-        console.log({ localCart });
+      // const localCart = Cookies.get('cart');
+      // console.log(JSON.parse(localCart));
+      // if (localCart !== null) {
+      //   console.log({ localCart });
 
-        // setLocalCartToStateThunk(localCart);
-      }
+      // setLocalCartToState(localCart);
     }
   }
-  // else {
-  //   const localCart = JSON.parse(localStorage.getItem('cart'));
-  //   console.log(localCart);
-  //   if (localCart !== null) {
-  //     console.log(JSON.parse(localCart));
-  //     // const localCartItems = JSON.parse(localStorage.getItem('cartItems'));
-
-  //     setLocalCartToStateThunk(localCart);
-  //     // setLocalCartItemsToStateThunk(localCartItems);
-  //   }
-
-  //   console.log(localStorage);
-  // }
 
   onChange = ev => {
     this.props.updateOrderThunk({
@@ -203,7 +172,6 @@ const mapDispatchToProps = dispatch => {
     updateOrderThunk: order => dispatch(updateOrderThunk(order)),
     fetchProducts: () => dispatch(fetchProducts()),
     setLocalCartToState: order => dispatch(setLocalCartToStateThunk(order)),
-    // setLocalCartItemsToState: orderItems => dispatch(setLocalCartItemsToStateThunk(orderItems)),
   };
 };
 

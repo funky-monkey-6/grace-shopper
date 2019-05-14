@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import StarRatingComponent from 'react-star-rating-component';
+import Cookies from 'js-cookie';
 import {
   fetchProductReviews,
   addProductReview,
@@ -17,7 +18,8 @@ import {
   addOrderItemThunk,
   fetchOrCreateOrderAddItemThunk,
   fetchUsers,
-} from '../store/index';
+  setCookieCartToState,
+} from '../store';
 import { isCart } from './helperFunctions';
 import ReviewForm from './ReviewForm';
 
@@ -38,17 +40,17 @@ class ProductSingle extends React.Component {
     fetchUsers();
   };
 
-  addOrderItem = async (userId, orderItem) => {
-    // const orderItem = {
+  addOrderItem = async (userId, newOrderItem) => {
+    // const newOrderItem = {
     //   quantity: Number(quantity),
     //   price,
     // orderId: order.id,
     //   productVariantId,
     // };
 
-    // fetchOrCreateOrderAddItemThunk(userId, orderItem)
-    // returns cart including new orderItem
-    // or  cart with just new orderItem
+    // fetchOrCreateOrderAddItemThunk(userId, newOrderItem)
+    // returns cart including new newOrderItem
+    // or  cart with just new newOrderItem
     // now have order w/ orderItems
     // updateOrderThunk -
     // use orderItems from other thunk
@@ -57,14 +59,59 @@ class ProductSingle extends React.Component {
     // Order component - pull info from state
 
     // OrderItem component (Justine)
-    // when change qty - update orderItem, then updateOrderThunk
+    // when change qty - update newOrderItem, then updateOrderThunk
 
     // let newOrder = {};
-    const { fetchOrCreateOrderAddItemThunk } = this.props;
-    console.log('addOrderItem: userId, orderItem', userId, orderItem);
+    const { fetchOrCreateOrderAddItemThunk, setCookieCartToState } = this.props;
+    console.log('addOrderItem: newOrderItem', newOrderItem);
     // try {
-    if (true) {
-      fetchOrCreateOrderAddItemThunk(userId, orderItem).catch(err => console.log(err));
+    if (false) {  // loggedIn = true
+      fetchOrCreateOrderAddItemThunk(userId, newOrderItem).catch(err => console.log(err));
+    } else {
+      // check state.order
+      // get cookie, check if !empty
+      // if cookie empty, create new order
+      // add newOrderItem to order
+      // guest cart - cookie source or truth (guest db)
+      let order = Cookies.getJSON('cart');
+      // order = JSON.parse(order);
+      console.log('get cookie order: ', order)
+      if (!order) {
+        // create order
+        order = {
+          type: 'pickup',
+          shipping: 0,
+          status: 'cart',
+          date: new Date(),
+          orderItems: [],
+        };
+      }
+
+      console.log('order after create cart: ', order)
+
+      // add newOrderItem to order
+      order.orderItems.push(newOrderItem);
+
+      // TODO if same item, combine into one orderItem
+      // order.orderItems.reduce((acc, item) => {
+      //   if (newOrderItem.productVariantId === item.productVariantId) {
+      //     item.quantity += newOrderItem.quantity;
+      //     acc.push(item);
+      //   } else {
+      //     acc.push(newOrderItem);
+      //   }
+      //   return acc;
+      // }, []);
+
+      order.subtotal = order.orderItems.reduce((total, item) =>
+        total + Number(item.quantity) * item.price, 0
+      );
+      order.total = order.subtotal + order.shipping;
+
+      Cookies.set('cart', order);
+      // set cart to state
+      setCookieCartToState(order);
+
     }
     // if (!isCart(order)) {
     //   const newOrderObj = {
@@ -186,12 +233,12 @@ class ProductSingle extends React.Component {
             {user.id ? (
               <ReviewForm />
             ) : (
-              <Link to="/login">
-                <button type="submit" className="btn btn-secondary">
-                  Login to add review:
+                <Link to="/login">
+                  <button type="submit" className="btn btn-secondary">
+                    Login to add review:
                 </button>
-              </Link>
-            )}
+                </Link>
+              )}
           </div>
           <div className="review-list">
             <h1>
@@ -252,6 +299,7 @@ const mapDispatchToProps = dispatch => {
     fetchProduct: id => dispatch(fetchProduct(id)),
     fetchUsers: () => dispatch(fetchUsers()),
     addProductReview: review => dispatch(addProductReview(review)),
+    setCookieCartToState: order => dispatch(setCookieCartToState(order)),
   };
 };
 
