@@ -76,14 +76,21 @@ export const addOrderItemThunk = (userId, orderId, orderItem) => {
   };
 };
 
-export const updateOrderItemQuantity = orderItem => {
+export const updateOrderItemQuantity = (orderItem, order, isCookieCart) => {
   return dispatch => {
-    return axios
-      .put(`/api/orderitems/${orderItem.id}`, orderItem)
-      .then(() => dispatch(fetchOrderItems(orderItem.orderId)))
-      .catch(err => {
-        throw new Error(err);
-      });
+    // guest cart
+    if (isCookieCart) {  // isCookieCart
+      const changedOrder = order.orderitems.find(item => item.productVariantId === orderItem.productVariantId && item.quantity === orderItem.quantity);
+      console.log({ changedOrder })
+
+    } else {
+      return axios
+        .put(`/api/orderitems/${orderItem.id}`, orderItem)
+        .then(() => dispatch(fetchOrderItems(orderItem.orderId)))
+        .catch(err => {
+          throw new Error(err);
+        });
+    }
   };
 };
 

@@ -120,7 +120,7 @@ export const setCookieCartToState = order => {
 export const updateOrderThunk = (order, isCookieCart) => {
   return dispatch => {
     // guest cart
-    if (!isCookieCart) {
+    if (isCookieCart) {
       order.shipping = order.type === 'pickup' ? 0 : 5;
       order.total = order.shipping + order.subtotal;
       return dispatch(setCookieCartToState(order));

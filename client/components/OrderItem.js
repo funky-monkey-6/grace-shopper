@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Cookies from 'js-cookie';
 
 import { deleteOrderItemThunk, fetchProductVariants, updateOrderItemQuantity } from '../store';
 
@@ -18,12 +19,14 @@ class OrderItem extends Component {
   }
 
   handleQuantityChange = ({ target }) => {
-    const { orderItem } = this.props;
+    const { orderItem, order } = this.props;
+    const currentUserId = Cookies.get('cui');
     this.setState({
       quantity: Number(target.value),
     });
     orderItem.quantity = this.state.quantity;
-    this.props.updateOrderItemQuantity(orderItem);
+    const isCookieCart = currentUserId === null ? true : false;
+    this.props.updateOrderItemQuantity(orderItem, order, isCookieCart);
   };
 
   render() {

@@ -40,7 +40,7 @@ class Order extends Component {
         ...this.props.order,
         type: ev.target.value,
       },
-      currentUserId ? false : true,
+      currentUserId ? true : false,
     ); // isCookieCart
   };
 
