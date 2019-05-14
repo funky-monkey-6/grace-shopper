@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
+// TODO how to fix this ???
 /* eslint-disable import/no-cycle */
-
 import { setOrderItems } from './orderItems';
 
 //ACTION TYPES
