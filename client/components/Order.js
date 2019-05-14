@@ -10,7 +10,6 @@ import {
   fetchOrderItems as fetchOrderItemsThunk,
   updateOrderThunk,
   fetchProducts,
-  setLocalCartToStateThunk,
   setCookieCartToState,
 } from '../store';
 import OrderItem from './OrderItem';
@@ -19,19 +18,20 @@ import { isLoggedIn, isCart } from './helperFunctions';
 class Order extends Component {
 
   componentDidMount() {
-    const { fetchOrder, setLocalCartToState } = this.props;
+    const { fetchOrder, setCookieCartToState } = this.props;
     fetchProducts();
     const cookieUserId = Cookies.get('cui');
 
-    if (cookieUserId) {
+    if (false) {
       fetchOrder(cookieUserId);
     } else {
-      // const localCart = Cookies.get('cart');
-      // console.log(JSON.parse(localCart));
-      // if (localCart !== null) {
-      //   console.log({ localCart });
+      const cookieCart = Cookies.getJSON('cart');
+      console.log('cookieCart: ', cookieCart);
+      if (cookieCart !== null) {
+        console.log({ inRoute: cookieCart });
 
-      // setLocalCartToState(localCart);
+        setCookieCartToState(cookieCart);
+      }
     }
   }
 
@@ -69,11 +69,13 @@ class Order extends Component {
               </tr>
             </thead>
             <tbody>
-              {isCart(order) && isLoggedIn(user) ? (
-                orderitems.map(orderItem => {
+              {/* TODO works with loggedIn ? */}
+              {/* isCart(order) && isLoggedIn(user) */}
+              {isOrderitems ? (
+                orderitems.map((orderItem, idx) => {
                   return (
                     <OrderItem
-                      key={orderItem.id}
+                      key={orderItem.id || idx}
                       userId={user.id}
                       orderId={order.id}
                       orderItem={orderItem}
@@ -171,7 +173,7 @@ const mapDispatchToProps = dispatch => {
     fetchOrderItems: orderId => dispatch(fetchOrderItemsThunk(orderId)),
     updateOrderThunk: order => dispatch(updateOrderThunk(order)),
     fetchProducts: () => dispatch(fetchProducts()),
-    setLocalCartToState: order => dispatch(setLocalCartToStateThunk(order)),
+    setCookieCartToState: order => dispatch(setCookieCartToState(order)),
   };
 };
 

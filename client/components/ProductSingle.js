@@ -51,9 +51,9 @@ class ProductSingle extends React.Component {
     // fetchOrCreateOrderAddItemThunk(userId, newOrderItem)
     // returns cart including new newOrderItem
     // or  cart with just new newOrderItem
-    // now have order w/ orderItems
+    // now have order w/ orderitems
     // updateOrderThunk -
-    // use orderItems from other thunk
+    // use orderitems from other thunk
     // (logic done in thunk) looks at all order items, calculates subtotal & total
 
     // Order component - pull info from state
@@ -63,6 +63,7 @@ class ProductSingle extends React.Component {
 
     // let newOrder = {};
     const { fetchOrCreateOrderAddItemThunk, setCookieCartToState } = this.props;
+    console.log('setCookieCartToState: ', this.props)
     console.log('addOrderItem: newOrderItem', newOrderItem);
     // try {
     if (false) {  // loggedIn = true
@@ -74,7 +75,6 @@ class ProductSingle extends React.Component {
       // add newOrderItem to order
       // guest cart - cookie source or truth (guest db)
       let order = Cookies.getJSON('cart');
-      // order = JSON.parse(order);
       console.log('get cookie order: ', order)
       if (!order) {
         // create order
@@ -83,17 +83,17 @@ class ProductSingle extends React.Component {
           shipping: 0,
           status: 'cart',
           date: new Date(),
-          orderItems: [],
+          orderitems: [],
         };
       }
 
       console.log('order after create cart: ', order)
 
       // add newOrderItem to order
-      order.orderItems.push(newOrderItem);
+      order.orderitems.push(newOrderItem);
 
       // TODO if same item, combine into one orderItem
-      // order.orderItems.reduce((acc, item) => {
+      // order.orderitems.reduce((acc, item) => {
       //   if (newOrderItem.productVariantId === item.productVariantId) {
       //     item.quantity += newOrderItem.quantity;
       //     acc.push(item);
@@ -103,34 +103,16 @@ class ProductSingle extends React.Component {
       //   return acc;
       // }, []);
 
-      order.subtotal = order.orderItems.reduce((total, item) =>
+      order.subtotal = order.orderitems.reduce((total, item) =>
         total + Number(item.quantity) * item.price, 0
       );
       order.total = order.subtotal + order.shipping;
 
       Cookies.set('cart', order);
+      console.log('order ready to add to state: ', order)
       // set cart to state
       setCookieCartToState(order);
-
     }
-    // if (!isCart(order)) {
-    //   const newOrderObj = {
-    //     type: 'pickup',
-    //     status: 'cart',
-    //     subtotal: orderItem.price * orderItem.quantity,
-    //     shipping: 0,
-    //     total: orderItem.price * orderItem.quantity,
-    //   };
-    //   const newOrderData = await axios.post(`/api/users/${userId}/orders`, newOrderObj);
-    //   newOrder = newOrderData.data;
-    // }
-
-    // const currOrder = !isCart(order) ? newOrder : this.props.order;
-    // console.log({ currOrder });
-    // await this.props.addOrderItemThunk(userId, currOrder.id, orderItem);
-    // } catch (err) {
-    //   console.log(err);
-    // }
   };
 
   // update comment/title on state as user enters review

@@ -122,8 +122,9 @@ export const updateOrderThunk = order => {
 
 export const setCookieCartToState = order => {
   return dispatch => {
+    console.log('order coming into thunk: ', order)
     dispatch(setOrder(order));
-    dispatch(setOrderItems(order.orderItems));
+    dispatch(setOrderItems(order.orderitems));
   };
 };
 
