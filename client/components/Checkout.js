@@ -8,6 +8,7 @@ import {
   updateUser,
 } from '../store';
 import { isLoggedIn } from './helperFunctions';
+import PaymentForm from './PaymentForm';
 
 class Checkout extends Component {
   constructor(props) {
@@ -419,6 +420,7 @@ class Checkout extends Component {
                 </button>
               </form>
             </div>
+            <PaymentForm />
           </Fragment>
         ) : (
           <p>Your order has been submitted!</p>

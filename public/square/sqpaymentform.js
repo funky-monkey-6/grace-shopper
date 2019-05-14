@@ -1,68 +1,33 @@
 /* eslint-disable */
 
-// Set the application ID
-var applicationId = 'REPLACE_ME';
-
-// Set the location ID
-var locationId = 'REPLACE_ME';
-
-function buildForm(form) {
-  if (SqPaymentForm.isSupportedBrowser()) {
-    form.build();
-    form.recalculateSize();
-  }
-}
-
-/*
- * function: requestCardNonce
- *
- * requestCardNonce is triggered when the "Pay with credit card" button is
- * clicked
- *
- * Modifying this function is not required, but can be customized if you
- * wish to take additional action when the form button is clicked.
- */
-function requestCardNonce(event) {
-  // Don't submit the form until SqPaymentForm returns with a nonce
-  event.preventDefault();
-
-  // Request a nonce from the SqPaymentForm object
-  paymentForm.requestCardNonce();
-}
-
 // Create and initialize a payment form object
-var paymentForm = new SqPaymentForm({
+const SquarePaymentForm = new window.SqPaymentForm({
   // Initialize the payment form elements
-  applicationId: applicationId,
-  locationId: locationId,
+  applicationId: 'sandbox-sq0idp-YfSxeUZQFH4SAOVucCDsgA',
+  locationId: 'CBASEExneP465Uh22ddavOX_1y8gAQ',
   inputClass: 'sq-input',
-  autoBuild: false,
 
   // Customize the CSS for SqPaymentForm iframe elements
   inputStyles: [
     {
-      fontSize: '16px',
-      fontFamily: 'Helvetica Neue',
-      padding: '16px',
-      color: '#373F4A',
-      backgroundColor: 'transparent',
-      lineHeight: '24px',
-      placeholderColor: '#CCC',
-      _webkitFontSmoothing: 'antialiased',
-      _mozOsxFontSmoothing: 'grayscale',
+      fontSize: '.9em',
     },
   ],
 
   // Initialize Apple Pay placeholder ID
-  applePay: false,
+  applePay: {
+    elementId: 'sq-apple-pay',
+  },
 
   // Initialize Masterpass placeholder ID
-  masterpass: false,
+  masterpass: {
+    elementId: 'sq-masterpass',
+  },
 
   // Initialize the credit card placeholders
   cardNumber: {
     elementId: 'sq-card-number',
-    placeholder: '• • • •  • • • •  • • • •  • • • •',
+    placeholder: '•••• •••• •••• ••••',
   },
   cvv: {
     elementId: 'sq-cvv',
@@ -74,53 +39,72 @@ var paymentForm = new SqPaymentForm({
   },
   postalCode: {
     elementId: 'sq-postal-code',
-    placeholder: '12345',
   },
 
   // SqPaymentForm callback functions
   callbacks: {
     /*
+     * callback function: methodsSupported
+     * Triggered when: the page is loaded.
+     */
+    methodsSupported: function(methods) {
+      var applePayBtn = document.getElementById('sq-apple-pay');
+      var applePayLabel = document.getElementById('sq-apple-pay-label');
+      var masterpassBtn = document.getElementById('sq-masterpass');
+      var masterpassLabel = document.getElementById('sq-masterpass-label');
+
+      // Only show the button if Apple Pay for Web is enabled
+      // Otherwise, display the wallet not enabled message.
+      if (methods.applePay === true) {
+        applePayBtn.style.display = 'inline-block';
+        applePayLabel.style.display = 'none';
+      }
+      // Only show the button if Masterpass is enabled
+      // Otherwise, display the wallet not enabled message.
+      if (methods.masterpass === true) {
+        masterpassBtn.style.display = 'inline-block';
+        masterpassLabel.style.display = 'none';
+      }
+    },
+
+    /*
      * callback function: createPaymentRequest
      * Triggered when: a digital wallet payment button is clicked.
-     * Replace the JSON object declaration with a function that creates
-     * a JSON object with Digital Wallet payment details
      */
     createPaymentRequest: function() {
-      return {
-        requestShippingAddress: false,
-        requestBillingInfo: true,
-        currencyCode: 'USD',
-        countryCode: 'US',
-        total: {
-          label: 'MERCHANT NAME',
-          amount: '100',
-          pending: false,
-        },
-        lineItems: [
-          {
-            label: 'Subtotal',
-            amount: '100',
-            pending: false,
-          },
-        ],
-      };
+      var paymentRequestJson;
+      /* ADD CODE TO SET/CREATE paymentRequestJson */
+      return paymentRequestJson;
+    },
+
+    /*
+     * callback function: validateShippingContact
+     * Triggered when: a shipping address is selected/changed in a digital
+     *                 wallet UI that supports address selection.
+     */
+    validateShippingContact: function(contact) {
+      var validationErrorObj;
+      /* ADD CODE TO SET validationErrorObj IF ERRORS ARE FOUND */
+      return validationErrorObj;
     },
 
     /*
      * callback function: cardNonceResponseReceived
      * Triggered when: SqPaymentForm completes a card nonce request
      */
-    cardNonceResponseReceived: function(errors, nonce, cardData) {
+    cardNonceResponseReceived: function(errors, nonce, cardData, billingContact, shippingContact) {
       if (errors) {
         // Log errors from nonce generation to the Javascript console
         console.log('Encountered errors:');
         errors.forEach(function(error) {
           console.log('  ' + error.message);
-          alert(error.message);
         });
 
         return;
       }
+
+      alert('Nonce received: ' + nonce); /* FOR TESTING ONLY */
+
       // Assign the nonce value to the hidden form field
       document.getElementById('card-nonce').value = nonce;
 
@@ -149,12 +133,10 @@ var paymentForm = new SqPaymentForm({
           /* HANDLE AS DESIRED */
           break;
         case 'errorClassAdded':
-          document.getElementById('error').innerHTML =
-            'Please fix card information errors before continuing.';
+          /* HANDLE AS DESIRED */
           break;
         case 'errorClassRemoved':
           /* HANDLE AS DESIRED */
-          document.getElementById('error').style.display = 'none';
           break;
         case 'cardBrandChanged':
           /* HANDLE AS DESIRED */
@@ -171,7 +153,8 @@ var paymentForm = new SqPaymentForm({
      */
     paymentFormLoaded: function() {
       /* HANDLE AS DESIRED */
-      console.log('The form loaded!');
     },
   },
 });
+
+export default SquarePaymentForm;
