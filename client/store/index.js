@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { setSessionThunk, session } from './session'
+import { setSessionThunk, session } from './session';
 import { checkUser, logOut, addUser, user, updateUser, getCurrentUser } from './user';
 import { fetchUsers, users } from './users';
 import { fetchProducts, searchProducts, filterProducts, products } from './products';
