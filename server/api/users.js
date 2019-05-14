@@ -24,81 +24,207 @@ router.put('/:userId', (req, res, next) => {
     .catch(next);
 });
 
-// TODO experimenting - delete before deploy
-// for logged-in user - get cart (if exists), otherwise create
-router.get('/cart', (req, res, next) => {
-  console.log('session id:', req.session.userId);
-
-  // for testing - remove
-  req.session.userId = 1;
-  return (
-    Order.findOrCreate({
-      where: {
-        userId: req.session.userId,
-        status: 'cart',
-      },
-      include: [
-        {
-          model: OrderItem,
-          include: [{ model: ProductVariant }],
-        },
-      ],
-    })
-      // .then(async ([order, created]) => {
-      //   console.log({ created });
-
-      //   // if (created) {
-      //   const newItem = await OrderItem.create({ where: { orderId: order.id } });
-      //   order.orderItems = newItem;
-      //   // res.send(order)
-      //   // }
-      //   // console.log(order.orderItems)
-      //   return order;
-      //   // return order.findAll({
-      //   //   where: {
-      //   //     orderId: order.id
-      //   //   },
-      //   //   include: [{
-      //   //     model: OrderItem,
-      //   //   }]
-      //   // })
-      // })
-      // .then(async order => {
-      //   const _order = await Order.findByPk(order.id);
-      //   const _orderWithIncl = await OrderItem.findAll({ where: { orderId: order.id } });
-      //   return _orderWithIncl;
-      // })
-      .then(order => res.send(order))
-
-      //.then(orderWithIncl => {
-
-      //res.send(orderWithIncl)
-      //})
-
-      // Order.findOne({
-      //   where: {
-      //     userId: req.params.userId,
-      //     status: 'cart',
-      //   },
-      // })
-      // .then(cart => res.send(cart))
-      .catch(next)
-  );
-});
-
 // get cart for specific user (if exists)
 router.get('/:userId/cart', (req, res, next) => {
-  Order.findOrCreateCart(Number(req.params.userId))
-    // Order.findOne({
-    //   where: {
-    //     userId: req.params.userId,
-    //     status: 'cart',
-    //   },
-    //   include: [{ model: OrderItem, include: [{ model: ProductVariant }] }],
-    // })
+  Order.findOne({
+    where: {
+      userId: req.params.userId,
+      status: 'cart',
+    },
+    include: [{ model: OrderItem, include: [{ model: ProductVariant }] }],
+  })
     .then(cart => res.send(cart))
     .catch(next);
 });
+
+// for logged-in user - get cart (if exists), otherwise create
+router.post('/:userId/cart/addItem', (req, res, next) => {
+  return Order.findOne({
+    where: {
+      userId: req.params.userId,
+      status: 'cart'
+    },
+    include: [
+      {
+        model: OrderItem,
+        include: [{ model: ProductVariant }],
+      },
+    ],
+  })
+    .then(async (cart) => {
+      try {
+        // if cart does not exist, create cart
+        if (!cart) {
+          cart = await Order.create({
+            userId: req.params.userId,
+            status: 'cart',
+            type: 'pickup',
+            shipping: 0,
+          });
+        }
+
+        const { quantity, price, productVariantId } = req.body;
+
+        // create new orderItem
+        await OrderItem.create({
+          orderId: cart.id,
+          quantity,
+          price,
+          productVariantId,
+        });
+
+        // get cart with orderItems
+        cart = await Order.findByPk(cart.id,
+          {
+            include: [{
+              model: OrderItem,
+              include: [{ model: ProductVariant }],
+            }],
+          }
+        );
+        res.send(cart);
+      } catch (err) {
+        throw new Error(err);
+      }
+    })
+    .catch(next)
+});
+
+
+// router.post('/:userId/cart/addItem', (req, res, next) => {
+//   console.log('req.body:', req.body);
+
+//   return Order.findOrCreate({
+//     where: {
+//       userId: req.params.userId,
+//       status: 'cart'
+//     },
+//     include: [
+//       {
+//         model: OrderItem,
+//         include: [{ model: ProductVariant }],
+//       },
+//     ],
+//   })
+//     .then(([cart, created]) => {
+//       console.log({ created });
+//       // try {
+//       // cart does not exist, create cart
+//       // if (!cart) {
+//       //   cart = await this.create({
+//       //     userId,
+//       //   });
+//       // }
+
+//       // const orderItem = {
+//       //   quantity: Number(quantity),
+//       //   price,
+//       // orderId: order.id,
+//       //   productVariantId,
+//       // };
+
+//       const { quantity, price, productVariantId } = req.body;
+
+//       // create new orderItem
+//       OrderItem.create({
+//         orderId: cart.id,
+//         quantity,
+//         price,
+//         productVariantId,
+//       });
+//       return cart;
+//     })
+//     .then(cart => {
+//       // get cart with orderItems
+//       // cart = await Order.findByPk(cart.id,
+//       // return Order.findByPk(cart.id,
+//       //   {
+//       //     include: [{
+//       //       model: OrderItem,
+//       //       include: [{ model: ProductVariant }],
+//       //     }],
+//       //   }
+//       // );
+//       console.log('cart.id', cart.id)
+//       return OrderItem.findAll({ where: { orderId: cart.id } });
+
+//       // console.log('cart w items: ', cart.get())
+//       // calculate subtotal & total
+
+
+//       // update order info
+
+
+
+
+//       // } catch (err) {
+//       //   throw new Error(err);
+//       // }
+//     })
+//     .then((cart) => {
+//       // console.log('cart: ', cart.get({ plain: true }))
+//       // console.log('cart2: ', cart)
+//       // console.log('cart data: ', cart.toJSON())
+//       return cart;
+//     })
+//     .then(order => res.send(order))
+//     .catch(next)
+
+
+//   // return (
+//   //   Order.findOrCreate({
+//   //     where: {
+//   //       userId: req.session.userId,
+//   //       status: 'cart',
+//   //     },
+//   //     include: [
+//   //       {
+//   //         model: OrderItem,
+//   //         include: [{ model: ProductVariant }],
+//   //       },
+//   //     ],
+//   //   })
+//   //     .then(async ([order, created]) => {
+//   //       console.log({ created });
+
+//   //   //   // if (created) {
+//   //   //   const newItem = await OrderItem.create({ where: { orderId: order.id } });
+//   //   //   order.orderItems = newItem;
+//   //   //   // res.send(order)
+//   //   //   // }
+//   //   //   // console.log(order.orderItems)
+//   //   //   return order;
+//   //   //   // return order.findAll({
+//   //   //   //   where: {
+//   //   //   //     orderId: order.id
+//   //   //   //   },
+//   //   //   //   include: [{
+//   //   //   //     model: OrderItem,
+//   //   //   //   }]
+//   //   //   // })
+//   //   // })
+//   //   // .then(async order => {
+//   //   //   const _order = await Order.findByPk(order.id);
+//   //   //   const _orderWithIncl = await OrderItem.findAll({ where: { orderId: order.id } });
+//   //   //   return _orderWithIncl;
+//   //   // })
+
+
+//   //   //.then(orderWithIncl => {
+
+//   //   //res.send(orderWithIncl)
+//   //   //})
+
+//   //   // Order.findOne({
+//   //   //   where: {
+//   //   //     userId: req.params.userId,
+//   //   //     status: 'cart',
+//   //   //   },
+//   //   // })
+//   //   // .then(cart => res.send(cart))
+//   //   .catch(next)
+// });
+
 
 // get all orders for specific user
 router.get('/:userId/orders', (req, res, next) => {
