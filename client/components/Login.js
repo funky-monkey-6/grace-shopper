@@ -35,31 +35,38 @@ class Login extends Component {
 
     return (
       <div>
-        <div>
-          <h4>Enter login information below:</h4>
+        <div className="login-div">
+          <h4 className="login-input">Enter login information below:</h4>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label>
-                Email:
-                <input type="text" name="email" value={email} onChange={handleChange} />
-              </label>
+              <label className="login-input">Email:</label>
+              <br />
+              <input
+                className="login-input"
+                type="text"
+                name="email"
+                value={email}
+                onChange={handleChange}
+              />
             </div>
-
             <div className="form-group">
-              <label>
-                Password:
-                <input type="text" name="password" value={password} onChange={handleChange} />
-              </label>
+              <label className="login-input">Password:</label>
+              <br />
+              <input
+                className="login-input"
+                type="text"
+                name="password"
+                value={password}
+                onChange={handleChange}
+              />
             </div>
-
-            <input type="submit" value="Login" />
+            <div className="login-input btn-container">
+              <input className="btn btn-secondary" type="submit" value="Login" />
+              <button type="submit" className="btn btn-secondary" onClick={this.routeChange}>
+                Sign Up
+              </button>
+            </div>
           </form>
-        </div>
-        <div>
-          Or create a new account: <br />
-          <button type="submit" onClick={this.routeChange}>
-            Create New Account
-          </button>
         </div>
       </div>
     );

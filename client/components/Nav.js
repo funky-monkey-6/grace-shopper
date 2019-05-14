@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable indent */
 /* eslint-disable no-console */
 import React, { Component, Fragment } from 'react';
 import { Link, Redirect, NavLink } from 'react-router-dom';
@@ -17,7 +19,7 @@ class Nav extends Component {
 
     let buttonStatus;
     // eslint-disable-next-line react/destructuring-assignment
-    if (!this.props.user.id) {
+    if (!this.props.session) {
       buttonStatus = (
         <Link to="/login" className="nav-item">
           Login
@@ -40,6 +42,9 @@ class Nav extends Component {
             <Link to="/menu" className="nav-item">
               Menu
             </Link>
+            <Link to="/about" className="nav-item">
+              About
+            </Link>
           </div>
           <div className="nav-login">
             {/* TODO isLoggedIn(user) = true - then show Account and Orders  */}
@@ -53,8 +58,8 @@ class Nav extends Component {
                 </NavLink>
               </Fragment>
             ) : (
-              ''
-            )}
+                ''
+              )}
             {/* end isLoggedIn */}
 
             {buttonStatus}
@@ -84,8 +89,8 @@ class Nav extends Component {
             </div>
           </nav>
         ) : (
-          ''
-        )}
+            ''
+          )}
       </Fragment>
     );
   }
@@ -98,9 +103,10 @@ const mapDispatchToProps = dispatch => {
 };
 
 const mapStateToProps = state => {
-  const { user } = state;
+  const { user, session } = state;
   return {
     user,
+    session,
   };
 };
 

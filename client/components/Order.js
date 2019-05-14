@@ -49,21 +49,21 @@ class Order extends Component {
 
     return (
       <div>
-        {isCart(order) && isLoggedIn(user) ? (
-          <div>
-            <h2>Bag</h2>
-            <table className="table table-striped table-condensed">
-              <thead>
-                <tr>
-                  <th>Product</th>
-                  <th>Price</th>
-                  <th>Quantity</th>
-                  <th>Item Subtotal</th>
-                  <th>Remove</th>
-                </tr>
-              </thead>
-              <tbody>
-                {orderItems.map(orderItem => {
+        <div>
+          <h2>Bag</h2>
+          <table className="table table-striped table-condensed">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Item Subtotal</th>
+                <th>Remove</th>
+              </tr>
+            </thead>
+            <tbody>
+              {isCart(order) && isLoggedIn(user) ? (
+                orderItems.map(orderItem => {
                   return (
                     <OrderItem
                       key={orderItem.id}
@@ -73,68 +73,76 @@ class Order extends Component {
                       history={history}
                     />
                   );
-                })}
-              </tbody>
-            </table>
-
-            <br />
-
-            <div className="row justify-content-end">
-              <div className="col-3 text-right">
-                <span className="align-bottom">Order Type:</span>
-              </div>
-              <div className="col-3">
-                <select
-                  name="type"
-                  value={type}
-                  selected="pickup"
-                  onChange={onChange}
-                  className="form-control"
-                >
-                  <option key={1} value="pickup">
-                    Pickup
-                  </option>
-                  <option key={2} value="delivery">
-                    Delivery
-                  </option>
-                </select>
-              </div>
-            </div>
-
-            <div className="row justify-content-end">
-              <div className="col-3 text-right">Subtotal:</div>
-              <div className="col-3">${subtotal.toFixed(2)}</div>
-            </div>
-
-            <div className="row justify-content-end">
-              <div className="col-3 text-right">Shipping:</div>
-              <div className="col-3">${shipping.toFixed(2)}</div>
-            </div>
-
-            <div className="row justify-content-end">
-              <div className="col-3 text-right">Total:</div>
-              <div className="col-3">${total.toFixed(2)}</div>
-            </div>
-
-            <br />
-
-            <Fragment>
-              {orderItems.length ? (
-                <div className="row justify-content-end">
-                  <div className="col-3">
-                    <Link to="/checkout">
-                      <button type="submit">Start Checkout </button>
-                    </Link>
-                  </div>
-                </div>
+                })
               ) : (
+                  <tr>
+                    <td>Your bag is empty.</td>
+                    <td />
+                    <td />
+                    <td />
+                    <td />
+                  </tr>
+                )}
+            </tbody>
+          </table>
+
+          <br />
+
+          <div className="row justify-content-end">
+            <div className="col-3 text-right">
+              <span className="align-bottom">Order Type:</span>
+            </div>
+            <div className="col-3">
+              <select
+                name="type"
+                value={type}
+                selected="pickup"
+                onChange={onChange}
+                className="form-control"
+              >
+                <option key={1} value="pickup">
+                  Pickup
+                </option>
+                <option key={2} value="delivery">
+                  Delivery
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div className="row justify-content-end">
+            <div className="col-3 text-right">Subtotal:</div>
+            <div className="col-3">${subtotal.toFixed(2)}</div>
+          </div>
+
+          <div className="row justify-content-end">
+            <div className="col-3 text-right">Shipping:</div>
+            <div className="col-3">${shipping.toFixed(2)}</div>
+          </div>
+
+          <div className="row justify-content-end">
+            <div className="col-3 text-right">Total:</div>
+            <div className="col-3">${total.toFixed(2)}</div>
+          </div>
+
+          <br />
+
+          <Fragment>
+            {orderItems.length ? (
+              <div className="row justify-content-end">
+                <div className="col-3">
+                  <Link to="/checkout">
+                    <button type="submit" className="btn btn-secondary">
+                      Start Checkout{' '}
+                    </button>
+                  </Link>
+                </div>
+              </div>
+            ) : (
                 ''
               )}
-            </Fragment>
-          </div>
-        ) : (
-          <div>Your bag is empty.</div>
-        )}
+          </Fragment>
+        </div>
       </div>
     );
   }

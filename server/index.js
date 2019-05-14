@@ -11,16 +11,20 @@ const PORT = process.env.PORT || 3000;
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, '../public')));
 
+// TODO create environment variable for secret
 //session needs to stay above mounted router
 app.use(
   session({
+    name: 'session',
     secret: 'SecretSessionName',
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
+    cookie: { httpOnly: false },
+    unset: 'destroy',
   }),
 );
 
-//just for checking on the session, can delete whenever
+//for session dev, can delete whenever
 app.use((req, res, next) => {
   if (!req.session.counter) req.session.counter = 0;
   console.log('counter', ++req.session.counter);

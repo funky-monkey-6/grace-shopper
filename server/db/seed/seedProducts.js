@@ -41,87 +41,93 @@ module.exports = [
     category: 'Bibimbap',
     images: 'mushroom_bi_bim_bap.jpeg',
   },
-  {
-    title: 'Roll with Butter',
-    description: '',
-    category: 'Breakfast Sandwiches',
-  },
-  {
-    title: 'Roll With Egg',
-    description: '',
-    category: 'Breakfast Sandwiches',
-  },
-  {
-    title: 'Roll With Egg And Cheese',
-    description: '',
-    category: 'Breakfast Sandwiches',
-  },
-  {
-    title: 'Roll With Egg White',
-    description: '',
-    category: 'Breakfast Sandwiches',
-  },
-  {
-    title: 'Roll With Jam',
-    description: '',
-    category: 'Breakfast Sandwiches',
-  },
-  {
-    title: 'Roll With Peanut Butter',
-    description: '',
-    category: 'Breakfast Sandwiches',
-  },
-  {
-    title: 'Bi Bim Bap Tray',
-    description: '',
-    category: 'Catering',
-  },
+  // {
+  //   title: 'Roll with Butter',
+  //   description: '',
+  //   category: 'Breakfast Sandwiches',
+  // },
+  // {
+  //   title: 'Roll With Egg',
+  //   description: '',
+  //   category: 'Breakfast Sandwiches',
+  // },
+  // {
+  //   title: 'Roll With Egg And Cheese',
+  //   description: '',
+  //   category: 'Breakfast Sandwiches',
+  // },
+  // {
+  //   title: 'Roll With Egg White',
+  //   description: '',
+  //   category: 'Breakfast Sandwiches',
+  // },
+  // {
+  //   title: 'Roll With Jam',
+  //   description: '',
+  //   category: 'Breakfast Sandwiches',
+  // },
+  // {
+  //   title: 'Roll With Peanut Butter',
+  //   description: '',
+  //   category: 'Breakfast Sandwiches',
+  // },
+  // {
+  //   title: 'Bi Bim Bap Tray',
+  //   description: '',
+  //   category: 'Catering',
+  // },
   {
     title: 'Dumpling Tray',
     description: 'Cabbage, Onion, Green Onion, Ginger, Cilantro',
     category: 'Catering',
+    images: 'dumpling_tray.jpeg',
   },
   {
     title: 'Salad Tray',
-    description: '',
+    description: 'Assorted Salads',
     category: 'Catering',
+    images: 'salad_tray.jpeg',
   },
-  {
-    title: 'Kimchi Coconut Oil Fried Rice',
-    description:
-      'Kimchi, Celery, Carrot, Green Chili, Onion, Himalayan Salt, Coconut Oil, Gluten Free Organic Brown Rice, and Eggs.',
-    category: 'Coconut Oil Fried Rice',
-  },
-  {
-    title: 'Mango Coconut Oil Fried Rice',
-    description: '',
-    category: 'Coconut Oil Fried Rice',
-  },
-  {
-    title: 'Pineapple Coconut Oil Fried Rice',
-    description:
-      'Pineapple, Celery, Carrot, Green Chili, Onion, Himalayan Salt, Coconut Oil, Gluten Free Organic Brown Rice, and Eggs.',
-    category: 'Coconut Oil Fried Rice',
-  },
+  // {
+  //   title: 'Kimchi Coconut Oil Fried Rice',
+  //   description:
+  //     'Kimchi, Celery, Carrot, Green Chili, Onion, Himalayan Salt, Coconut Oil, Gluten Free Organic Brown Rice, and Eggs.',
+  //   category: 'Coconut Oil Fried Rice',
+  // },
+  // {
+  //   title: 'Mango Coconut Oil Fried Rice',
+  //   description: '',
+  //   category: 'Coconut Oil Fried Rice',
+  // },
+  // {
+  //   title: 'Pineapple Coconut Oil Fried Rice',
+  //   description:
+  //     'Pineapple, Celery, Carrot, Green Chili, Onion, Himalayan Salt, Coconut Oil, Gluten Free Organic Brown Rice, and Eggs.',
+  //   category: 'Coconut Oil Fried Rice',
+  // },
   {
     title: 'Hot Coffee',
     description: '',
     category: 'Coffee & Tea',
+    images: 'coffee.jpeg',
   },
   {
     title: 'Hot Tea',
-    description: '',
+    description: 'Assorted Hot Teas',
     category: 'Coffee & Tea',
+    images: 'tea.jpeg',
   },
   {
     title: 'ICE Coffee',
     description: '',
     category: 'Coffee & Tea',
+    images: 'ice_coffee.jpeg',
   },
   {
     title: 'Turmeric Tea',
     description: '',
     category: 'Coffee & Tea',
+    images: 'turmeric_tea.jpeg',
   },
   {
     title: 'ABC',
@@ -204,17 +210,19 @@ module.exports = [
     title: 'Mumbai Veggie Patties',
     description: '',
     category: 'Healthy Plates',
+    images: 'samosas.jpeg',
   },
-  {
-    title: 'Portobello Kimchi Burger',
-    description: '',
-    category: 'Healthy Plates',
-  },
+  // {
+  //   title: 'Portobello Kimchi Burger',
+  //   description: '',
+  //   category: 'Healthy Plates',
+  // },
   {
     title: 'Samosa',
     description:
       'Potato Samosa, chickpeas, yogurt, cilantro chutney, tamarind chutney, turmeric, cumin, Jalapeno,Onions. (2pcs)',
     category: 'Healthy Plates',
+    images: 'samosas.jpeg',
   },
   {
     title: 'Spicy Avocado Egg Sandwich',
@@ -232,92 +240,101 @@ module.exports = [
     title: 'Veggie Momos',
     description: '(5pcs)',
     category: 'Healthy Plates',
+    images: 'momos.jpeg',
   },
   {
     title: 'Aloe-Ha',
-    description: 'Aloe Lemon',
+    description: 'Aloe Lemon Shot',
     category: 'Healthy Shots',
+    images: 'aloe_lemon.jpeg',
   },
-  {
-    title: 'Amino Acid',
-    description: '',
-    category: 'Healthy Shots',
-  },
-  {
-    title: 'AVCG',
-    description: '',
-    category: 'Healthy Shots',
-  },
+  // {
+  //   title: 'Amino Acid',
+  //   description: '',
+  //   category: 'Healthy Shots',
+  // },
+  // {
+  //   title: 'AVCG',
+  //   description: '',
+  //   category: 'Healthy Shots',
+  // },
   {
     title: 'Beet It',
     description: 'Pure Beet',
     category: 'Healthy Shots',
+    images: 'beet_shot.jpeg',
   },
-  {
-    title: 'Black Beauty',
-    description: 'Activated charcoal, Lime, Coconut H2o',
-    category: 'Healthy Shots',
-  },
+  // {
+  //   title: 'Black Beauty',
+  //   description: 'Activated charcoal, Lime, Coconut H2o',
+  //   category: 'Healthy Shots',
+  // },
   {
     title: 'Celery Shot',
-    description: '',
+    description: '100% Celery Juice',
     category: 'Healthy Shots',
+    images: 'celery_shot.jpeg',
   },
-  {
-    title: 'Double Shot Of Sunshine',
-    description: '',
-    category: 'Healthy Shots',
-  },
-  {
-    title: 'Fire Ball',
-    description: '',
-    category: 'Healthy Shots',
-  },
+  // {
+  //   title: 'Double Shot Of Sunshine',
+  //   description: '',
+  //   category: 'Healthy Shots',
+  // },
+  // {
+  //   title: 'Fire Ball',
+  //   description: '',
+  //   category: 'Healthy Shots',
+  // },
   {
     title: "Gandhi's Cure",
     description: 'Tumeric Ginger Honey Almond Milk',
     category: 'Healthy Shots',
+    images: 'gandhi.jpeg',
   },
   {
     title: 'Ginger shot',
     description: '',
     category: 'Healthy Shots',
+    images: 'ginger_shot.jpeg',
   },
-  {
-    title: 'Iron Man',
-    description: '',
-    category: 'Healthy Shots',
-  },
-  {
-    title: 'Liver Detoxifier',
-    description: 'Cucumber Lemon & Milk Thistle',
-    category: 'Healthy Shots',
-  },
+  // {
+  //   title: 'Iron Man',
+  //   description: '',
+  //   category: 'Healthy Shots',
+  // },
+  // {
+  //   title: 'Liver Detoxifier',
+  //   description: 'Cucumber Lemon & Milk Thistle',
+  //   category: 'Healthy Shots',
+  // },
   {
     title: 'Mean Green',
     description: 'Wheatgrass & Almond Milk',
     category: 'Healthy Shots',
+    images: 'wheatgrass.jpeg',
   },
-  {
-    title: 'Meera’s Devotion',
-    description: '',
-    category: 'Healthy Shots',
-  },
+  // {
+  //   title: 'Meera’s Devotion',
+  //   description: '',
+  //   category: 'Healthy Shots',
+  // },
   {
     title: 'Osaka Shot',
-    description: '',
+    description: 'Matcha Shot',
     category: 'Healthy Shots',
+    images: 'osaka.jpeg',
   },
   {
     title: 'Spirulina Shot',
     description: 'Spirulina, Alkaline water',
     category: 'Healthy Shots',
+    images: 'spirulina.jpeg',
   },
-  {
-    title: 'Type 2',
-    description: '',
-    category: 'Healthy Shots',
-  },
+  // {
+  //   title: 'Type 2',
+  //   description: '',
+  //   category: 'Healthy Shots',
+  // },
   {
     title: 'Autumn Bowl',
     description:
@@ -383,55 +400,63 @@ module.exports = [
     images: 'juice.jpeg',
   },
   {
-    title: 'Cliff Bar',
+    title: 'Clif Bar',
     description: '',
     category: 'Miscellaneous',
+    images: 'clif.jpeg',
   },
-  {
-    title: 'Coconut Bites',
-    description: '',
-    category: 'Miscellaneous',
-  },
+  // {
+  //   title: 'Coconut Bites',
+  //   description: '',
+  //   category: 'Miscellaneous',
+  //   images: 'coconut_bites.jpeg',
+  // },
   {
     title: 'Ferrero Rocher',
     description: 'Chocolate',
     category: 'Miscellaneous',
+    images: 'ferrero_rocher.jpeg',
   },
   {
     title: 'Kind Bar',
     description: '',
     category: 'Miscellaneous',
+    images: 'kind.jpeg',
   },
   {
     title: 'Poland Spring Water',
     description: '',
     category: 'Miscellaneous',
+    images: 'poland_spring.jpeg',
   },
-  {
-    title: 'Rice Krispies',
-    description: '',
-    category: 'Miscellaneous',
-  },
-  {
-    title: 'Sea Weed',
-    description: '',
-    category: 'Miscellaneous',
-  },
+  // {
+  //   title: 'Rice Krispies',
+  //   description: '',
+  //   category: 'Miscellaneous',
+  // },
+  // {
+  //   title: 'Sea Weed',
+  //   description: '',
+  //   category: 'Miscellaneous',
+  // },
   {
     title: 'Z Bar',
     description: '',
     category: 'Miscellaneous',
+    images: 'z_bar.jpeg',
   },
   {
     title: 'Delish Quinoa Salad',
     description: '',
     category: 'Salad',
+    images: 'quinoa_salad.jpeg',
   },
   {
     title: 'Tofu Chorizo Salad',
     description:
       'Grilled Tofu, Vegan Chorizo, Arugula, Spinach, Sesame Oil,Carrot,Celery,Onion, Mixed Nuts, Lemon Juice, Salt & Pepper',
     category: 'Salad',
+    images: 'tofu_chorizo_salad.jpeg',
   },
   {
     title: 'Berry Excited',
@@ -439,11 +464,11 @@ module.exports = [
     category: 'Smoothies',
     images: 'berry_excited.jpeg',
   },
-  {
-    title: 'Chunky Monkey',
-    description: 'Organic Pea Protein, Peanut Butter, Banana, Nutella, Almond Milk.',
-    category: 'Smoothies',
-  },
+  // {
+  //   title: 'Chunky Monkey',
+  //   description: 'Organic Pea Protein, Peanut Butter, Banana, Nutella, Almond Milk.',
+  //   category: 'Smoothies',
+  // },
   {
     title: "Einstein's Brain",
     description: 'Spinach, Walnut, Banana, Almond Milk.',
@@ -474,11 +499,11 @@ module.exports = [
     category: 'Smoothies',
     images: 'nutz4pumpkin.jpeg',
   },
-  {
-    title: 'Osaka',
-    description: 'Best quality Macha, Avocado, Agave, Almond Milk',
-    category: 'Smoothies',
-  },
+  // {
+  //   title: 'Osaka',
+  //   description: 'Best quality Macha, Avocado, Agave, Almond Milk',
+  //   category: 'Smoothies',
+  // },
   {
     title: 'St.Mango',
     description: 'Mango, Banana, Greek Yogurt, Almond Milk.',
@@ -489,16 +514,19 @@ module.exports = [
     title: 'Butternut Squash Soup',
     description: '',
     category: 'Soup',
+    images: 'butternut_squash_soup.jpeg',
   },
   {
     title: 'Lentil Soup',
     description: '',
     category: 'Soup',
+    images: 'lentil_soup.jpeg',
   },
   {
     title: 'Spinach Soup',
     description: '',
     category: 'Soup',
+    images: 'spinach_soup.jpeg',
   },
   {
     title: 'Emily',
@@ -507,18 +535,18 @@ module.exports = [
     category: 'Vegan Tacos',
     images: 'emily.jpeg',
   },
-  {
-    title: 'Jacob',
-    description:
-      'Fried Egg, Avocado, Vegan Chipotle Sauce, Vegetable Oil, Gluten Free Spinach Tortilla.',
-    category: 'Vegan Tacos',
-  },
-  {
-    title: 'Joe',
-    description:
-      'Sweet Potato, Yam, Carrot, Celery, Onion, Jalapeño, Vegan Cheese, Spicy Chipotle Sauce, Vegetable Oil, Gluten Free Spinach Tortilla.',
-    category: 'Vegan Tacos',
-  },
+  // {
+  //   title: 'Jacob',
+  //   description:
+  //     'Fried Egg, Avocado, Vegan Chipotle Sauce, Vegetable Oil, Gluten Free Spinach Tortilla.',
+  //   category: 'Vegan Tacos',
+  // },
+  // {
+  //   title: 'Joe',
+  //   description:
+  //     'Sweet Potato, Yam, Carrot, Celery, Onion, Jalapeño, Vegan Cheese, Spicy Chipotle Sauce, Vegetable Oil, Gluten Free Spinach Tortilla.',
+  //   category: 'Vegan Tacos',
+  // },
   {
     title: 'Lauren',
     description: '',
@@ -532,10 +560,10 @@ module.exports = [
     category: 'Vegan Tacos',
     images: 'maria.jpeg',
   },
-  {
-    title: 'Sofia',
-    description:
-      'Chorizo, Carrot, Celery, Onion, Vegan Cheese, Vegetable Oil, Gochujang Red Chili Sauce, Gluten Free Spinach Tortilla.',
-    category: 'Vegan Tacos',
-  },
+  // {
+  //   title: 'Sofia',
+  //   description:
+  //     'Chorizo, Carrot, Celery, Onion, Vegan Cheese, Vegetable Oil, Gochujang Red Chili Sauce, Gluten Free Spinach Tortilla.',
+  //   category: 'Vegan Tacos',
+  // },
 ];

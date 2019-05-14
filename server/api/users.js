@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Order, OrderItem, Product } = require('../db');
+const { User, Order, OrderItem, ProductVariant } = require('../db');
 
 // get all users
 router.get('/', (req, res, next) => {
@@ -30,6 +30,7 @@ router.get('/:userId/cart', (req, res, next) => {
       userId: req.params.userId,
       status: 'cart',
     },
+    include: [{ model: OrderItem, include: [{ model: ProductVariant }] }],
   })
     .then(cart => res.send(cart))
     .catch(next);
@@ -41,6 +42,7 @@ router.get('/:userId/orders', (req, res, next) => {
     where: {
       userId: req.params.userId,
     },
+    include: [{ model: OrderItem, include: [{ model: ProductVariant }] }],
   })
     .then(orders => res.send(orders))
     .catch(next);

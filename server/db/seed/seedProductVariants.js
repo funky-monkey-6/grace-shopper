@@ -242,24 +242,24 @@ module.exports = [
     inventory: 10,
     price: 11.0,
   },
-  {
-    productName: 'Jealousy',
-    variationName: '12oz',
-    inventory: 10,
-    price: 8.0,
-  },
-  {
-    productName: 'Jealousy',
-    variationName: '16oz',
-    inventory: 10,
-    price: 10.0,
-  },
-  {
-    productName: 'Jealousy',
-    variationName: '24oz',
-    inventory: 10,
-    price: 13.0,
-  },
+  // {
+  //   productName: 'Jealousy',
+  //   variationName: '12oz',
+  //   inventory: 10,
+  //   price: 8.0,
+  // },
+  // {
+  //   productName: 'Jealousy',
+  //   variationName: '16oz',
+  //   inventory: 10,
+  //   price: 10.0,
+  // },
+  // {
+  //   productName: 'Jealousy',
+  //   variationName: '24oz',
+  //   inventory: 10,
+  //   price: 13.0,
+  // },
   {
     productName: 'Lemon Ginger Zinger',
     variationName: '8oz',
@@ -766,7 +766,7 @@ module.exports = [
     price: 177.1,
   },
   {
-    productName: 'Cliff Bar',
+    productName: 'Clif Bar',
     variationName: 'Regular',
     inventory: 10,
     price: 2.5,
