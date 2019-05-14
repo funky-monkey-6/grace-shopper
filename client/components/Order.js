@@ -29,6 +29,11 @@ class Order extends Component {
   //   //   fetchOrderItems(order.id);
   //   // }
   // }
+  // componentDidUpdate(prevProps) {
+  //   if (prevProps.orderItems !== this.props.orderItems) {
+  //     this.props.fetchOrderItems(this.props.order.id)
+  //   }
+  // }
 
   componentDidMount() {
     const { order, fetchOrder, fetchOrderItems, user, setLocalCartToState } = this.props;
@@ -36,10 +41,11 @@ class Order extends Component {
     fetchProducts();
 
     if (isLoggedIn(user)) {
-      fetchOrder(user.id);
+      fetchOrder(user.id)
+        .then(() => fetchOrderItems(order.id));
     } else {
       const localCart = Cookies.get('cart');
-      console.log(localCart);
+      console.log(JSON.parse(localCart));
       if (localCart !== null) {
         console.log({ localCart });
 
@@ -72,6 +78,7 @@ class Order extends Component {
     const { onChange } = this;
     const { order, user, history } = this.props;
     const { orderitems } = order;
+
     // TODO save values in db for subtotal, shipping, total
     order.subtotal = 0;
     if (orderitems) {
@@ -117,14 +124,14 @@ class Order extends Component {
                   );
                 })
               ) : (
-                <tr>
-                  <td>Your bag is empty.</td>
-                  <td />
-                  <td />
-                  <td />
-                  <td />
-                </tr>
-              )}
+                  <tr>
+                    <td>Your bag is empty.</td>
+                    <td />
+                    <td />
+                    <td />
+                    <td />
+                  </tr>
+                )}
             </tbody>
           </table>
 
@@ -179,8 +186,8 @@ class Order extends Component {
                 </div>
               </div>
             ) : (
-              ''
-            )}
+                ''
+              )}
           </Fragment>
         </div>
       </div>
@@ -200,7 +207,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchOrder: userId => dispatch(fetchOrderThunk(userId)),
-    // fetchOrderItems: orderId => dispatch(fetchOrderItemsThunk(orderId)),
+    fetchOrderItems: orderId => dispatch(fetchOrderItemsThunk(orderId)),
     updateOrderThunk: order => dispatch(updateOrderThunk(order)),
     fetchProducts: () => dispatch(fetchProducts()),
     setLocalCartToState: order => dispatch(setLocalCartToStateThunk(order)),

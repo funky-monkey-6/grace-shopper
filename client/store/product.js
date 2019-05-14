@@ -21,6 +21,7 @@ export const fetchProduct = id => {
   };
 };
 
+// TODO should have dispatch to update state
 export const deleteProduct = async id => {
   try {
     await axios.delete(`api/products/${id}`);
@@ -29,6 +30,7 @@ export const deleteProduct = async id => {
   }
 };
 
+// TODO should have dispatch to update state
 export const updateProduct = async (id, categoryId) => {
   try {
     await axios.put(`api/products/${id}`, { categoryId });

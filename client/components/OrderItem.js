@@ -4,10 +4,6 @@ import { connect } from 'react-redux';
 import { deleteOrderItemThunk, fetchProductVariants } from '../store';
 
 class OrderItem extends Component {
-  constructor() {
-    super();
-    this.state = {};
-  }
 
   componentDidMount() {
     this.props.fetchProductVariants();

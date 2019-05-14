@@ -1,7 +1,5 @@
 const conn = require('../conn');
 const { Sequelize } = conn;
-const OrderItem = require('./OrderItem');
-const ProductVariant = require('./ProductVariant');
 
 // TODO - plan how to configure Order model to handle guest session (authenticated vs non-authenticated)
 
@@ -60,38 +58,6 @@ const Order = conn.define('order', {
   // will probably want to include shipping address
   // payment info
 });
-
-// get cart for specific user (if exists), otherwise create empty cart
-Order.findOrCreateCart = function(userId) {
-  return this.findAll({
-    where: {
-      userId,
-    },
-    include: [
-      {
-        model: OrderItem,
-        include: [{ model: ProductVariant }],
-      },
-    ],
-  }).then(async orders => {
-    let cart = orders.find(order => order.status === 'cart');
-    if (cart) {
-      return cart;
-    }
-    cart = await this.create({
-      userId,
-    });
-    // TODO use this code to add an orderItem to cart just created ?
-    // const orderItem = await OrderItem.create({
-    //   orderId: cart.id,
-    //   //
-    // });
-    // cart = await this.findByPk(cart.id, {
-    //   include: [OrderItem],
-    // });
-    return cart;
-  });
-};
 
 module.exports = {
   Order,

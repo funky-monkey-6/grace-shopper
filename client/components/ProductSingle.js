@@ -15,6 +15,7 @@ import {
   fetchProduct,
   addOrderThunk,
   addOrderItemThunk,
+  fetchOrCreateOrderAddItemThunk,
   fetchUsers,
 } from '../store/index';
 import { isCart } from './helperFunctions';
@@ -37,27 +38,54 @@ class ProductSingle extends React.Component {
     fetchUsers();
   };
 
-  addOrderItem = async (userId, order, orderItem) => {
-    let newOrder = {};
-    try {
-      if (!isCart(order)) {
-        const newOrderObj = {
-          type: 'pickup',
-          status: 'cart',
-          subtotal: orderItem.price * orderItem.quantity,
-          shipping: 0,
-          total: orderItem.price * orderItem.quantity,
-        };
-        const newOrderData = await axios.post(`/api/users/${userId}/orders`, newOrderObj);
-        newOrder = newOrderData.data;
-      }
+  addOrderItem = async (userId, orderItem) => {
+    // const orderItem = {
+    //   quantity: Number(quantity),
+    //   price,
+    // orderId: order.id,
+    //   productVariantId,
+    // };
 
-      const currOrder = !isCart(order) ? newOrder : this.props.order;
-      console.log({ currOrder });
-      await this.props.addOrderItemThunk(userId, currOrder.id, orderItem);
-    } catch (err) {
-      console.log(err);
+    // fetchOrCreateOrderAddItemThunk(userId, orderItem)
+    // returns cart including new orderItem 
+    // or  cart with just new orderItem
+    // now have order w/ orderItems
+    // updateOrderThunk - 
+    // use orderItems from other thunk
+    // (logic done in thunk) looks at all order items, calculates subtotal & total 
+
+
+    // Order component - pull info from state
+
+    // OrderItem component (Justine)
+    // when change qty - update orderItem, then updateOrderThunk
+
+    // let newOrder = {};
+    const { fetchOrCreateOrderAddItemThunk } = this.props;
+    console.log('addOrderItem: userId, orderItem', userId, orderItem)
+    // try {
+    if (true) {
+      fetchOrCreateOrderAddItemThunk(userId, orderItem)
+        .catch(err => console.log(err));
     }
+    // if (!isCart(order)) {
+    //   const newOrderObj = {
+    //     type: 'pickup',
+    //     status: 'cart',
+    //     subtotal: orderItem.price * orderItem.quantity,
+    //     shipping: 0,
+    //     total: orderItem.price * orderItem.quantity,
+    //   };
+    //   const newOrderData = await axios.post(`/api/users/${userId}/orders`, newOrderObj);
+    //   newOrder = newOrderData.data;
+    // }
+
+    // const currOrder = !isCart(order) ? newOrder : this.props.order;
+    // console.log({ currOrder });
+    // await this.props.addOrderItemThunk(userId, currOrder.id, orderItem);
+    // } catch (err) {
+    //   console.log(err);
+    // }
   };
 
   // update comment/title on state as user enters review
@@ -74,20 +102,20 @@ class ProductSingle extends React.Component {
 
     if (!product.id) return null;
 
-    const variants = product.productvariants;
+    const variants = product.productVariants;
 
     let price = 0;
     let inventory = 0;
-    let productvariantId = 0;
+    let productVariantId = 0;
     if (variants.length === 1 || this.state.variantId === 0) {
       price = variants[0].price;
       inventory = variants[0].inventory;
-      productvariantId = variants[0].id;
+      productVariantId = variants[0].id;
     } else {
       const selectedVariant = variants.find(variant => variant.id === Number(this.state.variantId));
       price = selectedVariant.price;
       inventory = selectedVariant.inventory;
-      productvariantId = selectedVariant.id;
+      productVariantId = selectedVariant.id;
     }
 
     const inventoryArr = [];
@@ -98,8 +126,8 @@ class ProductSingle extends React.Component {
     const orderItem = {
       quantity: Number(quantity),
       price,
-      orderId: order.id,
-      productvariantId,
+      // orderId: order.id,
+      productVariantId,
     };
 
     return (
@@ -146,7 +174,7 @@ class ProductSingle extends React.Component {
                 {/* userId, order, orderItem */}
                 <button
                   type="submit"
-                  onClick={() => addOrderItem(user.id, order, orderItem)}
+                  onClick={() => addOrderItem(user.id, orderItem)}
                   className="btn btn-secondary"
                 >
                   Add to Cart
@@ -160,12 +188,12 @@ class ProductSingle extends React.Component {
             {user.id ? (
               <ReviewForm />
             ) : (
-              <Link to="/login">
-                <button type="submit" className="btn btn-secondary">
-                  Login to add review:
+                <Link to="/login">
+                  <button type="submit" className="btn btn-secondary">
+                    Login to add review:
                 </button>
-              </Link>
-            )}
+                </Link>
+              )}
           </div>
           <div className="review-list">
             <h1>
@@ -220,6 +248,7 @@ const mapDispatchToProps = dispatch => {
     addOrderThunk: (userId, order) => dispatch(addOrderThunk(userId, order)),
     addOrderItemThunk: (userId, orderId, orderItem) =>
       dispatch(addOrderItemThunk(userId, orderId, orderItem)),
+    fetchOrCreateOrderAddItemThunk: (userId, orderItem) => dispatch(fetchOrCreateOrderAddItemThunk(userId, orderItem)),
     fetchProductReviews: id => dispatch(fetchProductReviews(id)),
     fetchProduct: id => dispatch(fetchProduct(id)),
     fetchUsers: () => dispatch(fetchUsers()),

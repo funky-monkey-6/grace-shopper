@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { setOrderItems } from './orderItems';
 
 //ACTION TYPES
 
@@ -40,15 +41,40 @@ export const fetchOrder = userId => {
       .get(`/api/users/${userId}/cart`)
       .then(response => {
         if (response.data) {
-          return dispatch(setOrder(response.data));
+          dispatch(setOrder(response.data));
+          dispatch(setOrderItems(response.data.orderitems));
+        } else {
+          dispatch(setOrder({}));
+          dispatch(setOrderItems({}));
         }
-        return dispatch(setOrder({}));
       })
       .catch(err => {
         throw new Error(err);
       });
   };
 };
+
+// TODO how to do subtotal & total calculation on server ?
+export const fetchOrCreateOrderAddItemThunk = (userId, orderItem) => {
+  return dispatch => {
+    return axios.post(`/api/users/${userId}/cart/addItem`, orderItem)
+      .then(res => res.data)
+      .then(order => {
+        console.log('fetchOrCreateOrderAddItemThunk order ', order)
+        order.subtotal = order.orderitems.reduce((total, item) => total + Number(item.quantity) * item.price, 0);
+        order.total = order.subtotal + order.shipping;
+        console.log('order after calc ', order)
+
+        Cookies.set('cart', JSON.stringify(order));
+        dispatch(setOrder(order));
+        dispatch(setOrderItems(order.orderitems));
+
+        const { subtotal, total } = order;
+
+        return axios.put(`/api/users/${userId}/orders/${order.id}`, { subtotal, total })
+      })
+  }
+}
 
 // TODO may need
 // export const deleteOrderThunk = (userId, orderId) => {
@@ -61,6 +87,7 @@ export const fetchOrder = userId => {
 //   }
 // };
 
+// TODO may be replaced by fetchOrCreateOrderAddItemThunk
 export const addOrderThunk = (userId, order) => {
   return dispatch => {
     return axios

@@ -12,6 +12,7 @@ import {
   addOrderThunk,
   updateOrderThunk,
   setLocalCartToStateThunk,
+  fetchOrCreateOrderAddItemThunk,
   order,
 } from './order';
 import { orders, fetchUserOrders } from './orders';
@@ -36,6 +37,7 @@ export {
   fetchCategories,
   filterCategories,
   fetchOrder,
+  fetchOrCreateOrderAddItemThunk,
   addOrderThunk,
   updateOrderThunk,
   fetchOrderItems,

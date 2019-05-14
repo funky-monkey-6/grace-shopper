@@ -32,7 +32,6 @@ export const fetchOrderItems = orderId => {
 // TODO refactor: don't need orderId ?
 export const deleteOrderItemThunk = (userId, orderId, orderItemId) => {
   return dispatch => {
-    // TODO change on line below:  1 => ${userId}
     return axios
       .delete(`/api/users/${userId}/orders/${orderId}/orderItem/${orderItemId}`)
       .then(() => {
