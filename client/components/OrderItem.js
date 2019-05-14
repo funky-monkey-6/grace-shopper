@@ -9,7 +9,7 @@ class OrderItem extends Component {
   }
 
   render() {
-    const { orderItem, product, userId, orderId, productVariants } = this.props;
+    const { orderItem, product, userId, order, productVariants } = this.props;
     const { price, quantity } = orderItem;
 
     if (!orderItem.price) {
@@ -28,7 +28,7 @@ class OrderItem extends Component {
         <td>
           <button
             type="submit"
-            onClick={() => this.props.deleteOrderItemThunk(userId, orderId, orderItem.id)}
+            onClick={() => this.props.deleteOrderItemThunk(userId, order, orderItem)}
           >
             X
           </button>
@@ -49,8 +49,8 @@ const mapStateToProps = (state, { orderItem }) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    deleteOrderItemThunk: (userId, orderId, orderItemId) =>
-      dispatch(deleteOrderItemThunk(userId, orderId, orderItemId)),
+    deleteOrderItemThunk: (userId, order, orderItem) =>
+      dispatch(deleteOrderItemThunk(userId, order, orderItem)),
     fetchProductVariants: () => dispatch(fetchProductVariants()),
   };
 };

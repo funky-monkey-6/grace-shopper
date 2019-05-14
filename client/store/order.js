@@ -15,6 +15,7 @@ export const setOrder = order => ({
 
 //THUNK CREATORS
 
+// TODO when login compare cookieCart to dbCart, then merge the 2, if same productVariantId, then add quantities
 // export const fetchOrder = userId => {
 //   return dispatch => {
 //     return axios
@@ -63,21 +64,23 @@ export const fetchOrCreateOrderAddItemThunk = (userId, orderItem) => {
       .post(`/api/users/${userId}/cart/addItem`, orderItem)
       .then(res => res.data)
       .then(order => {
-        console.log('fetchOrCreateOrderAddItemThunk order ', order);
+
+        //** TODO do this logic on server (had problems with before but now know how to do)
+        // order calculations
         order.subtotal = order.orderitems.reduce(
           (total, item) => total + Number(item.quantity) * item.price,
           0,
         );
         order.total = order.subtotal + order.shipping;
-        console.log('order after calc ', order);
 
-        Cookies.set('cart', order);
         dispatch(setOrder(order));
         dispatch(setOrderItems(order.orderitems));
 
         const { subtotal, total } = order;
 
+        // update info in db
         return axios.put(`/api/users/${userId}/orders/${order.id}`, { subtotal, total });
+        //** end TODO
       });
   };
 };
@@ -124,13 +127,11 @@ export const updateOrderThunk = (order, isCookieCart) => {
           throw new Error(err);
         });
     }
-
   };
 };
 
 export const setCookieCartToState = order => {
   return dispatch => {
-    console.log('order coming into thunk: ', order)
     dispatch(setOrder(order));
     dispatch(setOrderItems(order.orderitems));
   };

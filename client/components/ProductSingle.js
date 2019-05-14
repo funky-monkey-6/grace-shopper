@@ -62,8 +62,6 @@ class ProductSingle extends React.Component {
     // when change qty - update newOrderItem, then updateOrderThunk
 
     const { fetchOrCreateOrderAddItemThunk, setCookieCartToState } = this.props;
-    console.log('setCookieCartToState: ', this.props)
-    console.log('addOrderItem: newOrderItem', newOrderItem);
 
     const currentUserId = Cookies.get('cui');
 
@@ -72,7 +70,6 @@ class ProductSingle extends React.Component {
     } else {
       // guest cart - cookie source of truth (guest db)
       let order = Cookies.getJSON('cart');
-      console.log('get cookie order: ', order)
       if (!order) {
         // create order
         order = {
@@ -83,8 +80,6 @@ class ProductSingle extends React.Component {
           orderitems: [],
         };
       }
-
-      console.log('order after create cart: ', order)
 
       // add newOrderItem to order
       order.orderitems.push(newOrderItem);
@@ -106,7 +101,6 @@ class ProductSingle extends React.Component {
       order.total = order.subtotal + order.shipping;
 
       Cookies.set('cart', order);
-      console.log('order ready to add to state: ', order)
       // set cart to state
       setCookieCartToState(order);
     }

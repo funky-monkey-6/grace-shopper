@@ -22,13 +22,11 @@ class Order extends Component {
     fetchProducts();
     const cookieUserId = Cookies.get('cui');
 
-    if (cookieUserId) {
+    if (cookieUserId) { // loggedin cart
       fetchOrder(cookieUserId);
-    } else {
+    } else { // guest cart
       const cookieCart = Cookies.getJSON('cart');
-      console.log('cookieCart: ', cookieCart);
       if (cookieCart !== null) {
-        console.log({ inRoute: cookieCart });
 
         setCookieCartToState(cookieCart);
       }
@@ -79,7 +77,7 @@ class Order extends Component {
                     <OrderItem
                       key={orderItem.id || idx}
                       userId={user.id}
-                      orderId={order.id}
+                      order={order}
                       orderItem={orderItem}
                       history={history}
                     />
