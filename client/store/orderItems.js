@@ -87,7 +87,6 @@ export const updateOrderItemQuantity = (orderItem, order, isCookieCart) => {
           item.quantity === orderItem.quantity,
       );
       console.log({ changedOrder });
-      return 
     } else {
       return axios
         .put(`/api/orderitems/${orderItem.id}`, orderItem)
