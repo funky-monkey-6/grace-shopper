@@ -9,14 +9,13 @@ import { fetchProduct, deleteProduct, product, updateProduct } from './product';
 import { fetchCategories, filterCategories, addCategory, categories } from './categories';
 import {
   fetchOrder,
-  fetchOrders,
   addOrderThunk,
   updateOrderThunk,
   setCookieCartToState,
   fetchOrCreateOrderAddItemThunk,
   order,
 } from './order';
-import { orders, fetchUserOrders } from './orders';
+import { orders, fetchUserOrders, fetchOrders } from './orders';
 import {
   fetchOrderItems,
   deleteOrderItemThunk,
