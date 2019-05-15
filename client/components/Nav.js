@@ -16,10 +16,9 @@ class Nav extends Component {
 
   render() {
     const { user } = this.props;
-
     let buttonStatus;
     // eslint-disable-next-line react/destructuring-assignment
-    if (!this.props.session) {
+    if (!isLoggedIn(user)) {
       buttonStatus = (
         <Link to="/login" className="nav-item">
           Login
@@ -58,8 +57,8 @@ class Nav extends Component {
                 </NavLink>
               </Fragment>
             ) : (
-                ''
-              )}
+              ''
+            )}
             {/* end isLoggedIn */}
 
             {buttonStatus}
@@ -89,8 +88,8 @@ class Nav extends Component {
             </div>
           </nav>
         ) : (
-            ''
-          )}
+          ''
+        )}
       </Fragment>
     );
   }

@@ -18,7 +18,7 @@ import About from './About';
 import AdminOrders from './AdminOrders';
 import OrderForm from './OrderForm';
 import AdminCategories from './AdminCategories';
-import { setSessionThunk, getCurrentUser } from '../store';
+import { setSessionThunk, getCurrentUser, fetchOrder } from '../store';
 
 class App extends Component {
   componentDidMount() {
@@ -26,13 +26,21 @@ class App extends Component {
     const session = Cookies.get('session');
     const currentUserId = Cookies.get('cui');
 
+    // TODO not working, want to check if session cookie and state are same, if not, then delete user cookies
+    // because it appears that server does not remove session cookie when session is over
+    // want to do because if user does not log out, then user cookies remain
+    // const sameSession = session === this.props.session;
+    // console.log({ sameSession });
+
     const { setSessionThunk, getCurrentUser } = this.props;
     if (session) {
       setSessionThunk(session);
     }
     if (currentUserId !== undefined) {
       console.log('getting current user...');
+      // set current user on state
       getCurrentUser();
+      fetchOrder(currentUserId);
     }
   }
 
@@ -87,6 +95,7 @@ const mapDispatchToProps = dispatch => {
   return {
     setSessionThunk: session => dispatch(setSessionThunk(session)),
     getCurrentUser: () => dispatch(getCurrentUser()),
+    fetchOrder: userId => dispatch(fetchOrder(userId)),
   };
 };
 

@@ -7,15 +7,22 @@ import { fetchUsers, users } from './users';
 import { fetchProducts, searchProducts, filterProducts, products } from './products';
 import { fetchProduct, deleteProduct, product, updateProduct } from './product';
 import { fetchCategories, filterCategories, addCategory, categories } from './categories';
-import { fetchOrder, addOrderThunk, updateOrderThunk, order } from './order';
+import {
+  fetchOrder,
+  addOrderThunk,
+  updateOrderThunk,
+  setCookieCartToState,
+  fetchOrCreateOrderAddItemThunk,
+  order,
+} from './order';
+import { orders, fetchUserOrders, fetchOrders } from './orders';
 import {
   fetchOrderItems,
   deleteOrderItemThunk,
   addOrderItemThunk,
-  orderItems,
   updateOrderItemQuantity,
+  orderItems,
 } from './orderItems';
-import { orders, fetchUserOrders, fetchOrders } from './orders';
 import { fetchProductReviews, reviews, addProductReview } from './reviews';
 import { setSessionThunk, session } from './session';
 import { fetchProductVariants, productVariants } from './productVariants';
@@ -36,18 +43,20 @@ export {
   fetchCategories,
   filterCategories,
   fetchOrder,
+  fetchOrders,
+  fetchOrCreateOrderAddItemThunk,
   addOrderThunk,
   updateOrderThunk,
   fetchOrderItems,
   fetchUserOrders,
   deleteOrderItemThunk,
   addOrderItemThunk,
+  setCookieCartToState,
   fetchProductReviews,
   addProductReview,
   setSessionThunk,
   fetchProductVariants,
   updateOrderItemQuantity,
-  fetchOrders,
   deleteProduct,
   addCategory,
   updateProduct,

@@ -9,14 +9,17 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import StarRatingComponent from 'react-star-rating-component';
+import Cookies from 'js-cookie';
 import {
   fetchProductReviews,
   addProductReview,
   fetchProduct,
   addOrderThunk,
   addOrderItemThunk,
+  fetchOrCreateOrderAddItemThunk,
   fetchUsers,
-} from '../store/index';
+  setCookieCartToState,
+} from '../store';
 import { isCart } from './helperFunctions';
 import ReviewForm from './ReviewForm';
 
@@ -37,26 +40,71 @@ class ProductSingle extends React.Component {
     fetchUsers();
   };
 
-  addOrderItem = async (userId, order, orderItem) => {
-    let newOrder = {};
-    try {
-      if (!isCart(order)) {
-        const newOrderObj = {
+  addOrderItem = async (userId, newOrderItem) => {
+    // const newOrderItem = {
+    //   quantity: Number(quantity),
+    //   price,
+    // orderId: order.id,
+    //   productVariantId,
+    // };
+
+    // fetchOrCreateOrderAddItemThunk(userId, newOrderItem)
+    // returns cart including new newOrderItem
+    // or  cart with just new newOrderItem
+    // now have order w/ orderitems
+    // updateOrderThunk -
+    // use orderitems from other thunk
+    // (logic done in thunk) looks at all order items, calculates subtotal & total
+
+    // Order component - pull info from state
+
+    // OrderItem component (Justine)
+    // when change qty - update newOrderItem, then updateOrderThunk
+
+    const { fetchOrCreateOrderAddItemThunk, setCookieCartToState } = this.props;
+
+    const currentUserId = Cookies.get('cui');
+
+    if (currentUserId) {
+      // loggedIn = true
+      fetchOrCreateOrderAddItemThunk(userId, newOrderItem).catch(err => console.log(err));
+    } else {
+      // guest cart - cookie source of truth (guest db)
+      let order = Cookies.getJSON('cart');
+      if (!order) {
+        // create order
+        order = {
           type: 'pickup',
-          status: 'cart',
-          subtotal: orderItem.price * orderItem.quantity,
           shipping: 0,
-          total: orderItem.price * orderItem.quantity,
+          status: 'cart',
+          date: new Date(),
+          orderitems: [],
         };
-        const newOrderData = await axios.post(`/api/users/${userId}/orders`, newOrderObj);
-        newOrder = newOrderData.data;
       }
 
-      const currOrder = !isCart(order) ? newOrder : this.props.order;
-      console.log({ currOrder });
-      await this.props.addOrderItemThunk(userId, currOrder.id, orderItem);
-    } catch (err) {
-      console.log(err);
+      // add newOrderItem to order
+      order.orderitems.push(newOrderItem);
+
+      // TODO if same item, combine into one orderItem
+      // order.orderitems.reduce((acc, item) => {
+      //   if (newOrderItem.productVariantId === item.productVariantId) {
+      //     item.quantity += newOrderItem.quantity;
+      //     acc.push(item);
+      //   } else {
+      //     acc.push(newOrderItem);
+      //   }
+      //   return acc;
+      // }, []);
+
+      order.subtotal = order.orderitems.reduce(
+        (total, item) => total + Number(item.quantity) * item.price,
+        0,
+      );
+      order.total = order.subtotal + order.shipping;
+
+      Cookies.set('cart', order);
+      // set cart to state
+      setCookieCartToState(order);
     }
   };
 
@@ -74,20 +122,20 @@ class ProductSingle extends React.Component {
 
     if (!product.id) return null;
 
-    const variants = product.productvariants;
+    const variants = product.productVariants;
 
     let price = 0;
     let inventory = 0;
-    let productvariantId = 0;
+    let productVariantId = 0;
     if (variants.length === 1 || this.state.variantId === 0) {
       price = variants[0].price;
       inventory = variants[0].inventory;
-      productvariantId = variants[0].id;
+      productVariantId = variants[0].id;
     } else {
       const selectedVariant = variants.find(variant => variant.id === Number(this.state.variantId));
       price = selectedVariant.price;
       inventory = selectedVariant.inventory;
-      productvariantId = selectedVariant.id;
+      productVariantId = selectedVariant.id;
     }
 
     const inventoryArr = [];
@@ -98,8 +146,8 @@ class ProductSingle extends React.Component {
     const orderItem = {
       quantity: Number(quantity),
       price,
-      orderId: order.id,
-      productvariantId,
+      // orderId: order.id,
+      productVariantId,
     };
 
     return (
@@ -146,7 +194,7 @@ class ProductSingle extends React.Component {
                 {/* userId, order, orderItem */}
                 <button
                   type="submit"
-                  onClick={() => addOrderItem(user.id, order, orderItem)}
+                  onClick={() => addOrderItem(user.id, orderItem)}
                   className="btn btn-secondary"
                 >
                   Add to Cart
@@ -192,12 +240,12 @@ class ProductSingle extends React.Component {
             {user.id ? (
               <ReviewForm />
             ) : (
-                <Link to="/login">
-                  <button type="submit" className="btn btn-secondary">
-                    Login to add review:
+              <Link to="/login">
+                <button type="submit" className="btn btn-secondary">
+                  Login to add review:
                 </button>
-                </Link>
-              )}
+              </Link>
+            )}
           </div>
         </div>
       </div>
@@ -221,10 +269,13 @@ const mapDispatchToProps = dispatch => {
     addOrderThunk: (userId, order) => dispatch(addOrderThunk(userId, order)),
     addOrderItemThunk: (userId, orderId, orderItem) =>
       dispatch(addOrderItemThunk(userId, orderId, orderItem)),
+    fetchOrCreateOrderAddItemThunk: (userId, orderItem) =>
+      dispatch(fetchOrCreateOrderAddItemThunk(userId, orderItem)),
     fetchProductReviews: id => dispatch(fetchProductReviews(id)),
     fetchProduct: id => dispatch(fetchProduct(id)),
     fetchUsers: () => dispatch(fetchUsers()),
     addProductReview: review => dispatch(addProductReview(review)),
+    setCookieCartToState: order => dispatch(setCookieCartToState(order)),
   };
 };
 

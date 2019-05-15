@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Cookies from 'js-cookie';
 
 import { deleteOrderItemThunk, fetchProductVariants, updateOrderItemQuantity } from '../store';
 
@@ -18,20 +19,25 @@ class OrderItem extends Component {
   }
 
   handleQuantityChange = ({ target }) => {
-    const { orderItem } = this.props;
+    const { orderItem, order } = this.props;
+    const currentUserId = Cookies.get('cui');
     this.setState({
       quantity: Number(target.value),
     });
     orderItem.quantity = this.state.quantity;
-    this.props.updateOrderItemQuantity(orderItem);
+    const isCookieCart = currentUserId === null ? true : false;
+    this.props.updateOrderItemQuantity(orderItem, order, isCookieCart);
   };
 
   render() {
-    const { orderItem, product, userId, orderId, productVariants } = this.props;
-    const { price } = orderItem;
-    const { quantity } = this.state;
+    const { orderItem, product, userId, order, productVariants } = this.props;
+    const { price, quantity } = orderItem;
 
-    const variant = productVariants.find(prodVar => prodVar.id === orderItem.productvariantId);
+    if (!orderItem.price) {
+      orderItem.price = product.productVariant[0].price;
+    }
+
+    const variant = productVariants.find(prodVar => prodVar.id === orderItem.productVariantId);
     const title = variant ? variant.productName : '';
     const itemTotal = orderItem ? price * quantity : 0;
     return (
@@ -62,8 +68,7 @@ class OrderItem extends Component {
         <td>
           <button
             type="submit"
-            className="btn btn-secondary"
-            onClick={() => this.props.deleteOrderItemThunk(userId, orderId, orderItem.id)}
+            onClick={() => this.props.deleteOrderItemThunk(userId, order, orderItem)}
           >
             X
           </button>
@@ -84,8 +89,8 @@ const mapStateToProps = (state, { orderItem }) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    deleteOrderItemThunk: (userId, orderId, orderItemId) =>
-      dispatch(deleteOrderItemThunk(userId, orderId, orderItemId)),
+    deleteOrderItemThunk: (userId, order, orderItem) =>
+      dispatch(deleteOrderItemThunk(userId, order, orderItem)),
     fetchProductVariants: () => dispatch(fetchProductVariants()),
     updateOrderItemQuantity: orderItem => dispatch(updateOrderItemQuantity(orderItem)),
   };

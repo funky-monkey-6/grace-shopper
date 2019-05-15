@@ -3,49 +3,58 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 import {
   fetchOrder as fetchOrderThunk,
   fetchOrderItems as fetchOrderItemsThunk,
   updateOrderThunk,
   fetchProducts,
+  setCookieCartToState,
 } from '../store';
 import OrderItem from './OrderItem';
 import { isLoggedIn, isCart } from './helperFunctions';
 
 class Order extends Component {
   componentDidMount() {
-    const { order, fetchOrder, fetchOrderItems, user } = this.props;
-    if (isLoggedIn(user)) {
-      fetchOrder(user.id);
-    }
-
+    const { fetchOrder, setCookieCartToState } = this.props;
     fetchProducts();
-    if (isCart(order)) {
-      fetchOrderItems(order.id);
+    const cookieUserId = Cookies.get('cui');
+
+    if (cookieUserId) {
+      // loggedin cart
+      fetchOrder(cookieUserId);
+    } else {
+      // guest cart
+      const cookieCart = Cookies.getJSON('cart');
+      if (cookieCart !== null) {
+        setCookieCartToState(cookieCart);
+      }
     }
   }
 
   onChange = ev => {
-    this.props.updateOrderThunk({
-      ...this.props.order,
-      type: ev.target.value,
-    });
+    const currentUserId = Cookies.get('cui');
+    this.props.updateOrderThunk(
+      {
+        ...this.props.order,
+        type: ev.target.value,
+      },
+      currentUserId ? true : false,
+    ); // isCookieCart
   };
 
   render() {
     const { onChange } = this;
-    const { orderItems, order, user, history } = this.props;
+    const { order, user, history } = this.props;
+    const { orderitems, subtotal, shipping, total, type } = order;
 
-    // TODO save values in db for subtotal, shipping, total
-    order.subtotal = 0;
-    if (orderItems) {
-      order.subtotal = orderItems.reduce((total, item) => total + item.price * item.quantity, 0);
+    let isOrderitems;
+    if (order) {
+      if (orderitems) {
+        isOrderitems = orderitems.length !== 0;
+      }
     }
-    order.shipping = order.type === 'delivery' ? 5 : 0;
-    order.total = order.subtotal + order.shipping;
-
-    const { subtotal, shipping, total, type } = order;
 
     return (
       <div>
@@ -62,27 +71,29 @@ class Order extends Component {
               </tr>
             </thead>
             <tbody>
-              {isCart(order) && isLoggedIn(user) ? (
-                orderItems.map(orderItem => {
+              {/* TODO works with loggedIn ? */}
+              {/* isCart(order) && isLoggedIn(user) */}
+              {isOrderitems ? (
+                orderitems.map((orderItem, idx) => {
                   return (
                     <OrderItem
-                      key={orderItem.id}
+                      key={orderItem.id || idx}
                       userId={user.id}
-                      orderId={order.id}
+                      order={order}
                       orderItem={orderItem}
                       history={history}
                     />
                   );
                 })
               ) : (
-                  <tr>
-                    <td>Your bag is empty.</td>
-                    <td />
-                    <td />
-                    <td />
-                    <td />
-                  </tr>
-                )}
+                <tr>
+                  <td>Your bag is empty.</td>
+                  <td />
+                  <td />
+                  <td />
+                  <td />
+                </tr>
+              )}
             </tbody>
           </table>
 
@@ -109,26 +120,30 @@ class Order extends Component {
               </select>
             </div>
           </div>
+          {isOrderitems ? (
+            <Fragment>
+              <div className="row justify-content-end">
+                <div className="col-3 text-right">Subtotal:</div>
+                <div className="col-3">${subtotal.toFixed(2)}</div>
+              </div>
 
-          <div className="row justify-content-end">
-            <div className="col-3 text-right">Subtotal:</div>
-            <div className="col-3">${subtotal.toFixed(2)}</div>
-          </div>
+              <div className="row justify-content-end">
+                <div className="col-3 text-right">Shipping:</div>
+                <div className="col-3">${shipping.toFixed(2)}</div>
+              </div>
 
-          <div className="row justify-content-end">
-            <div className="col-3 text-right">Shipping:</div>
-            <div className="col-3">${shipping.toFixed(2)}</div>
-          </div>
-
-          <div className="row justify-content-end">
-            <div className="col-3 text-right">Total:</div>
-            <div className="col-3">${total.toFixed(2)}</div>
-          </div>
-
+              <div className="row justify-content-end">
+                <div className="col-3 text-right">Total:</div>
+                <div className="col-3">${total.toFixed(2)}</div>
+              </div>
+            </Fragment>
+          ) : (
+            ''
+          )}
           <br />
 
           <Fragment>
-            {orderItems.length ? (
+            {isOrderitems && this.props.user.id ? (
               <div className="row justify-content-end">
                 <div className="col-3">
                   <Link to="/checkout">
@@ -139,8 +154,16 @@ class Order extends Component {
                 </div>
               </div>
             ) : (
-                ''
-              )}
+              <div className="row justify-content-end">
+                <div className="col-3">
+                  <Link to="/login">
+                    <button type="submit" className="btn btn-secondary">
+                      Login to complete checkout{' '}
+                    </button>
+                  </Link>
+                </div>
+              </div>
+            )}
           </Fragment>
         </div>
       </div>
@@ -163,6 +186,7 @@ const mapDispatchToProps = dispatch => {
     fetchOrderItems: orderId => dispatch(fetchOrderItemsThunk(orderId)),
     updateOrderThunk: order => dispatch(updateOrderThunk(order)),
     fetchProducts: () => dispatch(fetchProducts()),
+    setCookieCartToState: order => dispatch(setCookieCartToState(order)),
   };
 };
 
