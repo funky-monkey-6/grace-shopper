@@ -37,6 +37,13 @@ export const updateProduct = async (id, categoryId) => {
   }
 };
 
+export const updateSingleProduct = async (id, productUpdate) => {
+  try {
+    await axios.put(`api/products/${id}`, productUpdate);
+  } catch (error) {
+    throw new Error(error);
+  }
+};
 //REDUCER
 
 export const product = (state = {}, action) => {

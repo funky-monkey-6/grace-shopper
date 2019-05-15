@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 const MenuItem = props => {
   const { product } = props;
-  const variantCount = product.productvariants.length;
-  const variantPrices = product.productvariants.map(variant => variant.price);
+  const variantCount = product.productVariants.length;
+  const variantPrices = product.productVariants.map(variant => variant.price);
   return (
     <div className="menu-item">
       <img src={`/product-images/${product.images}`} className="menu-img" alt="menu-default" />

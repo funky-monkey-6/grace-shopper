@@ -74,20 +74,20 @@ class ProductSingle extends React.Component {
 
     if (!product.id) return null;
 
-    const variants = product.productvariants;
+    const variants = product.productVariants;
 
     let price = 0;
     let inventory = 0;
-    let productvariantId = 0;
+    let productVariantId = 0;
     if (variants.length === 1 || this.state.variantId === 0) {
       price = variants[0].price;
       inventory = variants[0].inventory;
-      productvariantId = variants[0].id;
+      productVariantId = variants[0].id;
     } else {
       const selectedVariant = variants.find(variant => variant.id === Number(this.state.variantId));
       price = selectedVariant.price;
       inventory = selectedVariant.inventory;
-      productvariantId = selectedVariant.id;
+      productVariantId = selectedVariant.id;
     }
 
     const inventoryArr = [];
@@ -99,7 +99,7 @@ class ProductSingle extends React.Component {
       quantity: Number(quantity),
       price,
       orderId: order.id,
-      productvariantId,
+      productVariantId,
     };
 
     return (
@@ -192,12 +192,12 @@ class ProductSingle extends React.Component {
             {user.id ? (
               <ReviewForm />
             ) : (
-                <Link to="/login">
-                  <button type="submit" className="btn btn-secondary">
-                    Login to add review:
+              <Link to="/login">
+                <button type="submit" className="btn btn-secondary">
+                  Login to add review:
                 </button>
-                </Link>
-              )}
+              </Link>
+            )}
           </div>
         </div>
       </div>

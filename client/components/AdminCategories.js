@@ -28,8 +28,7 @@ class AdminCategories extends Component {
     this.setState({ name: ev.target.value });
   };
 
-  handleNewCategorySubmit = ev => {
-    ev.preventDefault();
+  handleNewCategorySubmit = () => {
     addCategory(this.state).then(() => this.props.fetchCategories());
   };
 
